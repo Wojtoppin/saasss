@@ -3,7 +3,7 @@ import Callendar from './main/Callendar';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{overflow:"auto", WebkitOverflowScrolling:"touch"}}>
         <Callendar/>
     </div>
   );

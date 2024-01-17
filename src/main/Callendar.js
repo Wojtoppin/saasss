@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './Callendar.css'
 import {
     Table,
@@ -11,6 +11,7 @@ const Callendar = (props) =>{
     const headAmount = 7;
     const [bodyAmount, setBodyAmount] = useState(5);
     const [displayedMonth, setDisplayedMonth] = useState([currentDate.getMonth(), currentDate.getFullYear()]);
+    const [element, setElement] = useState(850);
 
     const monthDate = new Date(displayedMonth[1], displayedMonth[0], 1);
     const firstDayOfTheMonth = monthDate.getDay() === 0? 6 : monthDate.getDay()-1;
@@ -23,12 +24,11 @@ const Callendar = (props) =>{
         ["16:00", " ", "16:00", " ", "17:30", " ", " "],
         ["16:00", " ", " ", "18:00", "17:30", " ", " "],
         ["16:00", " ", "16:00", " ", "17:30", " ", " "],
-
     ];
-    const days = ["poniedziałe", "wtorek", "środa", "czwartek", "piątek", 'sobota', "niedziela"];
+
+    const days = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", 'sobota', "niedziela"];
+    const shortDays = ["pon", "wt", "śr", "czw", "pt", 'sb', "nd"];
     const months = ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"]
-
-
     const renderBody = () => {
         return Array.from({ length: bodyAmount }, (_, index) => (
             <tr key={"weekend index" + index}>
@@ -43,8 +43,7 @@ const Callendar = (props) =>{
                         :
                         hasThisDayHappend((Newindex + 1)+7*index)? "#BF9960":"orange"
                         }} key={"days index" + index + ":" + Newindex}>
-                            
-                        <h5 style={{color:"black"}}>{tmpJsonIndex === " "? "": tmpJsonIndex}</h5>
+                        {element >= 850? <h5>{tmpJsonIndex === " "? "": tmpJsonIndex}</h5>:<h6>{tmpJsonIndex === " "? "": tmpJsonIndex}</h6>}
                     </td>
                 )})}
             </tr>
@@ -53,7 +52,10 @@ const Callendar = (props) =>{
 
     const renderHead = () =>{
         return Array.from({ length: headAmount}, (_, index) => (
-            <th style={{background:"#03a7a7"}} key={"head index" + index}><h2 className="thBlue">{days[index]}</h2></th>               
+            <th style={{background:"#03a7a7"}} key={"head index" + index}>
+                {/* <h3 className="thBlue">{days[index]}</h3> */}
+                <h3 className="thBlue">{element >= 850? days[index]:shortDays[index]}</h3>
+            </th>               
         ));
     }
 
@@ -90,31 +92,34 @@ const Callendar = (props) =>{
             return false
         }
       }
-
-
+      const checkContainerWidth = () =>{
+        let containerWidth = document.getElementById("responsive").clientWidth;
+        setElement(containerWidth);
+      }
+      useEffect(()=>{
+        checkContainerWidth();
+      },[element])
 
     return(
-        <div className="mainCallendar">
-            <Container className="d-flex justify-content-center mt-5">
-            <Table className="table">
-                <thead>
+            <Container className="d-flex justify-content-center mt-5" id="responsive" onClick={checkContainerWidth} onLoad={checkContainerWidth}>
+                <Table className="table">
+                    <thead>
 
-                    <tr>
-                        <th colSpan="2" style={{background:"#03a7a7"}} onClick={previousMonth}><h1 className="thBlue">{"<"}</h1></th>
-                        <th colSpan={headAmount-3} style={{background:"#03a7a7"}}><h1 className="thBlue">{months[displayedMonth[0]]} {displayedMonth[1]}</h1></th>
-                        <th colSpan="2" style={{background:"#03a7a7"}} onClick={nextMonth}><h1 className="thBlue">{">"}</h1></th>
-                    </tr>
-                    <tr>
-                        <th style={{background:"#03a7a7"}}><h2 className="thBlue"></h2></th>
-                        {renderHead()}
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderBody()}
-                </tbody>
-            </Table>
+                        <tr>
+                            <th colSpan="2" style={{background:"#03a7a7"}} onClick={previousMonth}><h2 className="thBlue">{"<"}</h2></th>
+                            <th colSpan={headAmount-3} style={{background:"#03a7a7"}}><h2 className="thBlue">{months[displayedMonth[0]]} {displayedMonth[1]}</h2></th>
+                            <th colSpan="2" style={{background:"#03a7a7"}} onClick={nextMonth}><h2 className="thBlue">{">"}</h2></th>
+                        </tr>
+                        <tr>
+                            <th style={{background:"#03a7a7"}}><h3 className="thBlue"></h3></th>
+                            {renderHead()}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {renderBody()}
+                    </tbody>
+                </Table>
             </Container>
-        </div>
     )
 }
 
