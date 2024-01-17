@@ -15,7 +15,7 @@ const Callendar = (props) =>{
 
     const monthDate = new Date(displayedMonth[1], displayedMonth[0], 1);
     const firstDayOfTheMonth = monthDate.getDay() === 0? 6 : monthDate.getDay()-1;
-    const currentDayOfTheMonth = currentDate.getDay() === 0? 6 : currentDate.getDay()-1;
+    // const currentDayOfTheMonth = currentDate.getDay() === 0? 6 : currentDate.getDay()-1;
     const currentDay = currentDate.getDate();
 
     const testjson = [
@@ -29,6 +29,7 @@ const Callendar = (props) =>{
     const days = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", 'sobota', "niedziela"];
     const shortDays = ["pon", "wt", "śr", "czw", "pt", 'sb', "nd"];
     const months = ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"]
+    const daysInMonths = [31,28,31,30,31,30,31,31,30,31,30,31]
     const renderBody = () => {
         return Array.from({ length: bodyAmount }, (_, index) => (
             <tr key={"weekend index" + index}>
@@ -53,7 +54,6 @@ const Callendar = (props) =>{
     const renderHead = () =>{
         return Array.from({ length: headAmount}, (_, index) => (
             <th style={{background:"#03a7a7"}} key={"head index" + index}>
-                {/* <h3 className="thBlue">{days[index]}</h3> */}
                 <h3 className="thBlue">{element >= 850? days[index]:shortDays[index]}</h3>
             </th>               
         ));
@@ -102,7 +102,7 @@ const Callendar = (props) =>{
 
     return(
             <Container className="d-flex justify-content-center mt-5" id="responsive" onClick={checkContainerWidth} onLoad={checkContainerWidth}>
-                <Table className="table">
+                <Table className="table" bordered>
                     <thead>
 
                         <tr>
@@ -111,7 +111,7 @@ const Callendar = (props) =>{
                             <th colSpan="2" style={{background:"#03a7a7"}} onClick={nextMonth}><h2 className="thBlue">{">"}</h2></th>
                         </tr>
                         <tr>
-                            <th style={{background:"#03a7a7"}}><h3 className="thBlue"></h3></th>
+                            <th style={{background:"#03a7a7"}}><h3 className="thBlue">#</h3></th>
                             {renderHead()}
                         </tr>
                     </thead>
