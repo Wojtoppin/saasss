@@ -101,7 +101,7 @@ const Callendar = (props) =>{
       },[element])
 
     return(
-            <Container className="d-flex justify-content-center mt-5" id="responsive" onClick={checkContainerWidth} onLoad={checkContainerWidth}>
+            <Container className="d-flex justify-content-center mt-5" id="responsive" onClick={checkContainerWidth} onLoad={checkContainerWidth}  style={{ position: 'relative', zIndex: 2, top:"30%"}}>
                 <Table className="table" bordered>
                     <thead>
 

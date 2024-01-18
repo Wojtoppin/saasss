@@ -33,7 +33,7 @@ const Header = () =>{
     
     
     return (
-        <div className="banner" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu">
+        <div className="banner" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 2}}>
             
                 {element>600?
                 <Navbar color="faded" light>
@@ -41,6 +41,9 @@ const Header = () =>{
                         <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage"/> 
                         Szkółki Sportowe 
                     </NavbarBrand>
+                    <NavbarText/>
+                    <NavbarText/>
+                    <NavbarText/>
                     <NavbarText/>
                     <NavbarText/>
                     <NavbarText>Kalendarz</NavbarText>
@@ -56,6 +59,8 @@ const Header = () =>{
                         <DropdownItem>logout</DropdownItem>
                     </DropdownMenu>
                     </UncontrolledDropdown>
+                    <NavbarText/>
+
                 </Navbar>
                 
                 :
