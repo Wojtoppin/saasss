@@ -1,4 +1,10 @@
 .banner{
-    background: lightgreen;
-
+    background: white;
+    border: darkgray solid 1px;
+    box-shadow: -4px 6px rgba(0, 0, 0, 0.4);
+    margin: 8px;
+    
+}
+#logoImage{
+    height: 40px;
 }

@@ -36,40 +36,18 @@ const Header = () =>{
         <div className="banner" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu">
             
                 {element>600?
-                <Navbar>
-                <NavbarBrand>Szkółki Sportowe</NavbarBrand>
-
-                <NavbarText>Kalendarz</NavbarText>
-
-                <UncontrolledDropdown inNavbar>
-                <DropdownToggle nav caret>
-                    Konto
-                </DropdownToggle>
-                <DropdownMenu right>
-                    <DropdownItem>login</DropdownItem>
-                    <DropdownItem>sign up</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>logout</DropdownItem>
-                </DropdownMenu>
-                </UncontrolledDropdown>
-                <NavbarText>Informacje o Zapłacie</NavbarText>
-                </Navbar>
-                
-                :
-                
-                <Navbar>
-                <NavbarToggler onClick={toggle} />
-                <NavbarBrand>Szkółki Sportowe</NavbarBrand>
-                
-                <Collapse isOpen={isOpen} navbar>
-                <Nav className="me-auto" navbar>
-                    
-                    <NavItem>
-                        Kalendarz
-                    </NavItem>
-                    <UncontrolledDropdown nav inNavbar>
+                <Navbar color="faded" light>
+                    <NavbarBrand>
+                        <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage"/> 
+                        Szkółki Sportowe 
+                    </NavbarBrand>
+                    <NavbarText/>
+                    <NavbarText/>
+                    <NavbarText>Kalendarz</NavbarText>
+                    <NavbarText>Informacje o Zapłacie</NavbarText>
+                    <UncontrolledDropdown inNavbar>
                     <DropdownToggle nav caret>
-                    Konto
+                        Konto
                     </DropdownToggle>
                     <DropdownMenu right>
                         <DropdownItem>login</DropdownItem>
@@ -78,9 +56,38 @@ const Header = () =>{
                         <DropdownItem>logout</DropdownItem>
                     </DropdownMenu>
                     </UncontrolledDropdown>
-                </Nav>
-                <NavbarText>Informacje o Zapłacie</NavbarText>
-                </Collapse>
+                </Navbar>
+                
+                :
+                
+                <Navbar>
+                    <NavbarBrand>
+                        <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage"/> 
+                        Szkółki Sportowe 
+                    </NavbarBrand>
+
+                    <NavbarToggler onClick={toggle} />
+
+                    <Collapse isOpen={isOpen} navbar>
+                    <Nav className="me-auto" navbar>
+                        <NavItem>
+                            Kalendarz
+                        </NavItem>
+                    <NavItem>Informacje o Zapłacie</NavItem>
+
+                        <UncontrolledDropdown nav inNavbar>
+                        <DropdownToggle nav caret>
+                        Konto
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                            <DropdownItem>login</DropdownItem>
+                            <DropdownItem>sign up</DropdownItem>
+                            <DropdownItem divider />
+                            <DropdownItem>logout</DropdownItem>
+                        </DropdownMenu>
+                        </UncontrolledDropdown>
+                    </Nav>
+                    </Collapse>
                 </Navbar>}
 
             
