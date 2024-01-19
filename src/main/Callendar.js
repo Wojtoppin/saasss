@@ -129,9 +129,9 @@ const Callendar = (props) =>{
             <Container className="d-flex justify-content-center mt-5" id="responsive" onClick={checkContainerWidth} onLoad={checkContainerWidth}  style={{ position: 'relative', zIndex: 2, top:"30%"}}>
                 <Table className="table" bordered>
                     <thead>
-                        <tr>
+                        {/* <tr>
                             <th colSpan={headAmount+1} style={{background:"#03a7a7"}}>{firstDayOfTheMonth}</th>
-                        </tr>
+                        </tr> */}
                         <tr>
                             <th colSpan="2" style={{background:"#03a7a7"}} onClick={previousMonth}><h2 className="thBlue">{"<"}</h2></th>
                             <th colSpan={headAmount-3} style={{background:"#03a7a7"}}><h2 className="thBlue">{months[displayedMonth[0]]} {displayedMonth[1]}</h2></th>
