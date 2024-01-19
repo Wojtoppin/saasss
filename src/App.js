@@ -6,8 +6,8 @@ import ImagesSwiper from './main/ImagesSwiper';
 function App() {
   return (
     <div className="App" style={{overflow:"auto", WebkitOverflowScrolling:"touch"}}>
-        <ImagesSwiper/>
-        <Header/>
+        {/* <ImagesSwiper/> */}
+        {/* <Header/> */}
         <Callendar/>
     </div>
   );

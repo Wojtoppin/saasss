@@ -1,7 +1,7 @@
 .banner{
     background: white;
     border: darkgray solid 1px;
-    box-shadow: -4px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: -5px 5px rgba(0, 0, 0, 0.4);
     margin: 8px;
     z-index: 2;
     

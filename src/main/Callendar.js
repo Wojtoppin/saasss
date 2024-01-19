@@ -29,22 +29,46 @@ const Callendar = (props) =>{
     const days = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", 'sobota', "niedziela"];
     const shortDays = ["pon", "wt", "śr", "czw", "pt", 'sb', "nd"];
     const months = ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"]
-    const daysInMonths = [31,28,31,30,31,30,31,31,30,31,30,31]
+    const daysInMonths = [31,displayedMonth[1] % 4 === 0?29:28,31,30,31,30,31,31,30,31,30,31]
+
+
     const renderBody = () => {
         return Array.from({ length: bodyAmount }, (_, index) => (
             <tr key={"weekend index" + index}>
                 <td style={{background:"#03a7a7"}}><h5 style={{color:"white"}}>{index+1}</h5></td>
                 
                 {Array.from({ length: 7 }, (_, Newindex) => {
+
                     let tmpJsonIndex = testjson[index][Newindex]
+                    let currentDayNumerical = (Newindex)+7*index;
+                    let hasHappened = hasThisDayHappend((Newindex + 1)+7*index);
+                    let isNotInCurrentMonth = currentDayNumerical < firstDayOfTheMonth || currentDayNumerical > firstDayOfTheMonth + daysInMonths[displayedMonth[0]] -1;
+
                     return (
                     <td style={{
-                        background:tmpJsonIndex === " "? 
-                        hasThisDayHappend((Newindex + 1)+7*index)? "#C7C7C7":"white" 
-                        :
-                        hasThisDayHappend((Newindex + 1)+7*index)? "#BF9960":"orange"
+                        background:
+                        tmpJsonIndex === " "? 
+                            hasHappened? 
+                                isNotInCurrentMonth?"#03a7a7":"#C7C7C7"
+                                :
+                                isNotInCurrentMonth?"#03a7a7":"white" 
+                            :
+                            hasHappened? 
+                                isNotInCurrentMonth?"#03a7a7":"#BF9960"
+                                :
+                                isNotInCurrentMonth?"#03a7a7":"orange"
+
+
                         }} key={"days index" + index + ":" + Newindex}>
-                        {element >= 850? <h5>{tmpJsonIndex === " "? "": tmpJsonIndex}</h5>:<h6>{tmpJsonIndex === " "? "": tmpJsonIndex}</h6>}
+                        {element >= 850? 
+                        <h5>
+                            {tmpJsonIndex === " " || isNotInCurrentMonth? "": tmpJsonIndex}
+                        </h5>
+                        :
+                        <h6>
+                            {tmpJsonIndex === " " || isNotInCurrentMonth? "": tmpJsonIndex}
+                        </h6>}
+
                     </td>
                 )})}
             </tr>
@@ -70,7 +94,7 @@ const Callendar = (props) =>{
             prevDisplayedMonth[0] = 0,
             prevDisplayedMonth[1] + 1
           ])
-      };
+    };
 
     const previousMonth = () => {
         displayedMonth[0] > 0?
@@ -83,28 +107,31 @@ const Callendar = (props) =>{
             prevDisplayedMonth[0] = 11,
             prevDisplayedMonth[1] - 1
           ])
-      };
+    };
 
-      const hasThisDayHappend = (day) =>{
+    const hasThisDayHappend = (day) =>{
         if ((day < currentDay && displayedMonth[0] === currentDate.getMonth()) || displayedMonth[0] < currentDate.getMonth() || displayedMonth[1] < currentDate.getFullYear()){
             return true
         }else{
             return false
         }
-      }
-      const checkContainerWidth = () =>{
+    }
+    const checkContainerWidth = () =>{
         let containerWidth = document.getElementById("responsive").clientWidth;
         setElement(containerWidth);
-      }
-      useEffect(()=>{
+    }
+
+    useEffect(()=>{
         checkContainerWidth();
-      },[element])
+    },[element])
 
     return(
             <Container className="d-flex justify-content-center mt-5" id="responsive" onClick={checkContainerWidth} onLoad={checkContainerWidth}  style={{ position: 'relative', zIndex: 2, top:"30%"}}>
                 <Table className="table" bordered>
                     <thead>
-
+                        <tr>
+                            <th colSpan={headAmount+1} style={{background:"#03a7a7"}}>{firstDayOfTheMonth}</th>
+                        </tr>
                         <tr>
                             <th colSpan="2" style={{background:"#03a7a7"}} onClick={previousMonth}><h2 className="thBlue">{"<"}</h2></th>
                             <th colSpan={headAmount-3} style={{background:"#03a7a7"}}><h2 className="thBlue">{months[displayedMonth[0]]} {displayedMonth[1]}</h2></th>
