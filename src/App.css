@@ -2,3 +2,7 @@
     background: lightblue;
     height: 100vh;
 }
+
+.notSelectable{
+    user-select: none;
+}

@@ -25,6 +25,20 @@ const Callendar = (props) =>{
         ["16:00", " ", " ", "18:00", "17:30", " ", " "],
         ["16:00", " ", "16:00", " ", "17:30", " ", " "],
     ];
+    const test2json = [
+        [" ", "16:00", " ", "16:00", "15:30", " ", " "],
+        [" ", "16:00", " ", "18:00", "15:30", " ", " "],
+        [" ", "16:00", "18:00", " ", "15:30", " ", " "],
+        [" ", "16:00", "18:00", " ", "15:30", " ", " "],
+        [" ", "16:00", " ", "18:00", "15:30", " ", " "],
+    ];
+    const test3json = [
+        ["17:30", "17:30", " ", "18:30", " ", " ", " "],
+        ["17:30", "17:30", " ", "18:30", " ", " ", " "],
+        ["17:30", "17:30", " ", "18:30", " ", " ", " "],
+        ["17:30", "17:30", " ", "18:30", " ", " ", " "],
+        ["17:30", "17:30", " ", "18:30", " ", " ", " "],
+    ];
 
     const days = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", 'sobota', "niedziela"];
     const shortDays = ["pon", "wt", "śr", "czw", "pt", 'sb', "nd"];
@@ -35,11 +49,11 @@ const Callendar = (props) =>{
     const renderBody = () => {
         return Array.from({ length: bodyAmount }, (_, index) => (
             <tr key={"weekend index" + index}>
-                <td style={{background:"#03a7a7"}}><h5 style={{color:"white"}}>{index+1}</h5></td>
+                <td style={{background:"#03a7a7"}}><h5 style={{color:"white"}} className="notSelectable">{index+1}</h5></td>
                 
                 {Array.from({ length: 7 }, (_, Newindex) => {
 
-                    let tmpJsonIndex = testjson[index][Newindex]
+                    let tmpJsonIndex = test3json[index][Newindex]
                     let currentDayNumerical = (Newindex)+7*index;
                     let hasHappened = hasThisDayHappend((Newindex + 1)+7*index);
                     let isNotInCurrentMonth = currentDayNumerical < firstDayOfTheMonth || currentDayNumerical > firstDayOfTheMonth + daysInMonths[displayedMonth[0]] -1;
@@ -47,7 +61,7 @@ const Callendar = (props) =>{
                     return (
                     <td style={{
                         background:
-                        tmpJsonIndex === " "? 
+                        tmpJsonIndex === " " || tmpJsonIndex === ""? 
                             hasHappened? 
                                 isNotInCurrentMonth?"#03a7a7":"#C7C7C7"
                                 :
@@ -110,12 +124,13 @@ const Callendar = (props) =>{
     };
 
     const hasThisDayHappend = (day) =>{
-        if ((day < currentDay && displayedMonth[0] === currentDate.getMonth()) || displayedMonth[0] < currentDate.getMonth() || displayedMonth[1] < currentDate.getFullYear()){
+        if ((day < currentDay && displayedMonth[0] === currentDate.getMonth() && displayedMonth[1] === currentDate.getFullYear()) || displayedMonth[0] < currentDate.getMonth() || displayedMonth[1] < currentDate.getFullYear()){
             return true
         }else{
             return false
         }
     }
+
     const checkContainerWidth = () =>{
         let containerWidth = document.getElementById("responsive").clientWidth;
         setElement(containerWidth);
@@ -129,16 +144,13 @@ const Callendar = (props) =>{
             <Container className="d-flex justify-content-center mt-5" id="responsive" onClick={checkContainerWidth} onLoad={checkContainerWidth}  style={{ position: 'relative', zIndex: 2, top:"30%"}}>
                 <Table className="table" bordered>
                     <thead>
-                        {/* <tr>
-                            <th colSpan={headAmount+1} style={{background:"#03a7a7"}}>{firstDayOfTheMonth}</th>
-                        </tr> */}
                         <tr>
-                            <th colSpan="2" style={{background:"#03a7a7"}} onClick={previousMonth}><h2 className="thBlue">{"<"}</h2></th>
+                            <th colSpan="2" style={{background:"#03a7a7", userSelect:"none"}} onClick={previousMonth}><h2 className="thBlue">{"<"}</h2></th>
                             <th colSpan={headAmount-3} style={{background:"#03a7a7"}}><h2 className="thBlue">{months[displayedMonth[0]]} {displayedMonth[1]}</h2></th>
-                            <th colSpan="2" style={{background:"#03a7a7"}} onClick={nextMonth}><h2 className="thBlue">{">"}</h2></th>
+                            <th colSpan="2" style={{background:"#03a7a7", userSelect:"none"}} onClick={nextMonth}><h2 className="thBlue">{">"}</h2></th>
                         </tr>
                         <tr>
-                            <th style={{background:"#03a7a7"}}><h3 className="thBlue">#</h3></th>
+                            <th style={{background:"#03a7a7"}}><h3 className="thBlue notSelectable">#</h3></th>
                             {renderHead()}
                         </tr>
                     </thead>

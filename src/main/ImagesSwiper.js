@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import './ImagesSwiper.css';
 import 'react-slideshow-image/dist/styles.css'
 import {Fade} from "react-slideshow-image";
-import { hover } from "@testing-library/user-event/dist/hover";
 const ImagesSwiper = () =>{
     const [element, setElement] = useState(600);
     const checkContainerWidth = () =>{
@@ -23,8 +22,6 @@ const ImagesSwiper = () =>{
   ]
 
   const divStyle = {
-    width: '100%',
-    height: '800px',
     backgroundSize: 'cover',
     display: 'flex',
     alignItems: 'center',
@@ -50,7 +47,11 @@ const ImagesSwiper = () =>{
       <div className="imageSwiper" id="imageSwiper" style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}  onClick={checkContainerWidth} onLoad={checkContainerWidth}>
         <Fade {...properties}>
         {images.map(image => (
-          <div key={image} id="backgroundImage" style={{ ...divStyle,height: element < 600 ? "70vh" : "100vh", backgroundImage: `url(${process.env.PUBLIC_URL + '/' + image})` }}>
+          <div key={image} id="backgroundImage" style={{ ...divStyle,
+          // height: element < 600 ? "70vh" : "100vh",
+            width: "100%",
+            height:"100vh",
+            backgroundImage: `url(${process.env.PUBLIC_URL + '/' + image})` }}>
             
           </div>
         ))}

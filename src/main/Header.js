@@ -32,7 +32,7 @@ const Header = (props) =>{
     
     
     return (
-        <div className="banner" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 2}}>
+        <div className="banner notSelectable" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 2}}>
             
                 {element>600?
                 <Navbar color="faded" light>
@@ -46,17 +46,17 @@ const Header = (props) =>{
                     <NavbarText/>
                     <NavbarText/>
                     
-                    <NavbarText onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavbarText>
-                    <NavbarText>Informacje o Zapłacie</NavbarText>
+                    <NavbarText className="notSelectable headerIcon" onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavbarText>
+                    <NavbarText className="notSelectable headerIcon">Informacje o Zapłacie</NavbarText>
                     <UncontrolledDropdown inNavbar>
-                    <DropdownToggle nav caret>
+                    <DropdownToggle className="notSelectable" nav caret>
                         Konto
                     </DropdownToggle>
                     <DropdownMenu end>
-                        <DropdownItem>login</DropdownItem>
-                        <DropdownItem>sign up</DropdownItem>
+                        <DropdownItem className="notSelectable">login</DropdownItem>
+                        <DropdownItem className="notSelectable">sign up</DropdownItem>
                         <DropdownItem divider />
-                        <DropdownItem>logout</DropdownItem>
+                        <DropdownItem className="notSelectable">logout</DropdownItem>
                     </DropdownMenu>
                     </UncontrolledDropdown>
                     <NavbarText/>

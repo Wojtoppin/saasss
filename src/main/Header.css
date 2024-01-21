@@ -9,3 +9,6 @@
 #logoImage{
     height: 40px;
 }
+.headerIcon:hover{
+    cursor: pointer;
+}
