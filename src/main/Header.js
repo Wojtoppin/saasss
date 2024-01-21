@@ -15,14 +15,13 @@ import {
     NavbarText,
   } from 'reactstrap';
 
-const Header = () =>{
+const Header = (props) =>{
     const [isOpen, setIsOpen] = useState(false);
     const [element, setElement] = useState(850);
 
     const checkContainerWidth = () =>{
         let containerWidth = document.getElementById("responsiveMenu").clientWidth;
         setElement(containerWidth);
-        console.log(containerWidth)
       }
     
     const toggle = () => setIsOpen(!isOpen);
@@ -46,13 +45,14 @@ const Header = () =>{
                     <NavbarText/>
                     <NavbarText/>
                     <NavbarText/>
-                    <NavbarText>Kalendarz</NavbarText>
+                    
+                    <NavbarText onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavbarText>
                     <NavbarText>Informacje o Zapłacie</NavbarText>
                     <UncontrolledDropdown inNavbar>
                     <DropdownToggle nav caret>
                         Konto
                     </DropdownToggle>
-                    <DropdownMenu right>
+                    <DropdownMenu end>
                         <DropdownItem>login</DropdownItem>
                         <DropdownItem>sign up</DropdownItem>
                         <DropdownItem divider />
