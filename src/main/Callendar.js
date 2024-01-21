@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react";
 import './Callendar.css'
 import {
+    Input
+} from "reactstrap"
+import {
     Table,
     Container
     } from "react-bootstrap";
@@ -12,13 +15,15 @@ const Callendar = (props) =>{
     const [bodyAmount, setBodyAmount] = useState(5);
     const [displayedMonth, setDisplayedMonth] = useState([currentDate.getMonth(), currentDate.getFullYear()]);
     const [element, setElement] = useState(850);
+    const [currentGroup, setCurrentGroup] = useState(1);
+    
 
     const monthDate = new Date(displayedMonth[1], displayedMonth[0], 1);
     const firstDayOfTheMonth = monthDate.getDay() === 0? 6 : monthDate.getDay()-1;
     // const currentDayOfTheMonth = currentDate.getDay() === 0? 6 : currentDate.getDay()-1;
     const currentDay = currentDate.getDate();
 
-    const testjson = [
+    const test1json = [
         ["16:00", " ", " ", "18:00", "17:30", " ", " "],
         ["16:00", " ", "16:00", " ", "17:30", " ", " "],
         ["16:00", " ", "16:00", " ", "17:30", " ", " "],
@@ -44,7 +49,7 @@ const Callendar = (props) =>{
     const shortDays = ["pon", "wt", "śr", "czw", "pt", 'sb', "nd"];
     const months = ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"]
     const daysInMonths = [31,displayedMonth[1] % 4 === 0?29:28,31,30,31,30,31,31,30,31,30,31]
-
+    
 
     const renderBody = () => {
         return Array.from({ length: bodyAmount }, (_, index) => (
@@ -53,7 +58,16 @@ const Callendar = (props) =>{
                 
                 {Array.from({ length: 7 }, (_, Newindex) => {
 
-                    let tmpJsonIndex = test3json[index][Newindex]
+                    let tmpJsonIndex;
+
+                    if (currentGroup === "1") {
+                    tmpJsonIndex = test1json[index][Newindex];
+                    } else if (currentGroup === "2") {
+                    tmpJsonIndex = test2json[index][Newindex];
+                    } else if (currentGroup === "3") {
+                    tmpJsonIndex = test3json[index][Newindex];
+                    }
+                    
                     let currentDayNumerical = (Newindex)+7*index;
                     let hasHappened = hasThisDayHappend((Newindex + 1)+7*index);
                     let isNotInCurrentMonth = currentDayNumerical < firstDayOfTheMonth || currentDayNumerical > firstDayOfTheMonth + daysInMonths[displayedMonth[0]] -1;
@@ -144,6 +158,7 @@ const Callendar = (props) =>{
             <Container className="d-flex justify-content-center mt-5" id="responsive" onClick={checkContainerWidth} onLoad={checkContainerWidth}  style={{ position: 'relative', zIndex: 2, top:"30%"}}>
                 <Table className="table" bordered>
                     <thead>
+                        
                         <tr>
                             <th colSpan="2" style={{background:"#03a7a7", userSelect:"none"}} onClick={previousMonth}><h2 className="thBlue">{"<"}</h2></th>
                             <th colSpan={headAmount-3} style={{background:"#03a7a7"}}><h2 className="thBlue">{months[displayedMonth[0]]} {displayedMonth[1]}</h2></th>
@@ -156,7 +171,17 @@ const Callendar = (props) =>{
                     </thead>
                     <tbody>
                         {renderBody()}
+                        <tr>
+                            <th colSpan={headAmount+1} style={{background:"#03a7a7", userSelect:"none"}}>
+                            <Input type="select" onChange={(e) => {setCurrentGroup(e.target.value); console.log(e.target.value);}}>
+                                <option value={1}>podstawowa</option>
+                                <option value={2}>średnio zaawansowana</option>
+                                <option value={3}>zaawansowana</option>
+                            </Input>
+                            </th>
+                        </tr>
                     </tbody>
+
                 </Table>
             </Container>
     )
