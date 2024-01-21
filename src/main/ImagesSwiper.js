@@ -50,7 +50,7 @@ const ImagesSwiper = () =>{
       <div className="imageSwiper" id="imageSwiper" style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}  onClick={checkContainerWidth} onLoad={checkContainerWidth}>
         <Fade {...properties}>
         {images.map(image => (
-          <div key={image} id="backgroundImage" style={{ ...divStyle,height: element < 600 ? "70%" : "100vh", backgroundImage: `url(${process.env.PUBLIC_URL + '/' + image})` }}>
+          <div key={image} id="backgroundImage" style={{ ...divStyle,height: element < 600 ? "70vh" : "100vh", backgroundImage: `url(${process.env.PUBLIC_URL + '/' + image})` }}>
             
           </div>
         ))}

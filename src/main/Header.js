@@ -75,9 +75,8 @@ const Header = (props) =>{
 
                     <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
-                        <NavItem>
-                            Kalendarz
-                        </NavItem>
+                        <NavItem onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavItem>
+
                     <NavItem>Informacje o Zapłacie</NavItem>
 
                         <UncontrolledDropdown nav inNavbar>
