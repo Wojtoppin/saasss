@@ -4,6 +4,8 @@ import { Container, Table } from "reactstrap";
 import { Input, Button } from "reactstrap"
 
 const Login = (props) =>{
+    // const [login, setLogin] = useState("user1@example.com")
+    // const [password, setPassword] = useState("password1")
     const [login, setLogin] = useState("")
     const [password, setPassword] = useState("")
     const [message, setMessage] = useState("")
@@ -20,7 +22,8 @@ const Login = (props) =>{
     
           if (response.ok) {
             const data = await response.json();
-            console.log(data);
+            props.setStatus("admin");
+            // props.setStatus(data["user_status"]);
             props.setIsLoggedIn(true);
             props.setLoginDisplay(login);
             props.setIsLoginVisible(false);
@@ -40,8 +43,8 @@ const Login = (props) =>{
     },[login,password])
 
     return (
-        <Container className="d-flex justify-content-center mt-5" id="responsiveLogin" style={{ position: 'relative',  zIndex: 2}}>
-            <div className="login">
+        <Container className="d-flex justify-content-center mt-5 container1" style={{ position: 'relative',  zIndex: 2}}>
+            
                 <Table style={{marginBottom:"0px"}}>
                     <thead>
                         <tr>
@@ -49,7 +52,9 @@ const Login = (props) =>{
                         </tr>
                         <tr>
                             <th>login:</th> 
-                            <th><Input type="text" value={login} onChange={(event)=>setLogin(event.target.value)}></Input></th> 
+                            <th>
+                                <Input type="text" value={login} onChange={(event)=>setLogin(event.target.value)}></Input>
+                            </th> 
                         </tr>
                         <tr>
                             <th>hasło:</th> 
@@ -67,7 +72,7 @@ const Login = (props) =>{
                         </tr>
                     </tbody>}
                 </Table>
-            </div>
+            
 
         </Container>
     )

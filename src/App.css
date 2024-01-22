@@ -6,3 +6,10 @@
 .notSelectable{
     user-select: none;
 }
+.container1{
+    width: 80vw;
+    background: #FFFFFF;
+    border: darkgray solid 1px;
+    box-shadow: -5px 5px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}

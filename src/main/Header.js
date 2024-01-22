@@ -14,6 +14,7 @@ import {
     DropdownItem,
     NavbarText,
   } from 'reactstrap';
+import { DropdownItemText } from "react-bootstrap";
 
 const Header = (props) =>{
     const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,7 @@ const Header = (props) =>{
     
     
     return (
-        <div className="banner notSelectable" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 2}}>
+        <div className="banner notSelectable" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 3}}>
             
                 {element>600?
                 <Navbar color="faded" light>
@@ -51,7 +52,7 @@ const Header = (props) =>{
                     <NavbarText/>
                     
                     <NavbarText className="notSelectable headerIcon" onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavbarText>
-                    <NavbarText className="notSelectable headerIcon">Informacje o Zapłacie</NavbarText>
+                    {props.isLoggedIn && props.status === "rodzic" && <NavbarText className="notSelectable headerIcon">Informacje o Zapłacie</NavbarText>}
                     <UncontrolledDropdown inNavbar>
                     <DropdownToggle className="notSelectable" nav caret>
                         {props.isLoggedIn? props.loginDisplay : "Konto"}
@@ -59,8 +60,9 @@ const Header = (props) =>{
                     <DropdownMenu>
                         {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(props.setIsLoginVisible(!props.isLoginVisible))}>zaloguj się</DropdownItem>}
                         {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
-                        {/* {props.isLoggedIn && <DropdownItem divider />} */}
-                        {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>{props.setIsLoggedIn(false); props.setLoginDisplay("")}}>wyloguj się</DropdownItem>}
+                        {props.isLoggedIn && <DropdownItemText className="notSelectable">{props.status}</DropdownItemText>}
+                        {props.isLoggedIn && <DropdownItem divider />}
+                        {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={() => props.logout()}>wyloguj się</DropdownItem>}
                     </DropdownMenu>
                     </UncontrolledDropdown>
                     <NavbarText/>
@@ -90,8 +92,9 @@ const Header = (props) =>{
                         <DropdownMenu right>
                             {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(props.setIsLoginVisible(!props.isLoginVisible))}>zaloguj się</DropdownItem>}
                             {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
-                            {/* <DropdownItem divider /> */}
-                            {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>{props.setIsLoggedIn(false); props.setLoginDisplay("")}}>wyloguj się</DropdownItem>}
+                            {props.isLoggedIn && <DropdownItem className="notSelectable">{props.status}</DropdownItem>}
+                            {props.isLoggedIn && <DropdownItem divider />}
+                            {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={() => props.logout()}>wyloguj się</DropdownItem>}
                         </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
