@@ -37,9 +37,13 @@ const Header = (props) =>{
                 {element>600?
                 <Navbar color="faded" light>
                     <NavbarBrand>
-                        <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage"/> 
+                        <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage" alt="piłka"/> 
                         Szkółki Sportowe 
                     </NavbarBrand>
+
+                    <NavbarText/>
+                    <NavbarText/>
+                    <NavbarText/>
                     <NavbarText/>
                     <NavbarText/>
                     <NavbarText/>
@@ -52,8 +56,8 @@ const Header = (props) =>{
                     <DropdownToggle className="notSelectable" nav caret>
                         Konto
                     </DropdownToggle>
-                    <DropdownMenu end>
-                        <DropdownItem className="notSelectable">login</DropdownItem>
+                    <DropdownMenu>
+                        <DropdownItem className="notSelectable" onClick={ () =>(props.setIsLoginVisible(!props.isLoginVisible))}>login</DropdownItem>
                         <DropdownItem className="notSelectable">sign up</DropdownItem>
                         <DropdownItem divider />
                         <DropdownItem className="notSelectable">logout</DropdownItem>
@@ -67,7 +71,7 @@ const Header = (props) =>{
                 
                 <Navbar>
                     <NavbarBrand>
-                        <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage"/> 
+                        <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage" alt="piłka"/> 
                         Szkółki Sportowe 
                     </NavbarBrand>
 
@@ -75,12 +79,12 @@ const Header = (props) =>{
 
                     <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
-                        <NavItem onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavItem>
+                        <NavItem className="notSelectable" onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavItem>
 
-                    <NavItem>Informacje o Zapłacie</NavItem>
+                        <NavItem className="notSelectable">Informacje o Zapłacie</NavItem>
 
                         <UncontrolledDropdown nav inNavbar>
-                        <DropdownToggle nav caret>
+                        <DropdownToggle className="notSelectable" nav caret>
                         Konto
                         </DropdownToggle>
                         <DropdownMenu right>
