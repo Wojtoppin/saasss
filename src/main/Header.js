@@ -54,13 +54,13 @@ const Header = (props) =>{
                     <NavbarText className="notSelectable headerIcon">Informacje o Zapłacie</NavbarText>
                     <UncontrolledDropdown inNavbar>
                     <DropdownToggle className="notSelectable" nav caret>
-                        Konto
+                        {props.isLoggedIn? props.loginDisplay : "Konto"}
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem className="notSelectable" onClick={ () =>(props.setIsLoginVisible(!props.isLoginVisible))}>login</DropdownItem>
-                        <DropdownItem className="notSelectable">sign up</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem className="notSelectable">logout</DropdownItem>
+                        {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(props.setIsLoginVisible(!props.isLoginVisible))}>zaloguj się</DropdownItem>}
+                        {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
+                        {/* {props.isLoggedIn && <DropdownItem divider />} */}
+                        {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>{props.setIsLoggedIn(false); props.setLoginDisplay("")}}>wyloguj się</DropdownItem>}
                     </DropdownMenu>
                     </UncontrolledDropdown>
                     <NavbarText/>
@@ -85,13 +85,13 @@ const Header = (props) =>{
 
                         <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle className="notSelectable" nav caret>
-                        Konto
+                        {props.isLoggedIn? props.loginDisplay : "Konto"}
                         </DropdownToggle>
                         <DropdownMenu right>
-                            <DropdownItem>login</DropdownItem>
-                            <DropdownItem>sign up</DropdownItem>
-                            <DropdownItem divider />
-                            <DropdownItem>logout</DropdownItem>
+                            {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(props.setIsLoginVisible(!props.isLoginVisible))}>zaloguj się</DropdownItem>}
+                            {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
+                            {/* <DropdownItem divider /> */}
+                            {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>{props.setIsLoggedIn(false); props.setLoginDisplay("")}}>wyloguj się</DropdownItem>}
                         </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>

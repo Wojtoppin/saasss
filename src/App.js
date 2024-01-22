@@ -8,6 +8,8 @@ import Login from './account/Login';
 function App() {
   const [isCallendarVisible, setIsCallendarVisible] = useState(false)
   const [isLoginVisible, setIsLoginVisible] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [loginDisplay, setLoginDisplay] = useState("")
   return (
     <div className="App" style={{overflow:"auto", WebkitOverflowScrolling:"touch"}}>
         <Header
@@ -15,10 +17,14 @@ function App() {
           setIsCallendarVisible={setIsCallendarVisible}
             isLoginVisible={isLoginVisible}
               setIsLoginVisible={setIsLoginVisible}
+                isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                    loginDisplay={loginDisplay}
+                      setLoginDisplay={setLoginDisplay}
           />
 
         <ImagesSwiper />
-        {isLoginVisible && <Login isLoginVisible={isLoginVisible} setIsLoginVisible={setIsLoginVisible}/>}
+        {isLoginVisible && <Login isLoginVisible={isLoginVisible} setIsLoginVisible={setIsLoginVisible} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setLoginDisplay={setLoginDisplay}/>}
         {isCallendarVisible && <Callendar/>}
     </div>
   );

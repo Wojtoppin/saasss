@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from "react";
 import './ImagesSwiper.css';
 import 'react-slideshow-image/dist/styles.css'
-import {Fade} from "react-slideshow-image";
+import {
+  Fade
+} from "react-slideshow-image";
 const ImagesSwiper = () =>{
     const [element, setElement] = useState(600);
     const checkContainerWidth = () =>{

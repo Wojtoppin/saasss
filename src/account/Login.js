@@ -1,9 +1,43 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import './Login.css'
 import { Container, Table } from "reactstrap";
 import { Input, Button } from "reactstrap"
 
 const Login = (props) =>{
+    const [login, setLogin] = useState("")
+    const [password, setPassword] = useState("")
+    const [message, setMessage] = useState("")
+
+    const sendRequest = async () => {
+        try {
+          const response = await fetch('https://zienex.pythonanywhere.com/login_user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ login: login, password: password }),
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+            props.setIsLoggedIn(true);
+            props.setLoginDisplay(login);
+            props.setIsLoginVisible(false);
+          } else {
+            console.error('Request failed with status:', response.status);
+            setMessage("podany login lub hasło jest nieprawidłowe")
+
+          }
+        } catch (error) {
+          console.error('Error during request:', error);
+          setMessage("podany login lub hasło jest nieprawidłowe")
+        }
+      }
+
+    useEffect(()=>{
+        console.log({"login":login,"password":password})
+    },[login,password])
 
     return (
         <Container className="d-flex justify-content-center mt-5" id="responsiveLogin" style={{ position: 'relative',  zIndex: 2}}>
@@ -15,23 +49,23 @@ const Login = (props) =>{
                         </tr>
                         <tr>
                             <th>login:</th> 
-                            <th><Input type="text"></Input></th> 
+                            <th><Input type="text" value={login} onChange={(event)=>setLogin(event.target.value)}></Input></th> 
                         </tr>
                         <tr>
                             <th>hasło:</th> 
-                            <th><Input type="password"></Input></th> 
+                            <th><Input type="password" value={password} onChange={(event)=>setPassword(event.target.value)}></Input></th> 
                         </tr>
                         <tr>
                             <th colSpan={2}>
-                                <Button style={{width:"40%"}}>zaloguj</Button>
+                                <Button style={{width:"40%"}} onClick={sendRequest}>zaloguj</Button>
                             </th> 
                         </tr>
                     </thead>
-                    <tbody>
+                    {message !== "" && <tbody>
                         <tr>
-                            <th colSpan={2}>tu będzie potwierdzenie logowania</th>
+                            <th colSpan={2}>{message}</th>
                         </tr>
-                    </tbody>
+                    </tbody>}
                 </Table>
             </div>
 
