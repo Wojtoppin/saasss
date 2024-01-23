@@ -25,7 +25,7 @@ const AdminPanel = (props) =>{
   }, []);
 
     return(
-        <Container className="d-flex justify-content-center mt-5 container1" style={{ position: 'relative', marginBottom:"2vh",  zIndex: 2}}>
+        <Container className="d-flex justify-content-center mt-5 container1" style={{ position: 'relative', zIndex: 2}}>
             <Table  style={{marginBottom:"0px"}}>
                 <thead>
                     <tr>

@@ -34,10 +34,6 @@ function App() {
                         status={status}
           />
         <ImagesSwiper />
-        {isCallendarVisible && <Callendar/>}
-        {status === "admin" && <AdminPanel/>}
-        
-
         {isLoginVisible && <Login
          isLoginVisible={isLoginVisible}
           setIsLoginVisible={setIsLoginVisible}
@@ -46,6 +42,12 @@ function App() {
              setLoginDisplay={setLoginDisplay}
              setStatus={setStatus}
              />}
+        {isCallendarVisible && <Callendar/>}
+
+        {status === "admin" && <AdminPanel/>}
+        
+
+        
 
     </div>
   );
