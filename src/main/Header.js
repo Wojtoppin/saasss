@@ -33,7 +33,7 @@ const Header = (props) =>{
     
     
     return (
-        <div className="banner notSelectable" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 3}}>
+        <div className="banner notSelectable" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 4}}>
             
                 {element>600?
                 <Navbar color="faded" light>

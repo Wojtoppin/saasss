@@ -4,10 +4,10 @@ import { Container, Table } from "reactstrap";
 import { Input, Button } from "reactstrap"
 
 const Login = (props) =>{
-    // const [login, setLogin] = useState("user1@example.com")
-    // const [password, setPassword] = useState("password1")
-    const [login, setLogin] = useState("")
-    const [password, setPassword] = useState("")
+    const [login, setLogin] = useState("user1@example.com")
+    const [password, setPassword] = useState("password1")
+    // const [login, setLogin] = useState("")
+    // const [password, setPassword] = useState("")
     const [message, setMessage] = useState("")
 
     const sendRequest = async () => {
@@ -37,10 +37,6 @@ const Login = (props) =>{
           setMessage("podany login lub hasło jest nieprawidłowe")
         }
       }
-
-    useEffect(()=>{
-        console.log({"login":login,"password":password})
-    },[login,password])
 
     return (
         <Container className="d-flex justify-content-center mt-5 container1" style={{ position: 'relative',  zIndex: 2}}>

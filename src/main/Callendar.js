@@ -52,7 +52,6 @@ const Callendar = (props) =>{
     const renderBody = () => {
         return Array.from({ length: bodyAmount }, (_, index) => (
             <tr key={"weekend index" + index}>
-                <td style={{background:"#03a7a7"}}><h5 style={{color:"white"}} className="notSelectable">{index+1}</h5></td>
                 
                 {Array.from({ length: 7 }, (_, Newindex) => {
 
@@ -87,13 +86,36 @@ const Callendar = (props) =>{
 
                         }} key={"days index" + index + ":" + Newindex}>
                         {element >= 850? 
-                        <h5>
-                            {tmpJsonIndex === " " || isNotInCurrentMonth? "": tmpJsonIndex}
-                        </h5>
-                        :
-                        <h6>
-                            {tmpJsonIndex === " " || isNotInCurrentMonth? "": tmpJsonIndex}
-                        </h6>}
+                            
+                            tmpJsonIndex === " " || isNotInCurrentMonth?
+                                <h5 style={{margin:"0px"}}>
+                                    <span style={{fontSize:"10px", margin:"0px", float:"right"}}>
+                                        {isNotInCurrentMonth? " " : ((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+displayedMonth[0]+"."+displayedMonth[1]}
+                                    </span><br/>
+                                </h5>
+                                :
+                                <h5 style={{margin:"0px"}}>
+                                    <span style={{fontSize:"10px", margin:"0px", float:"right"}}>
+                                        {((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+displayedMonth[0]+"."+displayedMonth[1]}
+                                    </span><br/>
+                                    {tmpJsonIndex}
+                                </h5>
+                            :
+                            tmpJsonIndex === " " || isNotInCurrentMonth?
+                                <h6>
+                                    <span style={{fontSize:"10px", margin:"0px", float:"right"}}>
+                                        {isNotInCurrentMonth? " " : ((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+displayedMonth[0]+"."+displayedMonth[1]}
+
+                                    </span><br/>
+                                </h6>
+                                :
+                                <h6>
+                                    <span style={{fontSize:"8px", margin:"0px", float:"right"}}>
+                                        {((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+displayedMonth[0]+"."+displayedMonth[1]}
+                                    </span><br/>
+                                    {tmpJsonIndex}
+                                </h6>
+                            }
 
                     </td>
                 )})}
@@ -163,11 +185,10 @@ const Callendar = (props) =>{
                         
                         <tr>
                             <th colSpan="2" style={{background:"#03a7a7", userSelect:"none"}} onClick={previousMonth}><h2 className="thBlue">{"<"}</h2></th>
-                            <th colSpan={headAmount-3} style={{background:"#03a7a7"}}><h2 className="thBlue">{months[displayedMonth[0]]} {displayedMonth[1]}</h2></th>
+                            <th colSpan={headAmount-4} style={{background:"#03a7a7"}}><h2 className="thBlue">{months[displayedMonth[0]]} {displayedMonth[1]}</h2></th>
                             <th colSpan="2" style={{background:"#03a7a7", userSelect:"none"}} onClick={nextMonth}><h2 className="thBlue">{">"}</h2></th>
                         </tr>
                         <tr>
-                            <th style={{background:"#03a7a7"}}><h3 className="thBlue notSelectable">#</h3></th>
                             {renderHead()}
                         </tr>
                     </thead>
@@ -175,7 +196,7 @@ const Callendar = (props) =>{
                         {renderBody()}
                         <tr>
                             <th colSpan={headAmount+1} style={{background:"#03a7a7", userSelect:"none"}}>
-                            <Input type="select" onChange={(e) => {setCurrentGroup(e.target.value); console.log(e.target.value);}}>
+                            <Input type="select" onChange={(e) => setCurrentGroup(e.target.value)}>
                                 <option value={1}>podstawowa</option>
                                 <option value={2}>średnio zaawansowana</option>
                                 <option value={3}>zaawansowana</option>
