@@ -71,6 +71,7 @@ const Callendar = (props) =>{
 
                     return (
                     <td style={{
+                        padding: element >= 850? "8px" : "2px",
                         background:
                         tmpJsonIndex === " " || tmpJsonIndex === ""? 
                             hasHappened? 
@@ -81,39 +82,36 @@ const Callendar = (props) =>{
                             hasHappened? 
                                 isNotInCurrentMonth?"#03a7a7":"#BF9960"
                                 :
-                                isNotInCurrentMonth?"#03a7a7":"orange"
-
-
+                                isNotInCurrentMonth?"#03a7a7":"orange",
                         }} key={"days index" + index + ":" + Newindex}>
                         {element >= 850? 
                             
                             tmpJsonIndex === " " || isNotInCurrentMonth?
                                 <h5 style={{margin:"0px"}}>
                                     <span style={{fontSize:"10px", margin:"0px", float:"right"}}>
-                                        {isNotInCurrentMonth? " " : ((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+displayedMonth[0]+"."+displayedMonth[1]}
+                                        {isNotInCurrentMonth? " " : ((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+(displayedMonth[0]+1) +"."+displayedMonth[1]}
                                     </span><br/>
                                 </h5>
                                 :
                                 <h5 style={{margin:"0px"}}>
                                     <span style={{fontSize:"10px", margin:"0px", float:"right"}}>
-                                        {((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+displayedMonth[0]+"."+displayedMonth[1]}
+                                        {((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+(displayedMonth[0]+1) +"."+displayedMonth[1]}
                                     </span><br/>
                                     {tmpJsonIndex}
                                 </h5>
                             :
                             tmpJsonIndex === " " || isNotInCurrentMonth?
-                                <h6>
-                                    <span style={{fontSize:"10px", margin:"0px", float:"right"}}>
-                                        {isNotInCurrentMonth? " " : ((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+displayedMonth[0]+"."+displayedMonth[1]}
-
+                                <span>
+                                    <span style={{fontSize:"8px", margin:"0px", float:"right"}}>
+                                        {isNotInCurrentMonth? " " : ((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+(displayedMonth[0]+1) +"."+displayedMonth[1]}
                                     </span><br/>
-                                </h6>
+                                </span>
                                 :
                                 <h6>
                                     <span style={{fontSize:"8px", margin:"0px", float:"right"}}>
-                                        {((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+displayedMonth[0]+"."+displayedMonth[1]}
+                                        {((Newindex + 1)+7*index)-firstDayOfTheMonth + "."+(displayedMonth[0]+1) +"."+displayedMonth[1]}
                                     </span><br/>
-                                    {tmpJsonIndex}
+                                    <span style={{fontSize:"15px"}}>{tmpJsonIndex}</span>
                                 </h6>
                             }
 
@@ -125,7 +123,7 @@ const Callendar = (props) =>{
 
     const renderHead = () =>{
         return Array.from({ length: headAmount}, (_, index) => (
-            <th style={{background:"#03a7a7"}} key={"head index" + index}>
+            <th style={{background:"#03a7a7", padding:element >= 850? "8px": "2px"}} key={"head index" + index}>
                 <h3 className="thBlue">{element >= 850? days[index]:shortDays[index]}</h3>
             </th>               
         ));
