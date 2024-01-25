@@ -11,7 +11,7 @@ const AdminPanel = (props) =>{
   const [filteredSurname, setFilteredSurname] = useState("");
   const [filteredMail, setFilteredMail] = useState("");
   const [filteredNumber, setFilteredNumber] = useState("");
-  const [filteredGroup, setFilteredGroup] = useState("0");
+  const [filteredGroup, setFilteredGroup] = useState("none");
 
   const getGroups = (functionData) =>{
     let tmpHighestGroup = 0;
@@ -40,14 +40,16 @@ const AdminPanel = (props) =>{
     };
 
   const filterStudents = () =>{
+    
     let new_students_displayed = data.filter((student) =>(
-      student.imie.toLowerCase().includes(filteredName.toLowerCase())
-       && student.nazwisko_ucznia.toLowerCase().includes(filteredSurname.toLowerCase())
-        && student.email_ucznia.toLowerCase().includes(filteredMail.toLowerCase())
-          && student.telefon_ucznia.toLowerCase().includes(filteredNumber.toLowerCase())
-            && (filteredGroup !== "0" && filteredGroup !== 0 ) ? student.id_grupy.toString() === filteredGroup.toString() : true
+      (filteredGroup === "none" ? true : student.id_grupy.toString() === filteredGroup.toString())
+        && student.imie.toLowerCase().includes(filteredName.toLowerCase())
+          && student.nazwisko_ucznia.toLowerCase().includes(filteredSurname.toLowerCase())
+            && student.email_ucznia.toLowerCase().includes(filteredMail.toLowerCase())
+              && student.telefon_ucznia.toLowerCase().includes(filteredNumber.toLowerCase())
     ))
     setFilteredData(new_students_displayed)
+    console.log(new_students_displayed)
   }
 
   useEffect(() => {
@@ -56,7 +58,12 @@ const AdminPanel = (props) =>{
   
   useEffect(() => {
     filterStudents();
-  }, [filteredGroup]);
+    console.log({"filteredName": filteredName,
+      "filteredSurname": filteredSurname,
+        "filteredGroup": filteredGroup,
+        "filteredMail": filteredMail,
+          "filteredNumber": filteredNumber})
+  }, [filteredName, filteredSurname, filteredMail, filteredNumber, filteredGroup]);
 
   return(
       <Container className="d-flex justify-content-center mt-5 container1" style={{ position: 'relative', zIndex: 2, marginBottom:"2vh"}}>
@@ -74,18 +81,18 @@ const AdminPanel = (props) =>{
                       <th>
                         {/* <Button>^</Button> */}
                         </th>
-                      <th><Input type="text" value={filteredName} onKeyUp={filterStudents} onChange={(event)=>{setFilteredName(event.target.value)}}></Input></th>
-                      <th><Input type="text" value={filteredSurname} onKeyUp={filterStudents} onChange={(event)=>{setFilteredSurname(event.target.value); filterStudents()}}></Input></th>
-                      <th><Input type="select" onChange={(e) => {setFilteredGroup(e.target.value)}}>
-                        <option value={0}> wszystkie grupy</option>
+                      <th><Input type="text" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input></th>
+                      <th><Input type="text" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input></th>
+                      <th><Input type="select" onChange={(e) => setFilteredGroup(e.target.value)}>
+                        <option value={"none"}> wszystkie grupy</option>
                         {Array.from({ length: highestGroup }, (_, index) => (
                           <option key={index + 1} value={index + 1}>
                             grupa {index + 1}
                           </option>
                         ))}
                         </Input></th>
-                      <th><Input type="text" value={filteredMail} onKeyUp={filterStudents} onChange={(event)=>{setFilteredMail(event.target.value); filterStudents()}}></Input></th>
-                      <th><Input type="text" value={filteredNumber} onKeyUp={filterStudents} onChange={(event)=>{setFilteredNumber(event.target.value); filterStudents()}}></Input></th>
+                      <th><Input type="text" value={filteredMail} onChange={(event)=>setFilteredMail(event.target.value)}></Input></th>
+                      <th><Input type="text" value={filteredNumber} onChange={(event)=>setFilteredNumber(event.target.value)}></Input></th>
                   </tr>
               </thead>
               <tbody>
@@ -99,15 +106,10 @@ const AdminPanel = (props) =>{
                           <td>{student.telefon_ucznia}</td>
                       </tr>
                   )):
-                    data.map((student)=>(
-                      <tr key={student.id_ucznia}>
-                          <td>{student.id_ucznia}</td>
-                          <td>{student.imie}</td>
-                          <td>{student.nazwisko_ucznia}</td>
-                          <td>{student.id_grupy}</td>
-                          <td>{student.email_ucznia}</td>
-                          <td>{student.telefon_ucznia}</td>
-                      </tr>))
+                    
+                      <tr>
+                          <td colSpan={6}>żaden uczeń nie pasuje do podanych kryterii</td>
+                      </tr>
                 }
               </tbody>
           </Table>
