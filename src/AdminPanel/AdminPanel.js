@@ -26,7 +26,7 @@ const AdminPanel = (props) =>{
   }
   const fetchData = async () => {
       try {
-        const response = await fetch('https://zienex.pythonanywhere.com/data');
+        const response = await fetch('https://zienex.pythonanywhere.com/students_data');
 
         if (response.ok) {
           const responseData = await response.json();
@@ -45,9 +45,9 @@ const AdminPanel = (props) =>{
     let new_students_displayed = data.filter((student) =>(
       (filteredGroup === "none" ? true : student.id_grupy.toString() === filteredGroup.toString())
         && student.imie.toLowerCase().includes(filteredName.toLowerCase())
-          && student.nazwisko_ucznia.toLowerCase().includes(filteredSurname.toLowerCase())
-            && student.email_ucznia.toLowerCase().includes(filteredMail.toLowerCase())
-              && student.telefon_ucznia.toLowerCase().includes(filteredNumber.toLowerCase())
+          && student.nazwisko.toLowerCase().includes(filteredSurname.toLowerCase())
+            && student.email.toLowerCase().includes(filteredMail.toLowerCase())
+              && student.telefon.toLowerCase().includes(filteredNumber.toLowerCase())
     ))
     setFilteredData(new_students_displayed)
     console.log(new_students_displayed)
@@ -107,10 +107,10 @@ const AdminPanel = (props) =>{
                       <tr key={student.id_ucznia}>
                           <td>{student.id_ucznia}</td>
                           <td>{student.imie}</td>
-                          <td>{student.nazwisko_ucznia}</td>
+                          <td>{student.nazwisko}</td>
                           <td>{student.id_grupy}</td>
-                          <td>{student.email_ucznia}</td>
-                          <td>{student.telefon_ucznia}</td>
+                          <td>{student.email}</td>
+                          <td>{student.telefon}</td>
                       </tr>
                   )):
                     
