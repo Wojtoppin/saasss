@@ -12,6 +12,8 @@ const AdminPanel = (props) =>{
   const [filteredMail, setFilteredMail] = useState("");
   const [filteredNumber, setFilteredNumber] = useState("");
   const [filteredGroup, setFilteredGroup] = useState("none");
+  const [filterId, setFilteredId] = useState("ASC");
+  
 
   const getGroups = (functionData) =>{
     let tmpHighestGroup = 0;
@@ -40,7 +42,6 @@ const AdminPanel = (props) =>{
     };
 
   const filterStudents = () =>{
-    
     let new_students_displayed = data.filter((student) =>(
       (filteredGroup === "none" ? true : student.id_grupy.toString() === filteredGroup.toString())
         && student.imie.toLowerCase().includes(filteredName.toLowerCase())
@@ -51,6 +52,12 @@ const AdminPanel = (props) =>{
     setFilteredData(new_students_displayed)
     console.log(new_students_displayed)
   }
+
+  const reverseIdIndexes = () =>{
+    setFilteredData(filteredData.reverse())
+    setFilteredId(filterId === "ASC"? "DESC": "ASC")
+  }
+
 
   useEffect(() => {
     fetchData();
@@ -79,7 +86,7 @@ const AdminPanel = (props) =>{
                   </tr>
                   <tr>
                       <th>
-                        {/* <Button>^</Button> */}
+                        <Button onClick={reverseIdIndexes}>{filterId === "ASC"? "^": "v"}</Button>
                         </th>
                       <th><Input type="text" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input></th>
                       <th><Input type="text" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input></th>
