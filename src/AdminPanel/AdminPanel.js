@@ -65,11 +65,12 @@ const AdminPanel = (props) =>{
     setFilteredId(filterId === "ASC"? "DESC": "ASC")
   }
 
-  const setEditedValues = (edited_name, edited_surname, edited_mail, edited_number) =>{
+  const setEditedValues = (edited_name, edited_surname, edited_mail, edited_number, edited_group) =>{
     setEditedName(edited_name)
     setEditedSurname(edited_surname)
     setEditedMail(edited_mail)
     setEditedNumber(edited_number)
+    setEditedGroup(edited_group)
   }
 
   const sendData = async (data_urodzenia, adres, dataDołączenia, poziomUmiejetnosci, uwagi) =>{
@@ -184,7 +185,7 @@ const AdminPanel = (props) =>{
                             <td>{student.telefon}</td>
                             <td>
                               {editedId.toString() === "none"?
-                                <Button id="editImageButton" onClick={()=>{setEditedId(student.id_ucznia);setEditedValues(student.imie, student.nazwisko, student.email, student.telefon)}}><img src={process.env.PUBLIC_URL + '/edit.png'} id="editImage" alt="edit"/></Button>
+                                <Button id="editImageButton" onClick={()=>{setEditedId(student.id_ucznia);setEditedValues(student.imie, student.nazwisko, student.email, student.telefon, student.id_grupy)}}><img src={process.env.PUBLIC_URL + '/edit.png'} id="editImage" alt="edit"/></Button>
                                 :
                                 ""}
                             </td>
