@@ -20,7 +20,8 @@ const AdminPanel = (props) =>{
   const [editedMail, setEditedMail] = useState("");
   const [editedNumber, setEditedNumber] = useState("");
   const [editedGroup, setEditedGroup] = useState("none");
-
+  const [textIfNoneMatches, setTextIfNoneMatches] = useState("żaden uczeń nie pasuje do podanych kryterii");
+  
   
 
   const getGroups = (functionData) =>{
@@ -41,6 +42,7 @@ const AdminPanel = (props) =>{
           setData(responseData);
           setFilteredData(responseData);
           getGroups(responseData);
+          setTextIfNoneMatches("żaden uczeń nie pasuje do podanych kryterii")
         } else {
           console.error('Failed to fetch data. Status:', response.status);
         }
@@ -74,6 +76,8 @@ const AdminPanel = (props) =>{
   }
 
   const sendData = async (data_urodzenia, adres, dataDołączenia, poziomUmiejetnosci, uwagi) =>{
+    setFilteredData([])
+    setTextIfNoneMatches("W trakcie edytowania")
     try {
       const response = await fetch('https://zienex.pythonanywhere.com/edit_student_data', {
         method: 'PATCH',
@@ -98,6 +102,7 @@ const AdminPanel = (props) =>{
       if (!response.ok) {
         throw new Error('Request failed');
       }else{
+        
         fetchData();
       }
 
@@ -194,7 +199,7 @@ const AdminPanel = (props) =>{
                   )):
                     
                       <tr>
-                          <td colSpan={6}>żaden uczeń nie pasuje do podanych kryterii</td>
+                          <td colSpan={6}>{textIfNoneMatches}</td>
                       </tr>
                 }
               </tbody>
