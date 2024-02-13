@@ -27,6 +27,20 @@ const Header = (props) =>{
     
     const toggle = () => setIsOpen(!isOpen);
     
+    const changeVisibility = (component) =>{
+        if (component === "calendar"){
+            props.setIsCallendarVisible(!props.isCallendarVisible)
+            props.setUsersDataVisible(false)
+
+        }
+        if (component === "user data"){
+            props.setUsersDataVisible(!props.isUsersDataVisible)
+            props.setIsCallendarVisible(false)
+
+        }
+    }
+
+
     useEffect(()=>{
         checkContainerWidth();
      },[element])
@@ -51,8 +65,12 @@ const Header = (props) =>{
                     <NavbarText/>
                     <NavbarText/>
                     
-                    <NavbarText className="notSelectable headerIcon" onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavbarText>
-                    {props.isLoggedIn && props.status === "rodzic" && <NavbarText className="notSelectable headerIcon">Informacje o Zapłacie</NavbarText>}
+                    <NavbarText className="notSelectable headerIcon" onClick={ () =>(changeVisibility("calendar"))}>Kalendarz</NavbarText>
+                    
+                    {props.isLoggedIn
+                     && props.status === "admin"
+                      && <NavbarText className="notSelectable headerIcon" onClick={ () =>(changeVisibility("user data"))}>Dane użytkowników</NavbarText>}
+                    {/* {props.isLoggedIn && props.status === "rodzic" && <NavbarText className="notSelectable headerIcon">Informacje o Zapłacie</NavbarText>} */}
                     <UncontrolledDropdown inNavbar>
                     <DropdownToggle className="notSelectable" nav caret>
                         {props.isLoggedIn? props.loginDisplay : "Konto"}

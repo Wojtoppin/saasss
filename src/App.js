@@ -9,6 +9,7 @@ import AdminPanel from './AdminPanel/AdminPanel';
 function App() {
   const [isCallendarVisible, setIsCallendarVisible] = useState(false)
   const [isLoginVisible, setIsLoginVisible] = useState(false)
+  const [isUsersDataVisible, setUsersDataVisible] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [loginDisplay, setLoginDisplay] = useState("")
   const [status, setStatus] = useState("")
@@ -32,6 +33,8 @@ function App() {
                     loginDisplay={loginDisplay}
                       logout={logout}
                         status={status}
+                          isUsersDataVisible={isUsersDataVisible}
+                            setUsersDataVisible={setUsersDataVisible}
           />
         <ImagesSwiper />
         {isLoginVisible && <Login
@@ -44,7 +47,7 @@ function App() {
              />}
         {isCallendarVisible && <Callendar/>}
 
-        {status === "admin" && <AdminPanel/>}
+        {status === "admin" && isUsersDataVisible && <AdminPanel/>}
         
 
         
