@@ -5,11 +5,13 @@ import Header from './main/Header';
 import ImagesSwiper from './main/ImagesSwiper';
 import Login from './account/Login';
 import AdminPanel from './AdminPanel/AdminPanel';
+import TrialTraining from './account/TrialTraining';
 
 function App() {
   const [isCallendarVisible, setIsCallendarVisible] = useState(false)
   const [isLoginVisible, setIsLoginVisible] = useState(false)
-  const [isUsersDataVisible, setUsersDataVisible] = useState(false)
+  const [isUsersDataVisible, setIsUsersDataVisible] = useState(false)
+  const [isTrialTrainingVisible, setIsTrialTrainingVisible] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [loginDisplay, setLoginDisplay] = useState("")
   const [status, setStatus] = useState("")
@@ -34,7 +36,9 @@ function App() {
                       logout={logout}
                         status={status}
                           isUsersDataVisible={isUsersDataVisible}
-                            setUsersDataVisible={setUsersDataVisible}
+                            setIsUsersDataVisible={setIsUsersDataVisible}
+                              isTrialTrainingVisible={isTrialTrainingVisible}
+                                setIsTrialTrainingVisible={setIsTrialTrainingVisible}
           />
         <ImagesSwiper />
         {isLoginVisible && <Login
@@ -44,9 +48,10 @@ function App() {
             setIsLoggedIn={setIsLoggedIn}
              setLoginDisplay={setLoginDisplay}
              setStatus={setStatus}
+             setIsUsersDataVisible={setIsUsersDataVisible}
              />}
+        {isTrialTrainingVisible && <TrialTraining isTrialTrainingVisible={isTrialTrainingVisible} setIsTrialTrainingVisible={setIsTrialTrainingVisible}/>}
         {isCallendarVisible && <Callendar/>}
-
         {status === "admin" && isUsersDataVisible && <AdminPanel/>}
         
 

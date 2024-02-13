@@ -128,21 +128,12 @@ const AdminPanel = (props) =>{
           <Table  style={{marginBottom:"0px"}}>
               <thead>
                   <tr>
-                      <th>Id</th>
-                      <th>Imię</th>
-                      <th>Nazwisko</th>
-                      <th>id grupy</th>
-                      <th>email ucznia</th>
-                      <th>telefon ucznia</th>
-                      <th></th>
-                  </tr>
-                  <tr>
                       <th>
                         <Button onClick={reverseIdIndexes}>{filterId === "ASC"? "^": "v"}</Button>
                         </th>
-                      <th><Input type="text" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input></th>
-                      <th><Input type="text" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input></th>
-                      <th><Input type="select" onChange={(e) => setFilteredGroup(e.target.value)}>
+                      <th><Input type="text" placeholder="Imię" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input></th>
+                      <th><Input type="text" placeholder="Nazwisko" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input></th>
+                      <th><Input type="select" placeholder="id grupy" onChange={(e) => setFilteredGroup(e.target.value)}>
                         <option value={"none"}> wszystkie grupy</option>
                         {Array.from({ length: highestGroup }, (_, index) => (
                           <option key={index + 1} value={index + 1}>
@@ -150,8 +141,8 @@ const AdminPanel = (props) =>{
                           </option>
                         ))}
                         </Input></th>
-                      <th><Input type="text" value={filteredMail} onChange={(event)=>setFilteredMail(event.target.value)}></Input></th>
-                      <th><Input type="text" value={filteredNumber} onChange={(event)=>setFilteredNumber(event.target.value)}></Input></th>
+                      <th><Input type="text" placeholder="email ucznia" value={filteredMail} onChange={(event)=>setFilteredMail(event.target.value)}></Input></th>
+                      <th><Input type="text" placeholder="telefon ucznia" value={filteredNumber} onChange={(event)=>setFilteredNumber(event.target.value)}></Input></th>
                       <th></th>
                   </tr>
               </thead>

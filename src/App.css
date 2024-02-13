@@ -1,6 +1,6 @@
 .App{
     background: lightblue;
-    height: 100vh;
+    height: 100svh;
 }
 
 .notSelectable{
@@ -10,6 +10,6 @@
     width: 80vw;
     background: #FFFFFF;
     border: darkgray solid 1px;
-    box-shadow: -5px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.4);
     text-align: center;
 }

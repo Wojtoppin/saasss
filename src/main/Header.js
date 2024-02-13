@@ -30,12 +30,26 @@ const Header = (props) =>{
     const changeVisibility = (component) =>{
         if (component === "calendar"){
             props.setIsCallendarVisible(!props.isCallendarVisible)
-            props.setUsersDataVisible(false)
+            props.setIsUsersDataVisible(false)
+            props.setIsTrialTrainingVisible(false)
 
         }
         if (component === "user data"){
-            props.setUsersDataVisible(!props.isUsersDataVisible)
+            props.setIsUsersDataVisible(!props.isUsersDataVisible)
             props.setIsCallendarVisible(false)
+            props.setIsTrialTrainingVisible(false)
+
+        }
+        if (component === "trial"){
+            props.setIsTrialTrainingVisible(!props.isTrialTrainingVisible)
+            props.setIsUsersDataVisible(false)
+            props.setIsCallendarVisible(false)
+        }
+        if (component === "login"){
+            props.setIsLoginVisible(!props.isLoginVisible)
+            props.setIsUsersDataVisible(false)
+            props.setIsCallendarVisible(false)
+            props.setIsTrialTrainingVisible(false)
 
         }
     }
@@ -63,9 +77,9 @@ const Header = (props) =>{
                     <NavbarText/>
                     <NavbarText/>
                     <NavbarText/>
-                    <NavbarText/>
                     
                     <NavbarText className="notSelectable headerIcon" onClick={ () =>(changeVisibility("calendar"))}>Kalendarz</NavbarText>
+                    {props.status !== "admin" && <NavbarText className="notSelectable headerIcon" onClick={ () =>(changeVisibility("trial"))}>Próbny trening</NavbarText>}
                     
                     {props.isLoggedIn
                      && props.status === "admin"
@@ -76,7 +90,7 @@ const Header = (props) =>{
                         {props.isLoggedIn? props.loginDisplay : "Konto"}
                     </DropdownToggle>
                     <DropdownMenu>
-                        {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(props.setIsLoginVisible(!props.isLoginVisible))}>zaloguj się</DropdownItem>}
+                        {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("login"))}>zaloguj się</DropdownItem>}
                         {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
                         {props.isLoggedIn && <DropdownItemText className="notSelectable">{props.status}</DropdownItemText>}
                         {props.isLoggedIn && <DropdownItem divider />}
@@ -99,16 +113,21 @@ const Header = (props) =>{
 
                     <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
-                        <NavItem className="notSelectable" onClick={ () =>(props.setIsCallendarVisible(!props.isCallendarVisible))}>Kalendarz</NavItem>
-
-                        <NavItem className="notSelectable">Informacje o Zapłacie</NavItem>
-
+                        <NavItem className="notSelectable" onClick={ () =>(changeVisibility("calendar"))}>Kalendarz</NavItem>
+                        <NavItem/>
+                        {props.status !== "admin" && <NavItem className="notSelectable" onClick={ () =>(changeVisibility("trial"))}>Próbny trening</NavItem>}
+                        <NavItem/>
+                        {props.isLoggedIn
+                            && props.status === "admin"
+                            && <NavItem className="notSelectable" onClick={ () =>(changeVisibility("user data"))}>Dane użytkowników</NavItem>}
+                        <NavItem/>
+                        {/* <NavItem className="notSelectable">Informacje o Zapłacie</NavItem> */}
                         <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle className="notSelectable" nav caret>
                         {props.isLoggedIn? props.loginDisplay : "Konto"}
                         </DropdownToggle>
                         <DropdownMenu right>
-                            {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(props.setIsLoginVisible(!props.isLoginVisible))}>zaloguj się</DropdownItem>}
+                            {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("login"))}>zaloguj się</DropdownItem>}
                             {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
                             {props.isLoggedIn && <DropdownItem className="notSelectable">{props.status}</DropdownItem>}
                             {props.isLoggedIn && <DropdownItem divider />}

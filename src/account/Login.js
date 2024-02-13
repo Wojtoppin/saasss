@@ -27,6 +27,7 @@ const Login = (props) =>{
             props.setIsLoggedIn(true);
             props.setLoginDisplay(login);
             props.setIsLoginVisible(false);
+            props.setIsUsersDataVisible(true);
           } else {
             console.error('Request failed with status:', response.status);
             setMessage("podany login lub hasło jest nieprawidłowe")
@@ -47,14 +48,10 @@ const Login = (props) =>{
                             <th colSpan={2} style={{textAlign:"right"}}><Button style={{color:"black", background:"white"}} onClick={() =>props.setIsLoginVisible(false)}>X</Button></th>
                         </tr>
                         <tr>
-                            <th>login:</th> 
                             <th>
-                                <Input type="text" value={login} onChange={(event)=>setLogin(event.target.value)}></Input>
+                                <Input type="text" placeholder="login" value={login} onChange={(event)=>setLogin(event.target.value)}></Input>
                             </th> 
-                        </tr>
-                        <tr>
-                            <th>hasło:</th> 
-                            <th><Input type="password" value={password} onChange={(event)=>setPassword(event.target.value)}></Input></th> 
+                            <th><Input type="password" placeholder="hasło" value={password} onChange={(event)=>setPassword(event.target.value)}></Input></th> 
                         </tr>
                         <tr>
                             <th colSpan={2}>
