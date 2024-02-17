@@ -77,7 +77,7 @@ const AdminPanel = (props) =>{
 
   const sendData = async (data_urodzenia, adres, dataDołączenia, poziomUmiejetnosci, uwagi) =>{
     setFilteredData([])
-    setTextIfNoneMatches("W trakcie edytowania")
+    setTextIfNoneMatches(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div class="loader"></div></div>)
     try {
       const response = await fetch('https://zienex.pythonanywhere.com/edit_student_data', {
         method: 'PATCH',
@@ -124,12 +124,13 @@ const AdminPanel = (props) =>{
   }, [filteredName, filteredSurname, filteredMail, filteredNumber, filteredGroup]);
 
   return(
-      <Container className="d-flex justify-content-center mt-5 container1" style={{ position: 'relative', zIndex: 2, marginBottom:"2vh"}}>
+      <Container className="d-flex justify-content-center mt-5 container1" style={{ width:"80vw", position: 'relative', zIndex: 2, marginBottom:"2vh"}}>
           <Table  style={{marginBottom:"0px"}}>
               <thead>
                   <tr>
                       <th>
                         <Button onClick={reverseIdIndexes}>{filterId === "ASC"? "^": "v"}</Button>
+                        
                         </th>
                       <th><Input type="text" placeholder="Imię" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input></th>
                       <th><Input type="text" placeholder="Nazwisko" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input></th>

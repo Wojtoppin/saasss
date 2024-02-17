@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import './TrialTraining.css'
 import {Input, Button} from "reactstrap"
 import {
     Table,
@@ -7,7 +6,6 @@ import {
     
     } from "react-bootstrap";
     import 'bootstrap/dist/css/bootstrap.min.css';
-import { isClickableInput } from "@testing-library/user-event/dist/utils";
 
 const TrialTraining = (props) =>{
     
@@ -15,7 +13,6 @@ const TrialTraining = (props) =>{
     const [groupId, setGroupId] = useState("A")
     const [studentSize, setStudentSize] = useState("M")
     const [regulations, setRegulations] = useState(false)
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false)
     const [isButtonClicked,setIsButtonCliecked] = useState(false)
 
     const [formData, setFormData] = useState(
@@ -60,17 +57,17 @@ const TrialTraining = (props) =>{
 
 
 
-    // const isFormCorrect = () =>{
-    //     setIsButtonDisabled(
-    //         (formData.studentName!==0)
-    //         &&(formData.studentSurname.length!==0)
-    //         &&(formData.parentNumber.length!==0)
-    //         &&(formData.parentMail.length!==0)
-    //         &&(formData.studentAdress.length!==0)
-    //         &&(formData.postalCode.length!==0)
-    //         &&(regulations===true)?true:false
-    //         )
-    // }
+    const isFormCorrect = () =>{
+        return(
+            ((formData.studentName!==0)
+            &&(formData.studentSurname.length!==0)
+            &&(formData.parentNumber.length===11)
+            &&(formData.parentMail.length!==0)
+            &&(formData.studentAdress.length!==0)
+            &&(formData.postalCode.length===6)
+            &&(regulations===true))?true:false
+            )
+    }
     useEffect(()=>{
         // console.log({...formData, "regulations":regulations, "studentYear":studentYear,"studentSize":studentSize,"groupId":groupId})
         // isFormCorrect();
@@ -89,18 +86,18 @@ const TrialTraining = (props) =>{
                         </tr>
                     <tr>
                         
-                        <th colSpan={2}><Input type="text" style={{borderColor:(formData.studentName.length!==0 || !isButtonClicked)?"#e5e8eb":"red"}} placeholder="Imię" onChange={(e)=>updateFormData(e.target.value,"studentName")} value={formData.studentName}> </Input></th>
-                        <th colSpan={2}><Input type="text" style={{borderColor:formData.studentSurname.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Nazwisko" onChange={(e)=>updateFormData(e.target.value,"studentSurname")} value={formData.studentSurname}> </Input></th>
+                        <th colSpan={2}><Input type="text" style={{borderColor:(formData.studentName.length!==0 || !isButtonClicked)?"#e5e8eb":"red"}} placeholder="Imię" onChange={(e)=>updateFormData(e.target.value,"studentName")} value={formData.studentName}></Input></th>
+                        <th colSpan={2}><Input type="text" style={{borderColor:formData.studentSurname.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Nazwisko" onChange={(e)=>updateFormData(e.target.value,"studentSurname")} value={formData.studentSurname}></Input></th>
                     </tr>
                     <tr>
                         
-                        <th colSpan={2}><Input type="text" style={{borderColor:formData.parentNumber.length > 10 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Telefon rodzica" onChange={(e)=>updateFormData(e.target.value,"parentNumber")} value={formData.parentNumber}> </Input></th>
-                        <th colSpan={2}><Input type="text" style={{borderColor:formData.parentMail.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Email rodzica" onChange={(e)=>updateFormData(e.target.value,"parentMail")} value={formData.parentMail}> </Input></th>
+                        <th colSpan={2}><Input type="text" style={{borderColor:formData.parentNumber.length > 10 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Telefon rodzica" onChange={(e)=>updateFormData(e.target.value,"parentNumber")} value={formData.parentNumber}></Input></th>
+                        <th colSpan={2}><Input type="text" style={{borderColor:formData.parentMail.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Email rodzica" onChange={(e)=>updateFormData(e.target.value,"parentMail")} value={formData.parentMail}></Input></th>
 
                     </tr>
                     <tr>
                         <th>
-                            <label for="year" style={{ color:"#595c5f"}}>Wybierz swój rocznik</label>
+                            <label htmlFor="year" style={{ color:"#595c5f"}}>Wybierz swój rocznik</label>
                         </th>
 
                         <th width="40%">
@@ -113,7 +110,7 @@ const TrialTraining = (props) =>{
                         </th>
                         
                         <th>
-                            <label for="group" style={{ color:"#595c5f"}}>Wybierz grupę</label>
+                            <label htmlFor="group" style={{ color:"#595c5f"}}>Wybierz grupę</label>
                         </th>
 
                         <th width="40%">
@@ -127,11 +124,11 @@ const TrialTraining = (props) =>{
 
                     </tr>
                     <tr>
-                        <th colSpan={2}><Input type="text" style={{borderColor:formData.studentAdress.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Adres" onChange={(e)=>updateFormData(e.target.value,"studentAdress")} value={formData.studentAdress}> </Input></th>
-                        <th colSpan={2}><Input type="text" style={{borderColor:formData.postalCode.length > 5 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Kod pocztowy" onChange={(e)=>updateFormData(e.target.value,"postalCode")} value={formData.postalCode}> </Input></th>
+                        <th colSpan={2}><Input type="text" style={{borderColor:formData.studentAdress.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Adres" onChange={(e)=>updateFormData(e.target.value,"studentAdress")} value={formData.studentAdress}></Input></th>
+                        <th colSpan={2}><Input type="text" style={{borderColor:formData.postalCode.length > 5 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Kod pocztowy" onChange={(e)=>updateFormData(e.target.value,"postalCode")} value={formData.postalCode}></Input></th>
                     </tr>
                     <tr>
-                        <th><label for="size" style={{ color:"#595c5f"}}>Wybierz rozmiar swojej koszulki</label></th>
+                        <th><label htmlFor="size" style={{ color:"#595c5f"}}>Wybierz rozmiar swojej koszulki</label></th>
                         <th colSpan={3}>
                             <Input type="select" id="size" onChange={(e) => setStudentSize(e.target.value)} placeholder="Rozmiar koszulki" defaultValue={"M"}>
                                 <option value="XS">XS</option>
@@ -145,11 +142,11 @@ const TrialTraining = (props) =>{
                     <tr>
                         
                         <th colSpan={4}>
-                            <Input type="text" placeholder="Uwagi" onChange={(e)=>updateFormData(e.target.value,"comments")} value={formData.comments}> </Input></th>
+                            <Input type="text" placeholder="Uwagi" onChange={(e)=>updateFormData(e.target.value,"comments")} value={formData.comments}></Input></th>
                     </tr>
                     <tr>
                         <th colSpan={4}>
-                            <label style={{userSelect:"none"}} for="regulations">Akceptuję <a href="">regulamin: </a></label>
+                            <label style={{userSelect:"none"}} htmlFor="regulations">Akceptuję <a href="">regulamin: </a></label>
                             <Input style={{marginLeft:"10px",borderColor:(regulations||!isButtonClicked)?"#e5e8eb":"red"}} onChange={(e) =>setRegulations(e.target.checked)} type="checkbox" id="regulations"></Input>
                             </th>
                     </tr>
@@ -158,7 +155,7 @@ const TrialTraining = (props) =>{
                 <tfoot>
                     <tr>
                         <th colSpan={4}>
-                            <Button style={{width:"40%"}} onClick={()=>setIsButtonCliecked(true)}>Wyślij zgłoszenie na próbny trening</Button>
+                            <Button style={{width:"40%"}} onClick={()=>{setIsButtonCliecked(true)}}>Wyślij zgłoszenie na próbny trening</Button>
                         </th> 
                     </tr>
                 </tfoot>

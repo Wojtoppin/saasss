@@ -50,6 +50,7 @@ function App() {
              setStatus={setStatus}
              setIsUsersDataVisible={setIsUsersDataVisible}
              />}
+             
         {isTrialTrainingVisible && <TrialTraining isTrialTrainingVisible={isTrialTrainingVisible} setIsTrialTrainingVisible={setIsTrialTrainingVisible}/>}
         {isCallendarVisible && <Callendar/>}
         {status === "admin" && isUsersDataVisible && <AdminPanel/>}

@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from "react";
-import './Login.css'
+import React, {useState} from "react";
 import { Container, Table } from "reactstrap";
 import { Input, Button } from "reactstrap"
 
@@ -19,7 +18,7 @@ const Login = (props) =>{
             },
             body: JSON.stringify({ login: login, password: password }),
           });
-    
+          
           if (response.ok) {
             const data = await response.json();
             props.setStatus("admin");
@@ -55,7 +54,7 @@ const Login = (props) =>{
                         </tr>
                         <tr>
                             <th colSpan={2}>
-                                <Button style={{width:"40%"}} onClick={sendRequest}>zaloguj</Button>
+                                <Button style={{width:"40%"}} onClick={()=>{sendRequest(); setMessage(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div class="loader"></div></div>)}}>zaloguj</Button>
                             </th> 
                         </tr>
                     </thead>
