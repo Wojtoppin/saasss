@@ -170,7 +170,7 @@ const Callendar = (props) =>{
 
     useEffect(()=>{
         checkContainerWidth();
-    },[element])
+    },[])
 
     return(
             <Container
@@ -178,7 +178,7 @@ const Callendar = (props) =>{
               onClick={checkContainerWidth}
                onLoad={checkContainerWidth}
                  style={{ position: 'relative', zIndex: 2}}>
-                <Table className="borderedTable" bordered>
+                <Table responsive={element>=800?false:true} className="borderedTable" bordered>
                     <thead>
                         
                         <tr>

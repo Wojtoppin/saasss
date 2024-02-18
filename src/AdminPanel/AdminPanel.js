@@ -114,11 +114,13 @@ const AdminPanel = (props) =>{
   const checkContainerWidth = () =>{
     let containerWidth = document.getElementById("adminContainer").clientWidth;
     setElement(containerWidth);
+
 }
 
   useEffect(()=>{
       checkContainerWidth();
-  },[element])
+      
+  },[])
 
   useEffect(() => {
     fetchData();
@@ -129,24 +131,25 @@ const AdminPanel = (props) =>{
   }, [filteredName, filteredSurname, filteredMail, filteredNumber, filteredGroup]);
 
   return(
-      <Container onClick={checkContainerWidth} id="adminContainer" className="d-flex justify-content-center mt-5 container1" style={{position: 'relative', zIndex: 2, marginBottom:"2vh"}}>
-          <Table  style={{marginBottom:"0px"}}>
+      <Container onClick={checkContainerWidth} id="adminContainer" className=" justify-content-center mt-5 container1" style={{position: 'relative', overflowX:"scroll",  zIndex: 2,marginBottom:"2vh"}}> 
+          <Table responsive style={{marginBottom:"0px"}}>
               <thead>
                   <tr>
                       <th>
                         <Button onClick={reverseIdIndexes}>{filterId === "ASC"? "^": "v"}</Button>
                         
                       </th>
-                      <th className="field">
+                      <th className="field" style={{minWidth:"40px"}}>
                         <Input id="Imię" required autoComplete="off" type="text" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input>
                         <label htmlFor="Imię" title="Imię" style={{display:"block", overflow:"hidden"}}></label>
                       </th>
-                      <th className="field">
+                      <th className="field" style={{minWidth:"40px"}}>
                         <Input id="Nazwisko" required autoComplete="off" type="text" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input>
                         <label htmlFor="Nazwisko" title="Nazwisko" style={{display:"block", overflow:"hidden"}}></label>
                       
                       </th>
-                      <th><Input type="select" placeholder="id grupy" onChange={(e) => setFilteredGroup(e.target.value)}>
+                      <th style={{minWidth:"40px"}}>
+                        <Input type="select" placeholder="id grupy" onChange={(e) => setFilteredGroup(e.target.value)}>
                         <option value={"none"}> wszystkie grupy</option>
                         {Array.from({ length: highestGroup }, (_, index) => (
                           <option key={index + 1} value={index + 1}>
@@ -156,16 +159,14 @@ const AdminPanel = (props) =>{
                         </Input>
                       </th>
 
-                      <th className="field">
+                      <th className="field" style={{minWidth:"40px"}}>
                         <Input id="email" required autoComplete="off" type="text" value={filteredMail} onChange={(event)=>setFilteredMail(event.target.value)}></Input>
-                        <label htmlFor="email" title="email ucznia" style={{display:"block", overflow:"hidden"}}></label>                      
+                        <label htmlFor="email" title="email" style={{display:"block", overflow:"hidden"}}></label>                      
                       </th>
-                      <th className="field">
+                      <th colSpan={2} className="field" style={{minWidth:"100px"}}>
                         <Input id="telefon" required autoComplete="off" type="text" value={filteredNumber} onChange={(event)=>setFilteredNumber(event.target.value)}></Input>
-                        <label htmlFor="telefon" title="telefon ucznia" style={{display:"block", overflow:"hidden"}}></label>                      
+                        <label htmlFor="telefon" title="telefon" style={{display:"block", overflow:"hidden"}}></label>                      
                       </th>
-
-                      <th></th>
                   </tr>
               </thead>
               <tbody>
@@ -173,8 +174,8 @@ const AdminPanel = (props) =>{
                       editedId.toString() === student.id_ucznia.toString()?
                         <tr key={student.id_ucznia}>
                           <td>{student.id_ucznia}</td>
-                          <td><Input type="text" value={editedName} onChange={(e) => setEditedName(e.target.value)} className="center"></Input></td>
-                          <td><Input type="text" value={editedSurname} onChange={(e) => setEditedSurname(e.target.value)} className="center"></Input></td>
+                          <td><Input style={{minWidth:"40px"}} type="text" value={editedName} onChange={(e) => setEditedName(e.target.value)} className="center"></Input></td>
+                          <td><Input style={{minWidth:"40px"}} type="text" value={editedSurname} onChange={(e) => setEditedSurname(e.target.value)} className="center"></Input></td>
                           <td><Input type="select" defaultValue={student.id_grupy} onChange={(e) => setEditedGroup(e.target.value)}>
                           {Array.from({ length: highestGroup }, (_, index) => (
                             <option key={index + 1} value={index + 1}>
@@ -182,8 +183,8 @@ const AdminPanel = (props) =>{
                             </option>
                           ))}
                           </Input></td>
-                          <td><Input type="text" value={editedMail} onChange={(e) => setEditedMail(e.target.value)} className="center"></Input></td>
-                          <td><Input type="text" value={editedNumber} onChange={(e) => setEditedNumber(e.target.value)} className="center" maxLength={11}></Input></td>
+                          <td><Input style={{minWidth:"40px"}} type="text" value={editedMail} onChange={(e) => setEditedMail(e.target.value)} className="center"></Input></td>
+                          <td><Input style={{minWidth:"80px"}} type="text" value={editedNumber} onChange={(e) => setEditedNumber(e.target.value)} className="center" maxLength={11}></Input></td>
                           <td>
 
                             <Button id="editImageButton" onClick={()=>{setEditedId("none"); sendData(student.data_urodzenia, student.adres_ucznia, student.data_dolaczenia, student.poziom_umiejetnosci, student.uwagi)}}>
@@ -195,15 +196,15 @@ const AdminPanel = (props) =>{
                         </tr>
                         :
                         <tr key={student.id_ucznia}>
-                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.id_ucznia}</td>
-                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.imie}</td>
-                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.nazwisko}</td>
-                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.id_grupy}</td>
-                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.email}</td>
-                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.telefon}</td>
-                            <td>
+                            <td className="clamp">{student.id_ucznia}</td>
+                            <td className="clamp">{student.imie}</td>
+                            <td className="clamp">{student.nazwisko}</td>
+                            <td className="clamp">{student.id_grupy}</td>
+                            <td className="clamp">{student.email}</td>
+                            <td className="clamp">{student.telefon}</td>
+                            <td style={{padding:element>=650?"8px":"0px"}}>
                               {editedId.toString() === "none"?
-                                <Button id="editImageButton" onClick={()=>{setEditedId(student.id_ucznia);setEditedValues(student.imie, student.nazwisko, student.email, student.telefon, student.id_grupy)}}><img src={process.env.PUBLIC_URL + '/edit.png'} id="editImage" alt="edit"/></Button>
+                                <Button id="editImageButton" style={{padding:element>=650?"8px":"0px"}} onClick={()=>{setEditedId(student.id_ucznia);setEditedValues(student.imie, student.nazwisko, student.email, student.telefon, student.id_grupy)}}><img src={process.env.PUBLIC_URL + '/edit.png'} id="editImage" alt="edit"/></Button>
                                 :
                                 ""}
                             </td>
