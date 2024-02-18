@@ -65,7 +65,7 @@ const TrialTraining = (props) =>{
                 <tbody>
                     <tr>
                         <th colSpan={3} style={{textAlign:"left"}}>
-                            <h2 style={{marginLeft:"10px"}}>Zapisz się na{props.currentFormType==="trial"?" próbny trening":" trening"}</h2>
+                            <h2 style={{marginLeft:"10px"}} className="notSelectable" >Zapisz się na{props.currentFormType==="trial"?" próbny trening":" trening"}</h2>
                         </th>
                         <th colSpan={1} style={{textAlign:"right"}}>
                             <Button onClick={()=> props.setIsTrialTrainingVisible(false)} style={{color:"black", background:"white", height:"100%"}}>X</Button>
@@ -94,7 +94,7 @@ const TrialTraining = (props) =>{
                     </tr>
                     <tr>
                         <th>
-                            <label htmlFor="year" title="Email rodzica" style={{display:"block", overflow:"hidden"}}>Wybierz swój rocznik</label>
+                            <label htmlFor="year" className="notSelectable" title="Email rodzica" style={{display:"block", overflow:"hidden"}}>Wybierz swój rocznik</label>
                         </th>
                         <th width="40%" className="field">
                             <Input type="select" id="year" onChange={(e) => props.setStudentYear(e.target.value)} defaultValue={"2006"} placeholder="Rocznik">
@@ -105,7 +105,7 @@ const TrialTraining = (props) =>{
                             </Input>
                         </th>
                         <th>
-                            <label htmlFor="group" style={{ color:"#595c5f"}}>Wybierz grupę</label>
+                            <label htmlFor="group" className="notSelectable" style={{ color:"#595c5f"}}>Wybierz grupę</label>
                         </th>
                         <th width="40%">
                             <Input type="select" id="group" onChange={(e) => props.setGroupId(e.target.value)} defaultValue={"A"} placeholder="Grupa">
@@ -127,7 +127,7 @@ const TrialTraining = (props) =>{
                         </th>
                     </tr>
                     {props.currentFormType==="normal" && <tr>
-                        <th><label htmlFor="size" style={{ color:"#595c5f"}}>Wybierz rozmiar swojej koszulki</label></th>
+                        <th><label htmlFor="size" className="notSelectable" style={{ color:"#595c5f"}}>Wybierz rozmiar swojej koszulki</label></th>
                         <th colSpan={3}>
                             <Input type="select" id="size" onChange={(e) => props.setStudentSize(e.target.value)} placeholder="Rozmiar koszulki" defaultValue={"M"}>
                                 <option value="XS">XS</option>
