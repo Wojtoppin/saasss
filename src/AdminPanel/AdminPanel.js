@@ -200,7 +200,7 @@ const AdminPanel = (props) =>{
                             <td className="clamp">{student.imie}</td>
                             <td className="clamp">{student.nazwisko}</td>
                             <td className="clamp">{student.id_grupy}</td>
-                            <td className="clamp">{student.email}</td>
+                            <td className="clamp" style={{overflowWrap: "break-word"}}>{student.email}</td>
                             <td className="clamp">{student.telefon}</td>
                             <td style={{padding:element>=650?"8px":"0px"}}>
                               {editedId.toString() === "none"?

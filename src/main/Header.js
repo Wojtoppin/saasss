@@ -136,7 +136,7 @@ const Header = (props) =>{
                             </DropdownToggle>
                             <DropdownMenu end>
                                 {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("trial"))}>Próbny trening</DropdownItem>}
-                                {!props.isLoggedIn && <DropdownItem className="notSelectable">Zwykły trening</DropdownItem>}
+                                {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("normal"))}>Zwykły trening</DropdownItem>}
                             </DropdownMenu>
                         </UncontrolledDropdown>}
 
