@@ -21,6 +21,7 @@ const AdminPanel = (props) =>{
   const [editedNumber, setEditedNumber] = useState("");
   const [editedGroup, setEditedGroup] = useState("none");
   const [textIfNoneMatches, setTextIfNoneMatches] = useState("żaden uczeń nie pasuje do podanych kryterii");
+  const [element, setElement] = useState(850);
   
   
 
@@ -110,6 +111,14 @@ const AdminPanel = (props) =>{
     
 
   }
+  const checkContainerWidth = () =>{
+    let containerWidth = document.getElementById("adminContainer").clientWidth;
+    setElement(containerWidth);
+}
+
+  useEffect(()=>{
+      checkContainerWidth();
+  },[element])
 
   useEffect(() => {
     fetchData();
@@ -120,7 +129,7 @@ const AdminPanel = (props) =>{
   }, [filteredName, filteredSurname, filteredMail, filteredNumber, filteredGroup]);
 
   return(
-      <Container className="d-flex justify-content-center mt-5 container1" style={{ width:"80vw", position: 'relative', zIndex: 2, marginBottom:"2vh"}}>
+      <Container onClick={checkContainerWidth} id="adminContainer" className="d-flex justify-content-center mt-5 container1" style={{position: 'relative', zIndex: 2, marginBottom:"2vh"}}>
           <Table  style={{marginBottom:"0px"}}>
               <thead>
                   <tr>
@@ -186,12 +195,12 @@ const AdminPanel = (props) =>{
                         </tr>
                         :
                         <tr key={student.id_ucznia}>
-                            <td>{student.id_ucznia}</td>
-                            <td>{student.imie}</td>
-                            <td>{student.nazwisko}</td>
-                            <td>{student.id_grupy}</td>
-                            <td>{student.email}</td>
-                            <td>{student.telefon}</td>
+                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.id_ucznia}</td>
+                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.imie}</td>
+                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.nazwisko}</td>
+                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.id_grupy}</td>
+                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.email}</td>
+                            <td className="clamp" style={{padding:element>=650?"8px":"2px"}}>{student.telefon}</td>
                             <td>
                               {editedId.toString() === "none"?
                                 <Button id="editImageButton" onClick={()=>{setEditedId(student.id_ucznia);setEditedValues(student.imie, student.nazwisko, student.email, student.telefon, student.id_grupy)}}><img src={process.env.PUBLIC_URL + '/edit.png'} id="editImage" alt="edit"/></Button>

@@ -9,3 +9,9 @@
 .center{
     text-align: center;
 }
+.clamp{
+    font-size: clamp(4px,16px,20px);   
+}
+.adminContainer{
+    overflow-x: visible;
+}
