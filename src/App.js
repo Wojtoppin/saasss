@@ -8,13 +8,35 @@ import AdminPanel from './AdminPanel/AdminPanel';
 import TrialTraining from './account/TrialTraining';
 
 function App() {
+  
+  //visibility
   const [isCallendarVisible, setIsCallendarVisible] = useState(false)
   const [isLoginVisible, setIsLoginVisible] = useState(false)
   const [isUsersDataVisible, setIsUsersDataVisible] = useState(false)
   const [isTrialTrainingVisible, setIsTrialTrainingVisible] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [loginDisplay, setLoginDisplay] = useState("")
+  
+  //login variables
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [status, setStatus] = useState("")
+
+  //trainings
+  const [studentYear, setStudentYear] = useState("2006")
+  const [groupId, setGroupId] = useState("A")
+  const [studentSize, setStudentSize] = useState("M")
+  const [regulations, setRegulations] = useState(false)
+  const [trainingformData, setTrainingFormData] = useState(
+    { "studentName":"",
+     "studentSurname":"",
+     "parentNumber":"",
+     "parentMail":"",
+     "studentAdress":"",
+     "postalCode":"",
+     "comments":""}
+  )
+  const [currentFormType,setCurrentFormType] = useState("");
+
+
 
   const logout = () =>{
     setIsLoginVisible(false)
@@ -39,6 +61,8 @@ function App() {
                             setIsUsersDataVisible={setIsUsersDataVisible}
                               isTrialTrainingVisible={isTrialTrainingVisible}
                                 setIsTrialTrainingVisible={setIsTrialTrainingVisible}
+                                currentFormType={currentFormType}
+                                setCurrentFormType={setCurrentFormType}
           />
         <ImagesSwiper />
         {isLoginVisible && <Login
@@ -50,8 +74,31 @@ function App() {
              setStatus={setStatus}
              setIsUsersDataVisible={setIsUsersDataVisible}
              />}
-             
-        {isTrialTrainingVisible && <TrialTraining isTrialTrainingVisible={isTrialTrainingVisible} setIsTrialTrainingVisible={setIsTrialTrainingVisible}/>}
+        
+
+
+        {isTrialTrainingVisible &&
+         <TrialTraining isTrialTrainingVisible={isTrialTrainingVisible}
+          setIsTrialTrainingVisible={setIsTrialTrainingVisible}
+          trainingformData={trainingformData}
+          setTrainingFormData={setTrainingFormData}
+          studentYear={studentYear}
+          setStudentYear={setStudentYear}
+          groupId={groupId}
+          setGroupId={setGroupId}
+          studentSize={studentSize}
+          setStudentSize={setStudentSize}
+          regulations={regulations}
+          setRegulations={setRegulations}
+          currentFormType={currentFormType}
+          
+          
+          
+          
+          />
+          }
+
+
         {isCallendarVisible && <Callendar/>}
         {status === "admin" && isUsersDataVisible && <AdminPanel/>}
         

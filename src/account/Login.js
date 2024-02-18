@@ -54,7 +54,7 @@ const Login = (props) =>{
                         </tr>
                         <tr>
                             <th colSpan={2}>
-                                <Button style={{width:"40%"}} onClick={()=>{sendRequest(); setMessage(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div class="loader"></div></div>)}}>zaloguj</Button>
+                                <Button style={{width:"40%"}} onClick={()=>{sendRequest(); setMessage(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)}}>zaloguj</Button>
                             </th> 
                         </tr>
                     </thead>

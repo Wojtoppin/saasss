@@ -40,8 +40,9 @@ const Header = (props) =>{
             props.setIsTrialTrainingVisible(false)
 
         }
-        if (component === "trial"){
-            props.setIsTrialTrainingVisible(!props.isTrialTrainingVisible)
+        if (component === "trial" || component === "normal"){
+            props.setIsTrialTrainingVisible(true)
+            props.setCurrentFormType(component)
             props.setIsUsersDataVisible(false)
             props.setIsCallendarVisible(false)
         }
@@ -89,7 +90,7 @@ const Header = (props) =>{
                             </DropdownToggle>
                             <DropdownMenu>
                                 {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("trial"))}>Próbny trening</DropdownItem>}
-                                {!props.isLoggedIn && <DropdownItem className="notSelectable">Zwykły trening</DropdownItem>}
+                                {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("normal"))}>Zwykły trening</DropdownItem>}
                             </DropdownMenu>
                         </UncontrolledDropdown>}
 

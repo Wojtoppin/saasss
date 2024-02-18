@@ -77,7 +77,7 @@ const AdminPanel = (props) =>{
 
   const sendData = async (data_urodzenia, adres, dataDołączenia, poziomUmiejetnosci, uwagi) =>{
     setFilteredData([])
-    setTextIfNoneMatches(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div class="loader"></div></div>)
+    setTextIfNoneMatches(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)
     try {
       const response = await fetch('https://zienex.pythonanywhere.com/edit_student_data', {
         method: 'PATCH',
@@ -102,12 +102,8 @@ const AdminPanel = (props) =>{
       if (!response.ok) {
         throw new Error('Request failed');
       }else{
-        
         fetchData();
       }
-
-      const result = await response.json();
-      console.log('Successfully patched data:', result);
     } catch (error) {
       console.error('Error patching data:', error.message);
     }
