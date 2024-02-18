@@ -40,6 +40,7 @@ const TrialTraining = (props) =>{
             return(updatedData)
         })
     }
+    
     // const isFormCorrect = () =>{
     //     return(
     //         ((props.trainingformData.studentName!==0)
@@ -71,22 +72,31 @@ const TrialTraining = (props) =>{
                         </th>
                         </tr>
                     <tr>
-                        
-                        <th colSpan={2}><Input type="text" style={{borderColor:(props.trainingformData.studentName.length!==0 || !isButtonClicked)?"#e5e8eb":"red"}} placeholder="Imię" onChange={(e)=>updateFormData(e.target.value,"studentName")} value={props.trainingformData.studentName}></Input></th>
-                        <th colSpan={2}><Input type="text" style={{borderColor:props.trainingformData.studentSurname.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Nazwisko" onChange={(e)=>updateFormData(e.target.value,"studentSurname")} value={props.trainingformData.studentSurname}></Input></th>
+                        <th colSpan={2} className="field">
+                            <Input id="Imię" required autocomplete="off" type="text" style={{borderColor:(props.trainingformData.studentName.length!==0 || !isButtonClicked)?"#e5e8eb":"red"}} onChange={(e)=>updateFormData(e.target.value,"studentName")} value={props.trainingformData.studentName}></Input>
+                            <label htmlFor="Imię" title="Imię" style={{display:"block", overflow:"hidden"}}></label>
+                        </th>
+                        <th colSpan={2} className="field">
+                            <Input id="Nazwisko" required autocomplete="off" type="text" style={{borderColor:props.trainingformData.studentSurname.length!==0 || !isButtonClicked?"#e5e8eb":"red"}} onChange={(e)=>updateFormData(e.target.value,"studentSurname")} value={props.trainingformData.studentSurname}></Input>
+                            <label htmlFor="Nazwisko" title="Nazwisko" style={{display:"block", overflow:"hidden"}}></label>
+                        </th>
                     </tr>
-                    <tr>
-                        
-                        <th colSpan={2}><Input type="text" style={{borderColor:props.trainingformData.parentNumber.length > 10 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Telefon rodzica" onChange={(e)=>updateFormData(e.target.value,"parentNumber")} value={props.trainingformData.parentNumber}></Input></th>
-                        <th colSpan={2}><Input type="text" style={{borderColor:props.trainingformData.parentMail.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Email rodzica" onChange={(e)=>updateFormData(e.target.value,"parentMail")} value={props.trainingformData.parentMail}></Input></th>
 
+                    <tr>
+                        <th colSpan={2} className="field">
+                            <Input id="nrTelefonu" required autocomplete="off" type="text" style={{borderColor:props.trainingformData.parentNumber.length > 10 || !isButtonClicked?"#e5e8eb":"red"}}  onChange={(e)=>updateFormData(e.target.value,"parentNumber")} value={props.trainingformData.parentNumber}></Input>
+                            <label htmlFor="nrTelefonu" title="Telefon rodzica" style={{display:"block", overflow:"hidden"}}></label>
+                        </th>
+                        <th colSpan={2} className="field">
+                            <Input id="mail" required autocomplete="off" type="text" style={{borderColor:props.trainingformData.parentMail.length!==0 || !isButtonClicked?"#e5e8eb":"red"}} onChange={(e)=>updateFormData(e.target.value,"parentMail")} value={props.trainingformData.parentMail}></Input>
+                            <label htmlFor="mail" title="Email rodzica" style={{display:"block", overflow:"hidden"}}></label>
+                        </th>
                     </tr>
                     <tr>
                         <th>
-                            <label htmlFor="year" style={{ color:"#595c5f"}}>Wybierz swój rocznik</label>
+                            <label htmlFor="year" title="Email rodzica" style={{display:"block", overflow:"hidden"}}>Wybierz swój rocznik</label>
                         </th>
-
-                        <th width="40%">
+                        <th width="40%" className="field">
                             <Input type="select" id="year" onChange={(e) => props.setStudentYear(e.target.value)} defaultValue={"2006"} placeholder="Rocznik">
                                 <option value={"2006"}>2006</option>
                                 <option value={"2007"}>2007</option>
@@ -94,11 +104,9 @@ const TrialTraining = (props) =>{
                                 <option value={"2009"}>2009</option>
                             </Input>
                         </th>
-                        
                         <th>
                             <label htmlFor="group" style={{ color:"#595c5f"}}>Wybierz grupę</label>
                         </th>
-
                         <th width="40%">
                             <Input type="select" id="group" onChange={(e) => props.setGroupId(e.target.value)} defaultValue={"A"} placeholder="Grupa">
                                 <option value={"A"}>A</option>
@@ -107,11 +115,16 @@ const TrialTraining = (props) =>{
                                 <option value={"D"}>D</option>
                             </Input>
                         </th>
-
                     </tr>
                     <tr>
-                        <th colSpan={2}><Input type="text" style={{borderColor:props.trainingformData.studentAdress.length!==0 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Adres" onChange={(e)=>updateFormData(e.target.value,"studentAdress")} value={props.trainingformData.studentAdress}></Input></th>
-                        <th colSpan={2}><Input type="text" style={{borderColor:props.trainingformData.postalCode.length > 5 || !isButtonClicked?"#e5e8eb":"red"}}  placeholder="Kod pocztowy" onChange={(e)=>updateFormData(e.target.value,"postalCode")} value={props.trainingformData.postalCode}></Input></th>
+                        <th colSpan={2} className="field">
+                            <Input id="Adres" required autocomplete="off" type="text" style={{borderColor:props.trainingformData.studentAdress.length!==0 || !isButtonClicked?"#e5e8eb":"red"}} onChange={(e)=>updateFormData(e.target.value,"studentAdress")} value={props.trainingformData.studentAdress}></Input>
+                            <label htmlFor="Adres" title="Adres"  style={{display:"block", overflow:"hidden"}}></label>
+                        </th>
+                        <th colSpan={2} className="field">
+                            <Input id="postalCode" required autocomplete="off" type="text" style={{borderColor:props.trainingformData.postalCode.length > 5 || !isButtonClicked?"#e5e8eb":"red"}} onChange={(e)=>updateFormData(e.target.value,"postalCode")} value={props.trainingformData.postalCode}></Input>
+                            <label htmlFor="postalCode" title="Kod pocztowy"  style={{display:"block", overflow:"hidden"}}></label>
+                        </th>
                     </tr>
                     {props.currentFormType==="normal" && <tr>
                         <th><label htmlFor="size" style={{ color:"#595c5f"}}>Wybierz rozmiar swojej koszulki</label></th>
@@ -126,9 +139,10 @@ const TrialTraining = (props) =>{
                         </th>
                     </tr>}
                     <tr>
-                        
-                        <th colSpan={4}>
-                            <Input type="text" placeholder="Uwagi" onChange={(e)=>updateFormData(e.target.value,"comments")} value={props.trainingformData.comments}></Input></th>
+                        <th colSpan={4} className="field">
+                            <Input id="Uwagi" required autocomplete="off" type="text" onChange={(e)=>updateFormData(e.target.value,"comments")} value={props.trainingformData.comments}></Input>
+                            <label htmlFor="Uwagi" title="Uwagi" style={{display:"block", overflow:"hidden"}}></label>
+                        </th>
                     </tr>
                     <tr>
                         <th colSpan={4}>

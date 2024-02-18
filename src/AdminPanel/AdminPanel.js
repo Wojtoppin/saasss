@@ -127,9 +127,16 @@ const AdminPanel = (props) =>{
                       <th>
                         <Button onClick={reverseIdIndexes}>{filterId === "ASC"? "^": "v"}</Button>
                         
-                        </th>
-                      <th><Input type="text" placeholder="Imię" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input></th>
-                      <th><Input type="text" placeholder="Nazwisko" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input></th>
+                      </th>
+                      <th className="field">
+                        <Input id="Imię" required autoComplete="off" type="text" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input>
+                        <label htmlFor="Imię" title="Imię" style={{display:"block", overflow:"hidden"}}></label>
+                      </th>
+                      <th className="field">
+                        <Input id="Nazwisko" required autoComplete="off" type="text" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input>
+                        <label htmlFor="Nazwisko" title="Nazwisko" style={{display:"block", overflow:"hidden"}}></label>
+                      
+                      </th>
                       <th><Input type="select" placeholder="id grupy" onChange={(e) => setFilteredGroup(e.target.value)}>
                         <option value={"none"}> wszystkie grupy</option>
                         {Array.from({ length: highestGroup }, (_, index) => (
@@ -137,9 +144,18 @@ const AdminPanel = (props) =>{
                             grupa {index + 1}
                           </option>
                         ))}
-                        </Input></th>
-                      <th><Input type="text" placeholder="email ucznia" value={filteredMail} onChange={(event)=>setFilteredMail(event.target.value)}></Input></th>
-                      <th><Input type="text" placeholder="telefon ucznia" value={filteredNumber} onChange={(event)=>setFilteredNumber(event.target.value)}></Input></th>
+                        </Input>
+                      </th>
+
+                      <th className="field">
+                        <Input id="email" required autoComplete="off" type="text" value={filteredMail} onChange={(event)=>setFilteredMail(event.target.value)}></Input>
+                        <label htmlFor="email" title="email ucznia" style={{display:"block", overflow:"hidden"}}></label>                      
+                      </th>
+                      <th className="field">
+                        <Input id="telefon" required autoComplete="off" type="text" value={filteredNumber} onChange={(event)=>setFilteredNumber(event.target.value)}></Input>
+                        <label htmlFor="telefon" title="telefon ucznia" style={{display:"block", overflow:"hidden"}}></label>                      
+                      </th>
+
                       <th></th>
                   </tr>
               </thead>

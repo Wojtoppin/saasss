@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './App.css';
+import './App.scss';
 import Callendar from './main/Callendar';
 import Header from './main/Header';
 import ImagesSwiper from './main/ImagesSwiper';

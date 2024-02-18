@@ -66,7 +66,7 @@ const Header = (props) =>{
             
                 {element>600?
                 <Navbar color="faded" light>
-                    <NavbarBrand>
+                    <NavbarBrand href="https://wojtoppin.github.io/saasss">
                         <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage" alt="piłka"/> 
                         Szkółki Sportowe 
                     </NavbarBrand>

@@ -31,3 +31,38 @@
     75%  {background-size:16px 50% ,16px 50% ,16px 100%}
     100% {background-size:16px 50% ,16px 50% ,16px 50%}
   }
+
+  .label-before {
+    line-height: 20px;
+    font-size: 12px;
+    top: -10px;
+    background: #fff;
+    left: 9px;
+    display: block;
+  }
+
+
+  .field {
+	position: relative;
+	label::before {
+		content: attr(title);
+		position: absolute;
+		top: 0;
+		left: 15px;
+		line-height: 40px;
+		font-size: 14px;
+		color: #777;
+		transition: 300ms all;
+	}
+	input {
+		&:valid + label::before {
+			@extend .label-before;
+			content: attr(title);
+
+		}
+		&:focus + label::before {
+			@extend .label-before;
+			color: blue;
+		} 
+	}
+}

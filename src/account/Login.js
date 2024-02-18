@@ -47,10 +47,14 @@ const Login = (props) =>{
                             <th colSpan={2} style={{textAlign:"right"}}><Button style={{color:"black", background:"white"}} onClick={() =>props.setIsLoginVisible(false)}>X</Button></th>
                         </tr>
                         <tr>
-                            <th>
-                                <Input type="text" placeholder="login" value={login} onChange={(event)=>setLogin(event.target.value)}></Input>
+                            <th className="field">
+                                <Input id="login" required autocomplete="off" type="text" value={login} onChange={(event)=>setLogin(event.target.value)}></Input>
+                                <label htmlFor="login" title="login" style={{display:"block", overflow:"hidden"}}></label>
                             </th> 
-                            <th><Input type="password" placeholder="hasło" value={password} onChange={(event)=>setPassword(event.target.value)}></Input></th> 
+                            <th className="field">
+                              <Input id="password" type="password" value={password} onChange={(event)=>setPassword(event.target.value)}></Input>
+                              <label htmlFor="password" title="hasło" style={{display:"block", overflow:"hidden"}}></label>                              
+                            </th> 
                         </tr>
                         <tr>
                             <th colSpan={2}>
