@@ -5,7 +5,7 @@ import './AdminPanel.css'
 const AdminPanel = (props) =>{
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [highestGroup, setHighestGroup] = useState(0);
+  const [headers, setHeaders] = useState([]);
 
   const [filteredName, setFilteredName] = useState("");
   const [filteredSurname, setFilteredSurname] = useState("");
@@ -23,27 +23,35 @@ const AdminPanel = (props) =>{
   const [textIfNoneMatches, setTextIfNoneMatches] = useState("żaden uczeń nie pasuje do podanych kryterii");
   const [element, setElement] = useState(850);
   
+  const [isHeadRendered,setIsHeadRendered] = useState(false);
   
 
-  const getGroups = (functionData) =>{
-    let tmpHighestGroup = 0;
-    functionData.map((element)=>
-      {if(element.id_grupy > tmpHighestGroup){
-        tmpHighestGroup = element.id_grupy
-      }}
-    )
-    setHighestGroup(tmpHighestGroup);
+  const getGroups = async (functionData) =>{
+    try {
+      const response = await fetch('https://zienex.pythonanywhere.com/spreadsheet_col_names');
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setHeaders(responseData)
+        console.log(responseData)
+      } else {
+        console.error('Failed to fetch data. Status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error during fetch:', error);
+    }
   }
+
   const fetchData = async () => {
       try {
         const response = await fetch('https://zienex.pythonanywhere.com/students_data');
 
         if (response.ok) {
           const responseData = await response.json();
+          console.log(responseData)
           setData(responseData);
-          setFilteredData(responseData);
-          getGroups(responseData);
-          setTextIfNoneMatches("żaden uczeń nie pasuje do podanych kryterii")
+          // setFilteredData(responseData);
+          // setTextIfNoneMatches("żaden uczeń nie pasuje do podanych kryterii")
         } else {
           console.error('Failed to fetch data. Status:', response.status);
         }
@@ -52,16 +60,16 @@ const AdminPanel = (props) =>{
       }
     };
 
-  const filterStudents = () =>{
-    let new_students_displayed = data.filter((student) =>(
-      (filteredGroup === "none" ? true : student.id_grupy.toString() === filteredGroup.toString())
-        && student.imie.toLowerCase().includes(filteredName.toLowerCase())
-          && student.nazwisko.toLowerCase().includes(filteredSurname.toLowerCase())
-            && student.email.toLowerCase().includes(filteredMail.toLowerCase())
-              && student.telefon.toLowerCase().includes(filteredNumber.toLowerCase())
-    ))
-    setFilteredData(new_students_displayed)
-  }
+  // const filterStudents = () =>{
+  //   let new_students_displayed = data.filter((student) =>(
+  //     (filteredGroup === "none" ? true : student.id_grupy.toString() === filteredGroup.toString())
+  //       && student.imie.toLowerCase().includes(filteredName.toLowerCase())
+  //         && student.nazwisko.toLowerCase().includes(filteredSurname.toLowerCase())
+  //           && student.email.toLowerCase().includes(filteredMail.toLowerCase())
+  //             && student.telefon.toLowerCase().includes(filteredNumber.toLowerCase())
+  //   ))
+  //   setFilteredData(new_students_displayed)
+  // }
 
   const reverseIdIndexes = () =>{
     setFilteredData(filteredData.reverse())
@@ -103,7 +111,7 @@ const AdminPanel = (props) =>{
       if (!response.ok) {
         throw new Error('Request failed');
       }else{
-        fetchData();
+        // fetchData();
       }
     } catch (error) {
       console.error('Error patching data:', error.message);
@@ -111,31 +119,49 @@ const AdminPanel = (props) =>{
     
 
   }
+
   const checkContainerWidth = () =>{
     let containerWidth = document.getElementById("adminContainer").clientWidth;
     setElement(containerWidth);
 
-}
+  }
 
-  useEffect(()=>{
-      checkContainerWidth();
-      
-  },[])
+  const renderHead = () => {
+    return Object.keys(headers).map((element) => {
+      return <th>{element}</th>;
+    });
+  };
+
+  const renderBody = () => {
+    return data.map((student, index) => {
+      return (
+        <tr key={index}>
+          {Object.keys(headers).map((header, headerIndex) => {
+            return <td key={headerIndex}>{student[header]}</td>;
+          })}
+        </tr>
+      );
+    });
+  }
 
   useEffect(() => {
+    checkContainerWidth();
+    getGroups();
     fetchData();
   }, []);
   
-  useEffect(() => {
-    filterStudents();
-  }, [filteredName, filteredSurname, filteredMail, filteredNumber, filteredGroup]);
+  // useEffect(() => {
+  //   filterStudents();
+  // }, [filteredName, filteredSurname, filteredMail, filteredNumber, filteredGroup]);
 
   return(
       <Container onClick={checkContainerWidth} id="adminContainer" className=" justify-content-center mt-5 container1" style={{position: 'relative', overflowX:"scroll",  zIndex: 2,marginBottom:"2vh"}}> 
           <Table responsive style={{marginBottom:"0px"}}>
               <thead>
                   <tr>
-                      <th>
+                      {renderHead()}
+
+                      {/* <th>
                         <Button onClick={reverseIdIndexes}>{filterId === "ASC"? "^": "v"}</Button>
                         
                       </th>
@@ -166,11 +192,12 @@ const AdminPanel = (props) =>{
                       <th colSpan={2} className="field" style={{minWidth:"100px"}}>
                         <Input id="telefon" required autoComplete="off" type="text" value={filteredNumber} onChange={(event)=>setFilteredNumber(event.target.value)}></Input>
                         <label htmlFor="telefon" title="telefon" style={{display:"block", overflow:"hidden"}}></label>                      
-                      </th>
+                      </th> */}
                   </tr>
               </thead>
               <tbody>
-                  {Array.isArray(filteredData) && filteredData.length !== 0? filteredData.map((student)=>(
+                  {renderBody()}
+                  {/* {Array.isArray(filteredData) && filteredData.length !== 0? filteredData.map((student)=>(
                       editedId.toString() === student.id_ucznia.toString()?
                         <tr key={student.id_ucznia}>
                           <td>{student.id_ucznia}</td>
@@ -215,7 +242,7 @@ const AdminPanel = (props) =>{
                       <tr>
                           <td colSpan={6}>{textIfNoneMatches}</td>
                       </tr>
-                }
+                } */}
               </tbody>
           </Table>
       </Container>

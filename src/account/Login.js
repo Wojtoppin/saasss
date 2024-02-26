@@ -10,32 +10,40 @@ const Login = (props) =>{
     const [message, setMessage] = useState("")
 
     const sendRequest = async () => {
-        try {
-          const response = await fetch('https://zienex.pythonanywhere.com/login_user', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ login: login, password: password }),
-          });
+        // try {
+        //   const response = await fetch('https://zienex.pythonanywhere.com/login_user', {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({ login: login, password: password }),
+        //   });
           
-          if (response.ok) {
-            const data = await response.json();
-            props.setStatus("admin");
-            // props.setStatus(data["user_status"]);
-            props.setIsLoggedIn(true);
-            props.setLoginDisplay(login);
-            props.setIsLoginVisible(false);
-            props.setIsUsersDataVisible(true);
-          } else {
-            console.error('Request failed with status:', response.status);
-            setMessage("podany login lub hasło jest nieprawidłowe")
+        //   if (response.ok) {
+        //     const data = await response.json();
+        //     props.setStatus("admin");
+        //     // props.setStatus(data["user_status"]);
+        //     props.setIsLoggedIn(true);
+        //     props.setLoginDisplay(login);
+        //     props.setIsLoginVisible(false);
+        //     props.setIsUsersDataVisible(true);
+        //   } else {
+        //     console.error('Request failed with status:', response.status);
+        //     setMessage("podany login lub hasło jest nieprawidłowe")
 
-          }
-        } catch (error) {
-          console.error('Error during request:', error);
-          setMessage("podany login lub hasło jest nieprawidłowe")
-        }
+        //   }
+        // } catch (error) {
+        //   console.error('Error during request:', error);
+        //   setMessage("podany login lub hasło jest nieprawidłowe")
+        // }
+        props.setStatus("admin");
+        props.setIsLoggedIn(true);
+        props.setLoginDisplay(login);
+        props.setIsLoginVisible(false);
+        props.setIsUsersDataVisible(true);
+
+
+
       }
 
     return (
