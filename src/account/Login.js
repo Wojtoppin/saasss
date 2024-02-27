@@ -5,37 +5,9 @@ import { Input, Button } from "reactstrap"
 const Login = (props) =>{
     const [login, setLogin] = useState("user1@example.com")
     const [password, setPassword] = useState("password1")
-    // const [login, setLogin] = useState("")
-    // const [password, setPassword] = useState("")
     const [message, setMessage] = useState("")
 
     const sendRequest = async () => {
-        // try {
-        //   const response = await fetch('https://zienex.pythonanywhere.com/login_user', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ login: login, password: password }),
-        //   });
-          
-        //   if (response.ok) {
-        //     const data = await response.json();
-        //     props.setStatus("admin");
-        //     // props.setStatus(data["user_status"]);
-        //     props.setIsLoggedIn(true);
-        //     props.setLoginDisplay(login);
-        //     props.setIsLoginVisible(false);
-        //     props.setIsUsersDataVisible(true);
-        //   } else {
-        //     console.error('Request failed with status:', response.status);
-        //     setMessage("podany login lub hasło jest nieprawidłowe")
-
-        //   }
-        // } catch (error) {
-        //   console.error('Error during request:', error);
-        //   setMessage("podany login lub hasło jest nieprawidłowe")
-        // }
         props.setStatus("admin");
         props.setIsLoggedIn(true);
         props.setLoginDisplay(login);
@@ -56,7 +28,7 @@ const Login = (props) =>{
                         </tr>
                         <tr>
                             <th className="field">
-                                <Input id="login" required autocomplete="off" type="text" value={login} onChange={(event)=>setLogin(event.target.value)}></Input>
+                                <Input id="login" required autoComplete="off" type="text" value={login} onChange={(event)=>setLogin(event.target.value)}></Input>
                                 <label htmlFor="login" title="login" style={{display:"block", overflow:"hidden"}}></label>
                             </th> 
                             <th className="field">

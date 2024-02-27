@@ -5,7 +5,6 @@ import './AdminPanel.css'
 const AdminPanel = (props) =>{
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [headers, setHeaders] = useState([]);
 
   const [filteredName, setFilteredName] = useState("");
   const [filteredSurname, setFilteredSurname] = useState("");
@@ -26,21 +25,7 @@ const AdminPanel = (props) =>{
   const [isHeadRendered,setIsHeadRendered] = useState(false);
   
 
-  const getGroups = async (functionData) =>{
-    try {
-      const response = await fetch('https://zienex.pythonanywhere.com/spreadsheet_col_names');
-
-      if (response.ok) {
-        const responseData = await response.json();
-        setHeaders(responseData)
-        console.log(responseData)
-      } else {
-        console.error('Failed to fetch data. Status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error during fetch:', error);
-    }
-  }
+  
 
   const fetchData = async () => {
       try {
@@ -59,17 +44,6 @@ const AdminPanel = (props) =>{
         console.error('Error during fetch:', error);
       }
     };
-
-  // const filterStudents = () =>{
-  //   let new_students_displayed = data.filter((student) =>(
-  //     (filteredGroup === "none" ? true : student.id_grupy.toString() === filteredGroup.toString())
-  //       && student.imie.toLowerCase().includes(filteredName.toLowerCase())
-  //         && student.nazwisko.toLowerCase().includes(filteredSurname.toLowerCase())
-  //           && student.email.toLowerCase().includes(filteredMail.toLowerCase())
-  //             && student.telefon.toLowerCase().includes(filteredNumber.toLowerCase())
-  //   ))
-  //   setFilteredData(new_students_displayed)
-  // }
 
   const reverseIdIndexes = () =>{
     setFilteredData(filteredData.reverse())
@@ -127,8 +101,8 @@ const AdminPanel = (props) =>{
   }
 
   const renderHead = () => {
-    return Object.keys(headers).map((element) => {
-      return <th>{element}</th>;
+    return Object.keys(props.headers).map((element,index) => {
+      return <th key={index + "header element"}>{element}</th>;
     });
   };
 
@@ -136,7 +110,7 @@ const AdminPanel = (props) =>{
     return data.map((student, index) => {
       return (
         <tr key={index}>
-          {Object.keys(headers).map((header, headerIndex) => {
+          {Object.keys(props.headers).map((header, headerIndex) => {
             return <td key={headerIndex}>{student[header]}</td>;
           })}
         </tr>
@@ -146,103 +120,21 @@ const AdminPanel = (props) =>{
 
   useEffect(() => {
     checkContainerWidth();
-    getGroups();
     fetchData();
   }, []);
   
-  // useEffect(() => {
-  //   filterStudents();
-  // }, [filteredName, filteredSurname, filteredMail, filteredNumber, filteredGroup]);
-
+ 
   return(
       <Container onClick={checkContainerWidth} id="adminContainer" className=" justify-content-center mt-5 container1" style={{position: 'relative', overflowX:"scroll",  zIndex: 2,marginBottom:"2vh"}}> 
           <Table responsive style={{marginBottom:"0px"}}>
               <thead>
                   <tr>
                       {renderHead()}
-
-                      {/* <th>
-                        <Button onClick={reverseIdIndexes}>{filterId === "ASC"? "^": "v"}</Button>
-                        
-                      </th>
-                      <th className="field" style={{minWidth:"40px"}}>
-                        <Input id="Imię" required autoComplete="off" type="text" value={filteredName} onChange={(event)=>setFilteredName(event.target.value)}></Input>
-                        <label htmlFor="Imię" title="Imię" style={{display:"block", overflow:"hidden"}}></label>
-                      </th>
-                      <th className="field" style={{minWidth:"40px"}}>
-                        <Input id="Nazwisko" required autoComplete="off" type="text" value={filteredSurname} onChange={(event)=>setFilteredSurname(event.target.value)}></Input>
-                        <label htmlFor="Nazwisko" title="Nazwisko" style={{display:"block", overflow:"hidden"}}></label>
-                      
-                      </th>
-                      <th style={{minWidth:"40px"}}>
-                        <Input type="select" placeholder="id grupy" onChange={(e) => setFilteredGroup(e.target.value)}>
-                        <option value={"none"}> wszystkie grupy</option>
-                        {Array.from({ length: highestGroup }, (_, index) => (
-                          <option key={index + 1} value={index + 1}>
-                            grupa {index + 1}
-                          </option>
-                        ))}
-                        </Input>
-                      </th>
-
-                      <th className="field" style={{minWidth:"40px"}}>
-                        <Input id="email" required autoComplete="off" type="text" value={filteredMail} onChange={(event)=>setFilteredMail(event.target.value)}></Input>
-                        <label htmlFor="email" title="email" style={{display:"block", overflow:"hidden"}}></label>                      
-                      </th>
-                      <th colSpan={2} className="field" style={{minWidth:"100px"}}>
-                        <Input id="telefon" required autoComplete="off" type="text" value={filteredNumber} onChange={(event)=>setFilteredNumber(event.target.value)}></Input>
-                        <label htmlFor="telefon" title="telefon" style={{display:"block", overflow:"hidden"}}></label>                      
-                      </th> */}
                   </tr>
               </thead>
               <tbody>
                   {renderBody()}
-                  {/* {Array.isArray(filteredData) && filteredData.length !== 0? filteredData.map((student)=>(
-                      editedId.toString() === student.id_ucznia.toString()?
-                        <tr key={student.id_ucznia}>
-                          <td>{student.id_ucznia}</td>
-                          <td><Input style={{minWidth:"40px"}} type="text" value={editedName} onChange={(e) => setEditedName(e.target.value)} className="center"></Input></td>
-                          <td><Input style={{minWidth:"40px"}} type="text" value={editedSurname} onChange={(e) => setEditedSurname(e.target.value)} className="center"></Input></td>
-                          <td><Input type="select" defaultValue={student.id_grupy} onChange={(e) => setEditedGroup(e.target.value)}>
-                          {Array.from({ length: highestGroup }, (_, index) => (
-                            <option key={index + 1} value={index + 1}>
-                              grupa {index + 1}
-                            </option>
-                          ))}
-                          </Input></td>
-                          <td><Input style={{minWidth:"40px"}} type="text" value={editedMail} onChange={(e) => setEditedMail(e.target.value)} className="center"></Input></td>
-                          <td><Input style={{minWidth:"80px"}} type="text" value={editedNumber} onChange={(e) => setEditedNumber(e.target.value)} className="center" maxLength={11}></Input></td>
-                          <td>
-
-                            <Button id="editImageButton" onClick={()=>{setEditedId("none"); sendData(student.data_urodzenia, student.adres_ucznia, student.data_dolaczenia, student.poziom_umiejetnosci, student.uwagi)}}>
-                              <img src={process.env.PUBLIC_URL + '/done.png'} id="editImage" alt="done"/>
-                            </Button>{" "}
-
-                            <Button id="editImageButton" onClick={()=>setEditedId("none")}><img src={process.env.PUBLIC_URL + '/cancel.png'} id="editImage" alt="cancel"/></Button>
-                          </td>
-                        </tr>
-                        :
-                        <tr key={student.id_ucznia}>
-                            <td className="clamp">{student.id_ucznia}</td>
-                            <td className="clamp">{student.imie}</td>
-                            <td className="clamp">{student.nazwisko}</td>
-                            <td className="clamp">{student.id_grupy}</td>
-                            <td className="clamp" style={{overflowWrap: "break-word"}}>{student.email}</td>
-                            <td className="clamp">{student.telefon}</td>
-                            <td style={{padding:element>=650?"8px":"0px"}}>
-                              {editedId.toString() === "none"?
-                                <Button id="editImageButton" style={{padding:element>=650?"8px":"0px"}} onClick={()=>{setEditedId(student.id_ucznia);setEditedValues(student.imie, student.nazwisko, student.email, student.telefon, student.id_grupy)}}><img src={process.env.PUBLIC_URL + '/edit.png'} id="editImage" alt="edit"/></Button>
-                                :
-                                ""}
-                            </td>
-                        </tr>
-                    
-                  )):
-                    
-                      <tr>
-                          <td colSpan={6}>{textIfNoneMatches}</td>
-                      </tr>
-                } */}
+                  
               </tbody>
           </Table>
       </Container>

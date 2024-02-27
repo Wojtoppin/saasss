@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss';
 import Callendar from './main/Callendar';
 import Header from './main/Header';
@@ -22,21 +22,19 @@ function App() {
 
   //trainings
   const [studentYear, setStudentYear] = useState("2006")
-  const [groupId, setGroupId] = useState("A")
+  const [groupId, setGroupId] = useState(1)
   const [studentSize, setStudentSize] = useState("M")
   const [regulations, setRegulations] = useState(false)
   const [trainingformData, setTrainingFormData] = useState(
-    { "studentName":"",
-     "studentSurname":"",
-     "parentNumber":"",
-     "parentMail":"",
-     "studentAdress":"",
-     "postalCode":"",
-     "comments":""}
+    { "Name":"",
+     "Surname":"",
+     "Phone":"",
+     "Mail":"",
+     "Adress":"",
+     "PostalCode":"",
+     "Comments":""}
   )
   const [currentFormType,setCurrentFormType] = useState("");
-
-
 
   const logout = () =>{
     setIsLoginVisible(false)
@@ -44,6 +42,31 @@ function App() {
     setLoginDisplay("")
     setStatus("")
   }
+
+
+  // AdminPanel && TrialTraining
+  const [headers, setHeaders] = useState([]);
+
+  const getGroups = async () =>{
+    try {
+      const response = await fetch('https://zienex.pythonanywhere.com/spreadsheet_col_names');
+
+      if (response.ok) {
+        const responseData = await response.json();
+        setHeaders(responseData)
+        console.log(responseData)
+      } else {
+        console.error('Failed to fetch data. Status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error during fetch:', error);
+    }
+  }
+
+  useEffect(()=>{
+    getGroups();
+  },[])
+
 
 
   return (
@@ -91,7 +114,7 @@ function App() {
           regulations={regulations}
           setRegulations={setRegulations}
           currentFormType={currentFormType}
-          
+          headers={headers}
           
           
           
@@ -100,7 +123,7 @@ function App() {
 
 
         {isCallendarVisible && <Callendar/>}
-        {status === "admin" && isUsersDataVisible && <AdminPanel/>}
+        {status === "admin" && isUsersDataVisible && <AdminPanel headers={headers}/>}
         
 
         
