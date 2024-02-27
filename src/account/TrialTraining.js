@@ -184,7 +184,7 @@ const TrialTraining = (props) =>{
                     <tr>
                         <th colSpan={4}>
                             <label style={{userSelect:"none"}} htmlFor="regulations">Akceptuję <a href="">regulamin: </a></label>
-                            <Input style={{marginLeft:"10px",borderColor:(props.regulations||!isButtonClicked)?"#e5e8eb":"red"}} value={props.regulations} onChange={(e) =>props.setRegulations(e.target.checked)} type="checkbox" id="regulations"></Input>
+                            <Input style={{marginLeft:"10px",borderColor:(props.regulations||!isButtonClicked)?"#e5e8eb":"red"}} checked={props.regulations} onChange={(e) =>props.setRegulations(e.target.checked)} type="checkbox" id="regulations"></Input>
                             </th>
                     </tr>
 
