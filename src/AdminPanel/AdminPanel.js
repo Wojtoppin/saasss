@@ -33,7 +33,6 @@ const AdminPanel = (props) =>{
 
         if (response.ok) {
           const responseData = await response.json();
-          console.log(responseData)
           setData(responseData);
           // setFilteredData(responseData);
           // setTextIfNoneMatches("żaden uczeń nie pasuje do podanych kryterii")

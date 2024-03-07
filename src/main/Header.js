@@ -32,26 +32,29 @@ const Header = (props) =>{
             props.setIsCallendarVisible(!props.isCallendarVisible)
             props.setIsUsersDataVisible(false)
             props.setIsTrialTrainingVisible(false)
+            props.setIsLoginVisible(false)
+            props.setIsAttendanceListVisible(false)
 
         }
         if (component === "user data"){
             props.setIsUsersDataVisible(!props.isUsersDataVisible)
             props.setIsCallendarVisible(false)
-            props.setIsTrialTrainingVisible(false)
-
+            props.setIsAttendanceListVisible(false)
         }
         if (component === "trial" || component === "normal"){
             props.setIsTrialTrainingVisible(true)
             props.setCurrentFormType(component)
-            props.setIsUsersDataVisible(false)
             props.setIsCallendarVisible(false)
         }
         if (component === "login"){
             props.setIsLoginVisible(!props.isLoginVisible)
-            props.setIsUsersDataVisible(false)
             props.setIsCallendarVisible(false)
             props.setIsTrialTrainingVisible(false)
-
+        }
+        if(component==="attendace"){
+            props.setIsUsersDataVisible(false)
+            props.setIsCallendarVisible(false)
+            props.setIsAttendanceListVisible(!props.isAttendanceListVisible)
         }
     }
 
@@ -97,7 +100,13 @@ const Header = (props) =>{
                     {props.isLoggedIn
                      && props.status === "admin"
                       && <NavbarText className="notSelectable headerIcon" onClick={ () =>(changeVisibility("user data"))}>Dane użytkowników</NavbarText>}
-                    {/* {props.isLoggedIn && props.status === "rodzic" && <NavbarText className="notSelectable headerIcon">Informacje o Zapłacie</NavbarText>} */}
+                    
+                    {props.isLoggedIn
+                     && props.status === "admin"
+                      && <NavbarText className="notSelectable headerIcon" onClick={ () =>(changeVisibility("attendace"))}>Lista obecności</NavbarText>}
+
+                    
+                    
                     <UncontrolledDropdown inNavbar>
                     <DropdownToggle className="notSelectable" nav caret>
                         {props.isLoggedIn? props.loginDisplay : "Konto"}
@@ -145,6 +154,11 @@ const Header = (props) =>{
                         {props.isLoggedIn
                             && props.status === "admin"
                             && <NavItem className="notSelectable" onClick={ () =>(changeVisibility("user data"))}>Dane użytkowników</NavItem>}
+                        
+                        {props.isLoggedIn
+                            && props.status === "admin"
+                            && <NavItem className="notSelectable headerIcon" onClick={ () =>(changeVisibility("attendace"))}>Lista obecności</NavItem>}
+                        
                         <NavItem/>
                         <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle className="notSelectable" nav caret>

@@ -6,6 +6,7 @@ import ImagesSwiper from './main/ImagesSwiper';
 import Login from './account/Login';
 import AdminPanel from './AdminPanel/AdminPanel';
 import TrialTraining from './account/TrialTraining';
+import AttendaceList from './AdminPanel/AttendanceList';
 
 function App() {
   
@@ -14,6 +15,7 @@ function App() {
   const [isLoginVisible, setIsLoginVisible] = useState(false)
   const [isUsersDataVisible, setIsUsersDataVisible] = useState(false)
   const [isTrialTrainingVisible, setIsTrialTrainingVisible] = useState(false)
+  const [isAttendanceListVisible, setIsAttendanceListVisible] = useState(false)
   const [loginDisplay, setLoginDisplay] = useState("")
   
   //login variables
@@ -54,7 +56,6 @@ function App() {
       if (response.ok) {
         const responseData = await response.json();
         setHeaders(responseData)
-        console.log(responseData)
       } else {
         console.error('Failed to fetch data. Status:', response.status);
       }
@@ -84,8 +85,10 @@ function App() {
                             setIsUsersDataVisible={setIsUsersDataVisible}
                               isTrialTrainingVisible={isTrialTrainingVisible}
                                 setIsTrialTrainingVisible={setIsTrialTrainingVisible}
-                                currentFormType={currentFormType}
-                                setCurrentFormType={setCurrentFormType}
+                                  currentFormType={currentFormType}
+                                    setCurrentFormType={setCurrentFormType}
+                                      isAttendanceListVisible={isAttendanceListVisible}
+                                        setIsAttendanceListVisible={setIsAttendanceListVisible}
           />
         <ImagesSwiper />
         {isLoginVisible && <Login
@@ -124,6 +127,7 @@ function App() {
 
         {isCallendarVisible && <Callendar/>}
         {status === "admin" && isUsersDataVisible && <AdminPanel headers={headers}/>}
+        {status === "admin" && isAttendanceListVisible && <AttendaceList/>}
         
 
         
