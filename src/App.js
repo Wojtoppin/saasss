@@ -10,6 +10,10 @@ import AttendaceList from './AdminPanel/AttendanceList';
 
 function App() {
   
+  //all
+  const loader = <div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>;
+
+
   //visibility
   const [isCallendarVisible, setIsCallendarVisible] = useState(false)
   const [isLoginVisible, setIsLoginVisible] = useState(false)
@@ -37,6 +41,9 @@ function App() {
      "Comments":""}
   )
   const [currentFormType,setCurrentFormType] = useState("");
+  
+  
+
 
   const logout = () =>{
     setIsLoginVisible(false)
@@ -126,8 +133,8 @@ function App() {
 
 
         {isCallendarVisible && <Callendar/>}
-        {status === "admin" && isUsersDataVisible && <AdminPanel headers={headers}/>}
-        {status === "admin" && isAttendanceListVisible && <AttendaceList/>}
+        {status === "admin" && isUsersDataVisible && <AdminPanel headers={headers} loader={loader}/>}
+        {status === "admin" && isAttendanceListVisible && <AttendaceList loader={loader}/>}
         
 
         

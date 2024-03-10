@@ -64,14 +64,14 @@ const AttendaceList = (props) =>{
 //   }
 
     const renderBody = ()=>{
-        return data.map((element,index)=>{
+        return data.length !== 0? data.map((element,index)=>{
             return <tr key={index}>
                 <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{index + 1}</td>
                 <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element["Imię"]}</td>
                 <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element["Nazwisko"]}</td>
                 <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff", padding:"0px", paddingRight:"1px", paddingLeft:"1px" }}><Input type="checkbox" style={{width:"100%",height:`30px`}}/></td>
             </tr>
-        });
+        }):<tr><th colspan={4}>{props.loader}</th></tr>;
     }
   
 
@@ -79,6 +79,7 @@ const AttendaceList = (props) =>{
 
   useEffect(() => {
     fetchData();
+    setData([])
   }, [currentGroup]);
   
  

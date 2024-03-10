@@ -106,7 +106,7 @@ const AdminPanel = (props) =>{
   };
 
   const renderBody = () => {
-    return data.map((student, index) => {
+    return data.length!=0?data.map((student, index) => {
       return (
         <tr key={index}>
           {Object.keys(props.headers).map((header, headerIndex) => {
@@ -114,7 +114,7 @@ const AdminPanel = (props) =>{
           })}
         </tr>
       );
-    });
+    }):<tr><th colSpan={Object.keys(props.headers).length}>{props.loader}</th></tr>;
   }
 
   useEffect(() => {
