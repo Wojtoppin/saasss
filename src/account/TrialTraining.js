@@ -42,6 +42,23 @@ const TrialTraining = (props) =>{
     
     const sendFormData = async () =>{
 
+        console.log(Object.assign({}, ...Object.values(props.headers).map((header, index) => {
+            switch (header) {
+                case "Group":
+                    return { [Object.keys(props.headers)[index]]: props.groupId };
+                case "Year":
+                    return { [Object.keys(props.headers)[index]]: props.studentYear };
+                case "Size":
+                    return { [Object.keys(props.headers)[index]]: props.studentSize };
+                case "Agree":
+                    return { [Object.keys(props.headers)[index]]: props.regulations ? 1 : 0 };
+                case "OneTimer":
+                    return { [Object.keys(props.headers)[index]]: props.currentFormType === "trial" ? 1 : 0 };
+                default:
+                    return { [Object.keys(props.headers)[index]]: props.trainingformData[header] };
+            }
+        })))
+        
         const iscorrect =
          (props.trainingformData.Name.length!==0)&&
          (props.trainingformData.Surname.length!==0)&&
@@ -54,6 +71,7 @@ const TrialTraining = (props) =>{
 
         if(iscorrect){
             try {
+                
                 setMessage(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)
                 const response = await fetch('https://zienex.pythonanywhere.com/add_student', {
                   method: 'POST',
@@ -86,6 +104,9 @@ const TrialTraining = (props) =>{
                   setTimeout(()=>props.setIsTrialTrainingVisible(false),1500)
                 } else {
                   console.error('Request failed with status:', response.status);
+                  
+
+
                   setMessage("Chwilowo wystąpił problem z serwerem, spróbuj jeszcze raz wysłać to zgłoszenie za 5 min")
                 }
     

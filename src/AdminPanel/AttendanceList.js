@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Container, Table, Input, Button } from "reactstrap";
-import './AdminPanel.css'
+import './AdminData.scss'
 
 const AttendaceList = (props) =>{
   const [data, setData] = useState([]);
@@ -67,8 +67,8 @@ const AttendaceList = (props) =>{
         return data.length !== 0? data.map((element,index)=>{
             return <tr key={index}>
                 <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{index + 1}</td>
-                <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element["Imię"]}</td>
-                <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element["Nazwisko"]}</td>
+                <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element[0]}</td>
+                <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element[1]}</td>
                 <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff", padding:"0px", paddingRight:"1px", paddingLeft:"1px" }}><Input type="checkbox" style={{width:"100%",height:`30px`}}/></td>
             </tr>
         }):<tr><th colspan={4}>{props.loader}</th></tr>;
@@ -84,7 +84,7 @@ const AttendaceList = (props) =>{
   
  
   return(
-      <Container id="adminContainer" className=" justify-content-center mt-5 container1" style={{position: 'relative', overflowX:"scroll",  zIndex: 2,marginBottom:"2vh"}}> 
+      <Container id="adminContainer" className=" container1" style={{position: 'relative', overflowX:"scroll",  zIndex: 2,marginBottom:"2vh"}}> 
           <Table responsive style={{marginBottom:"0px"}}>
               <thead>
                 <tr>

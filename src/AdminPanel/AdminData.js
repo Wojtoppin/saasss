@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { Container, Table, Input, Button } from "reactstrap";
-import './AdminPanel.css'
+import './AdminData.scss'
 
-const AdminPanel = (props) =>{
+const AdminData = (props) =>{
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
@@ -93,11 +93,6 @@ const AdminPanel = (props) =>{
 
   }
 
-  const checkContainerWidth = () =>{
-    let containerWidth = document.getElementById("adminContainer").clientWidth;
-    setElement(containerWidth);
-
-  }
 
   const renderHead = () => {
     return Object.keys(props.headers).map((element,index) => {
@@ -106,7 +101,7 @@ const AdminPanel = (props) =>{
   };
 
   const renderBody = () => {
-    return data.length!=0?data.map((student, index) => {
+    return data.length !=0 ?data.map((student, index) => {
       return (
         <tr key={index}>
           {Object.keys(props.headers).map((header, headerIndex) => {
@@ -118,15 +113,14 @@ const AdminPanel = (props) =>{
   }
 
   useEffect(() => {
-    checkContainerWidth();
     fetchData();
   }, []);
   
  
   return(
-      <Container onClick={checkContainerWidth} id="adminContainer" className=" justify-content-center mt-5 container1" style={{position: 'relative', overflowX:"scroll",  zIndex: 2,marginBottom:"2vh"}}> 
-          <Table responsive style={{marginBottom:"0px"}}>
-              <thead>
+      <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px"}}> 
+          <Table className="dataTable" hover responsive style={{marginBottom:"2px"}}>
+              <thead className="sticky-thc">
                   <tr>
                       {renderHead()}
                   </tr>
@@ -140,4 +134,4 @@ const AdminPanel = (props) =>{
   )
 }
 
-export default AdminPanel
+export default AdminData

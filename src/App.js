@@ -4,9 +4,11 @@ import Callendar from './main/Callendar';
 import Header from './main/Header';
 import ImagesSwiper from './main/ImagesSwiper';
 import Login from './account/Login';
-import AdminPanel from './AdminPanel/AdminPanel';
+import AdminData from './AdminPanel/AdminData';
 import TrialTraining from './account/TrialTraining';
 import AttendaceList from './AdminPanel/AttendanceList';
+import AdminMenu from './AdminPanel/AdminMenu';
+import AdminPanel from './AdminPanel/AdminPanel';
 
 function App() {
   
@@ -79,7 +81,7 @@ function App() {
 
   return (
     <div className="App" style={{overflow:"auto", WebkitOverflowScrolling:"touch"}}>
-        <Header
+        {status !== "admin" && <Header
          isCallendarVisible={isCallendarVisible}
           setIsCallendarVisible={setIsCallendarVisible}
             isLoginVisible={isLoginVisible}
@@ -96,8 +98,14 @@ function App() {
                                     setCurrentFormType={setCurrentFormType}
                                       isAttendanceListVisible={isAttendanceListVisible}
                                         setIsAttendanceListVisible={setIsAttendanceListVisible}
-          />
-        <ImagesSwiper />
+          />}
+        {status !== "admin" && <ImagesSwiper />}
+        {status === "admin" && <AdminPanel
+         headers={headers}
+          loader={loader}
+           setIsLoggedIn={setIsLoggedIn}
+            setStatus={setStatus}/>}
+
         {isLoginVisible && <Login
          isLoginVisible={isLoginVisible}
           setIsLoginVisible={setIsLoginVisible}
@@ -125,16 +133,10 @@ function App() {
           setRegulations={setRegulations}
           currentFormType={currentFormType}
           headers={headers}
-          
-          
-          
-          />
-          }
+          />}
 
 
         {isCallendarVisible && <Callendar/>}
-        {status === "admin" && isUsersDataVisible && <AdminPanel headers={headers} loader={loader}/>}
-        {status === "admin" && isAttendanceListVisible && <AttendaceList loader={loader}/>}
         
 
         

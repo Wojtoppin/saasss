@@ -1,20 +1,47 @@
-#editImage{
-    width: 20px;
-    height: 20px;
+.AdminPanel{
+    width: 100vw;
+    height: 100svh;
+    background-color: #f1f1f1;
 }
-#editImageButton{
-    padding-top: 0px;
-    padding-bottom: 2px;
+.AdminMenu{
+    width: 20vw;
+    height: 100svh;
+    /* background: yellow; */
+    padding: 0%;
+    float: left;
 }
-.center{
+.currentAction{
+    line-height: 10svh;
+    height: 10svh;
+    width: 80vw;
+    float: left;
+    font-size: 150%;
+    font-weight: 600;
     text-align: center;
 }
-.clamp{
-    font-size: clamp(4px,16px,20px);   
+.mainComponent{
+    height: 96svh;
+    margin-top: 2svh;
+    margin-bottom: 2svh;
+    width: 80vw;
+    float: left;
+    /* background: violet; */
 }
-.adminContainer{
-    overflow-x: visible;
+.brand{
+    height: 10svh;
+    text-align: center;
+    line-height: 10svh;
+    font-size: 1,5svw;
+    font-weight: 600;
+    /* border: 1px black solid; */
 }
-.even-row {
-    background-color: #f1f1f1;
-  }
+.mainMenu{
+    height: 90svh;
+    /* background: red; */
+    text-align: center;
+}
+.menuButton{
+    width: 100%;
+    height: 6svh;
+    margin-top: 2px;
+}
