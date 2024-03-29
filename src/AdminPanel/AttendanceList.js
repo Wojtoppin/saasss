@@ -84,7 +84,7 @@ const AttendaceList = (props) =>{
   
  
   return(
-      <Container id="adminContainer" className=" container1" style={{position: 'relative', overflowX:"scroll",  zIndex: 2,marginBottom:"2vh"}}> 
+      <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px", height:"auto"}}> 
           <Table responsive style={{marginBottom:"0px"}}>
               <thead>
                 <tr>

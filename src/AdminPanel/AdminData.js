@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from "react";
-import { Container, Table, Input, Button } from "reactstrap";
+import { Container, Table} from "reactstrap";
 import './AdminData.scss'
 
 const AdminData = (props) =>{
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
-  const [filteredName, setFilteredName] = useState("");
-  const [filteredSurname, setFilteredSurname] = useState("");
-  const [filteredMail, setFilteredMail] = useState("");
-  const [filteredNumber, setFilteredNumber] = useState("");
-  const [filteredGroup, setFilteredGroup] = useState("none");
+  // const [filteredName, setFilteredName] = useState("");
+  // const [filteredSurname, setFilteredSurname] = useState("");
+  // const [filteredMail, setFilteredMail] = useState("");
+  // const [filteredNumber, setFilteredNumber] = useState("");
+  // const [filteredGroup, setFilteredGroup] = useState("none");
   const [filterId, setFilteredId] = useState("ASC");
   
   const [editedId, setEditedId] = useState("none");
@@ -20,7 +20,7 @@ const AdminData = (props) =>{
   const [editedNumber, setEditedNumber] = useState("");
   const [editedGroup, setEditedGroup] = useState("none");
   const [textIfNoneMatches, setTextIfNoneMatches] = useState("żaden uczeń nie pasuje do podanych kryterii");
-  const [element, setElement] = useState(850);
+  // const [element, setElement] = useState(850);
   
   const [isHeadRendered,setIsHeadRendered] = useState(false);
   
@@ -44,59 +44,59 @@ const AdminData = (props) =>{
       }
     };
 
-  const reverseIdIndexes = () =>{
-    setFilteredData(filteredData.reverse())
-    setFilteredId(filterId === "ASC"? "DESC": "ASC")
-  }
+  // const reverseIdIndexes = () =>{
+  //   setFilteredData(filteredData.reverse())
+  //   setFilteredId(filterId === "ASC"? "DESC": "ASC")
+  // }
 
-  const setEditedValues = (edited_name, edited_surname, edited_mail, edited_number, edited_group) =>{
-    setEditedName(edited_name)
-    setEditedSurname(edited_surname)
-    setEditedMail(edited_mail)
-    setEditedNumber(edited_number)
-    setEditedGroup(edited_group)
-  }
+  // const setEditedValues = (edited_name, edited_surname, edited_mail, edited_number, edited_group) =>{
+  //   setEditedName(edited_name)
+  //   setEditedSurname(edited_surname)
+  //   setEditedMail(edited_mail)
+  //   setEditedNumber(edited_number)
+  //   setEditedGroup(edited_group)
+  // }
 
-  const sendData = async (data_urodzenia, adres, dataDołączenia, poziomUmiejetnosci, uwagi) =>{
-    setFilteredData([])
-    setTextIfNoneMatches(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)
-    try {
-      const response = await fetch('https://zienex.pythonanywhere.com/edit_student_data', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          'id_ucznia': parseInt(editedId,10),
-          'imie': editedName,
-          'nazwisko': editedSurname,
-          'data_urodzenia': data_urodzenia,
-          'adres_ucznia': adres,
-          'telefon': editedNumber,
-          'email': editedMail,
-          'id_grupy': editedGroup,
-          'data_dolaczenia': dataDołączenia,
-          'poziom_umiejetnosci':poziomUmiejetnosci,
-          'uwagi':uwagi
-        }),
-      });
+  // const sendData = async (data_urodzenia, adres, dataDołączenia, poziomUmiejetnosci, uwagi) =>{
+  //   setFilteredData([])
+  //   setTextIfNoneMatches(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)
+  //   try {
+  //     const response = await fetch('https://zienex.pythonanywhere.com/edit_student_data', {
+  //       method: 'PATCH',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         'id_ucznia': parseInt(editedId,10),
+  //         'imie': editedName,
+  //         'nazwisko': editedSurname,
+  //         'data_urodzenia': data_urodzenia,
+  //         'adres_ucznia': adres,
+  //         'telefon': editedNumber,
+  //         'email': editedMail,
+  //         'id_grupy': editedGroup,
+  //         'data_dolaczenia': dataDołączenia,
+  //         'poziom_umiejetnosci':poziomUmiejetnosci,
+  //         'uwagi':uwagi
+  //       }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error('Request failed');
-      }else{
-        // fetchData();
-      }
-    } catch (error) {
-      console.error('Error patching data:', error.message);
-    }
+  //     if (!response.ok) {
+  //       throw new Error('Request failed');
+  //     }else{
+  //       // fetchData();
+  //     }
+  //   } catch (error) {
+  //     console.error('Error patching data:', error.message);
+  //   }
     
 
-  }
+  // }
 
 
   const renderHead = () => {
     return Object.keys(props.headers).map((element,index) => {
-      return <th key={index + "header element"}>{element}</th>;
+      return <th style={{background:"rgb(108, 117, 125)", color:"white"}} key={index + "header element"}>{element}</th>;
     });
   };
 

@@ -19,7 +19,7 @@
     background-color: #f1f1f1;
 }
 .mainData{
-    height: 98%;
+    height: 100%;
     width: 100%;
     padding: 0%;
     /* margin: 0%; */
@@ -29,10 +29,24 @@
 }
     
 .mainData::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    
+    border-radius: 10px;
 }
     
 .mainData::-webkit-scrollbar-thumb {
     background-color: #888; 
     border-radius: 10px;
 }
+.menuButton{
+    width: 100%;
+    height: 6svh;
+    margin-top: 2px;
+    
+}
+
+.bottomButton {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    
+  }
