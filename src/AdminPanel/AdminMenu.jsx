@@ -16,8 +16,8 @@ function AdminMenu(props) {
     },[])
 
     return (
-        <Container className="AdminMenu" id="AdminMenu" onClick={checkContainerWidth}>
-            <Button color="none" style={{position:"absolute", top:"2px", left:"2px"}} onClick={()=> props.setisMenuVisible(false)}><img src={process.env.PUBLIC_URL + '/cancel.png'} id="logoImage" alt="menu"/></Button>
+        <Container className={`AdminMenu slide-in-menu ${props.isMenuVisible ? 'visible' : ''}`} id="AdminMenu" onClick={checkContainerWidth} >
+            
             
             <div className="brand">
                 <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage" alt="piłka"/>

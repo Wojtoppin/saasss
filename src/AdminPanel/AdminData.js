@@ -4,25 +4,24 @@ import './AdminData.scss'
 
 const AdminData = (props) =>{
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  // const [filteredData, setFilteredData] = useState([]);
 
-  // const [filteredName, setFilteredName] = useState("");
-  // const [filteredSurname, setFilteredSurname] = useState("");
-  // const [filteredMail, setFilteredMail] = useState("");
-  // const [filteredNumber, setFilteredNumber] = useState("");
-  // const [filteredGroup, setFilteredGroup] = useState("none");
-  const [filterId, setFilteredId] = useState("ASC");
+  // // const [filteredName, setFilteredName] = useState("");
+  // // const [filteredSurname, setFilteredSurname] = useState("");
+  // // const [filteredMail, setFilteredMail] = useState("");
+  // // const [filteredNumber, setFilteredNumber] = useState("");
+  // // const [filteredGroup, setFilteredGroup] = useState("none");
+  // const [filterId, setFilteredId] = useState("ASC");
   
-  const [editedId, setEditedId] = useState("none");
-  const [editedName, setEditedName] = useState("");
-  const [editedSurname, setEditedSurname] = useState("");
-  const [editedMail, setEditedMail] = useState("");
-  const [editedNumber, setEditedNumber] = useState("");
-  const [editedGroup, setEditedGroup] = useState("none");
-  const [textIfNoneMatches, setTextIfNoneMatches] = useState("żaden uczeń nie pasuje do podanych kryterii");
+  // const [editedId, setEditedId] = useState("none");
+  // const [editedName, setEditedName] = useState("");
+  // const [editedSurname, setEditedSurname] = useState("");
+  // const [editedMail, setEditedMail] = useState("");
+  // const [editedNumber, setEditedNumber] = useState("");
+  // const [editedGroup, setEditedGroup] = useState("none");
+  // const [textIfNoneMatches, setTextIfNoneMatches] = useState("żaden uczeń nie pasuje do podanych kryterii");
   // const [element, setElement] = useState(850);
   
-  const [isHeadRendered,setIsHeadRendered] = useState(false);
   
 
   
@@ -116,20 +115,21 @@ const AdminData = (props) =>{
     fetchData();
   }, []);
   
- 
+
   return(
-      <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px"}}> 
-          <Table className="dataTable" hover responsive style={{marginBottom:"2px"}}>
-              <thead className="sticky-thc">
-                  <tr>
-                      {renderHead()}
-                  </tr>
-              </thead>
-              <tbody>
-                  {renderBody()}
-                  
-              </tbody>
-          </Table>
+      <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px"}}>
+          
+            <Table className="dataTable" hover responsive style={{marginBottom:"2px"}}>
+                <thead className="sticky-thc">
+                    <tr>
+                        {renderHead()}
+                    </tr>
+                </thead>
+                <tbody>
+                    {renderBody()}
+                    
+                </tbody>
+            </Table>
       </Container>
   )
 }

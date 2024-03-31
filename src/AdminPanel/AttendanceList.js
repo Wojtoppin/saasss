@@ -84,8 +84,8 @@ const AttendaceList = (props) =>{
   
  
   return(
-      <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px", height:"auto"}}> 
-          <Table responsive style={{marginBottom:"0px"}}>
+      <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px", height:"96svh"}}> 
+          <Table className="dataTable" hover responsive style={{marginBottom:"0px"}}>
               <thead>
                 <tr>
                     <th colSpan={4}>

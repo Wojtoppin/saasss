@@ -12,10 +12,15 @@ const AdminPanel = (props) => {
 
     return (
         <div className='AdminPanel'>
+            <label class="burger" for="burger" style={{position:"absolute", top:"3px", left:"3px", zIndex:"2"}}>
+                <input type="checkbox" id="burger"  onClick={() => setisMenuVisible(!isMenuVisible)}/>
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <AdminMenu isMenuVisible={isMenuVisible} setisMenuVisible={setisMenuVisible} setCurrentComponent={setCurrentComponent} curretComponent={curretComponent} setIsLoggedIn={props.setIsLoggedIn} setStatus={props.setStatus}/>
             
-            {isMenuVisible && <AdminMenu setisMenuVisible={setisMenuVisible} setCurrentComponent={setCurrentComponent} curretComponent={curretComponent} setIsLoggedIn={props.setIsLoggedIn} setStatus={props.setStatus}/>}
-            <div className='mainComponent' style={{width:isMenuVisible?"80vw":"100vw", marginTop:isMenuVisible?"2svh":"40px", height:isMenuVisible?"96svh":"92svh" }}>
-                {!isMenuVisible && <Button color="none" style={{position:"absolute", top:"2px", left:"2px"}} onClick={()=> setisMenuVisible(true)}><img src={process.env.PUBLIC_URL + '/hamburger.png'} id="logoImage" alt="piłka"/></Button>}
+            <div className='mainComponent' style={{width:isMenuVisible?"80vw":"100vw",position:isMenuVisible?"initial":"absolute" ,marginTop:isMenuVisible?"2svh":"40px", height:isMenuVisible?"96svh":"92svh" }}>
                 {curretComponent === "data"?<AdminData headers={props.headers} loader={props.loader}/>:<AttendaceList loader={props.loader}/>}
             </div>
         </div>
