@@ -12,7 +12,7 @@ const AdminPanel = (props) => {
 
     return (
         <div className='AdminPanel'>
-            <label class="burger" for="burger" style={{position:"absolute", top:"3px", left:"3px", zIndex:"2"}}>
+            <label className="burger" htmlFor="burger" style={{position:"absolute", top:"3px", left:"3px", zIndex:"2"}}>
                 <input type="checkbox" id="burger"  onClick={() => setisMenuVisible(!isMenuVisible)}/>
                 <span></span>
                 <span></span>
@@ -21,7 +21,7 @@ const AdminPanel = (props) => {
             <AdminMenu isMenuVisible={isMenuVisible} setisMenuVisible={setisMenuVisible} setCurrentComponent={setCurrentComponent} curretComponent={curretComponent} setIsLoggedIn={props.setIsLoggedIn} setStatus={props.setStatus}/>
             
             <div className='mainComponent' style={{width:isMenuVisible?"80vw":"100vw",position:isMenuVisible?"initial":"absolute" ,marginTop:isMenuVisible?"2svh":"40px", height:isMenuVisible?"96svh":"92svh" }}>
-                {curretComponent === "data"?<AdminData headers={props.headers} loader={props.loader}/>:<AttendaceList loader={props.loader}/>}
+                {curretComponent === "data"?<AdminData width={isMenuVisible?"80vw":"100vw"} headers={props.headers} loader={props.loader}/>:<AttendaceList  width={isMenuVisible?"80vw":"100vw"} loader={props.loader}/>}
             </div>
         </div>
     );

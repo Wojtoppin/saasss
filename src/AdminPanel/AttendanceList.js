@@ -5,7 +5,6 @@ import './AdminData.scss'
 const AttendaceList = (props) =>{
   const [data, setData] = useState([]);
   const [currentGroup, setCurrentGroup] = useState(1)
-  
 
   
 
@@ -15,9 +14,10 @@ const AttendaceList = (props) =>{
 
         if (response.ok) {
           const responseData = await response.json();
-          setData(responseData);
-          // setFilteredData(responseData);
-          // setTextIfNoneMatches("żaden uczeń nie pasuje do podanych kryterii")
+          let newResponeData = responseData.map((element)=>{
+            return {"name":element[0], "surname":element[1],"isChecked":true}
+          })
+          setData(newResponeData);
         } else {
           console.error('Failed to fetch data. Status:', response.status);
         }
@@ -26,77 +26,55 @@ const AttendaceList = (props) =>{
       }
     };
 
-
-//   const sendData = async (data_urodzenia, adres, dataDołączenia, poziomUmiejetnosci, uwagi) =>{
-//     setFilteredData([])
-//     setTextIfNoneMatches(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)
-//     try {
-//       const response = await fetch('https://zienex.pythonanywhere.com/edit_student_data', {
-//         method: 'PATCH',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           'id_ucznia': parseInt(editedId,10),
-//           'imie': editedName,
-//           'nazwisko': editedSurname,
-//           'data_urodzenia': data_urodzenia,
-//           'adres_ucznia': adres,
-//           'telefon': editedNumber,
-//           'email': editedMail,
-//           'id_grupy': editedGroup,
-//           'data_dolaczenia': dataDołączenia,
-//           'poziom_umiejetnosci':poziomUmiejetnosci,
-//           'uwagi':uwagi
-//         }),
-//       });
-
-//       if (!response.ok) {
-//         throw new Error('Request failed');
-//       }else{
-//         // fetchData();
-//       }
-//     } catch (error) {
-//       console.error('Error patching data:', error.message);
-//     }
+    const handleCheckboxChange = (index) => {
+      setData(prevData => {
+        const newData = prevData.map((item, i) => {
+          if (i === index) {
+            return { ...item, isChecked: !item.isChecked };
+          }
+          return item;
+        });
+        return newData;
+      });
+    };
     
-
-//   }
-
-    const renderBody = ()=>{
-        return data.length !== 0? data.map((element,index)=>{
-            return <tr key={index}>
-                <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{index + 1}</td>
-                <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element[0]}</td>
-                <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element[1]}</td>
-                <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff", padding:"0px", paddingRight:"1px", paddingLeft:"1px" }}><Input type="checkbox" style={{width:"100%",height:`30px`}}/></td>
-            </tr>
-        }):<tr><th colspan={4}>{props.loader}</th></tr>;
-    }
+    const renderBody = () => {
+      return data.length !== 0 ? data.map((element, index) => {
+        return (
+          <tr key={index} onClick={() => handleCheckboxChange(index)}>
+            <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{index + 1}</td>
+            <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element["name"]}</td>
+            <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element["surname"]}</td>
+    
+            <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff", padding: "0px", paddingRight: "1px", paddingLeft: "1px" }}>
+              <Input checked={element.isChecked} type="checkbox" style={{ width: "100%", height: `30px` }} />
+            </td>
+          </tr>
+        );
+      }) : <tr><th colSpan={4}>{props.loader}</th></tr>;
+    };
   
 
   
 
   useEffect(() => {
     fetchData();
-    setData([])
   }, [currentGroup]);
   
  
   return(
-      <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px", height:"96svh"}}> 
-          <Table className="dataTable" hover responsive style={{marginBottom:"0px"}}>
-              <thead>
-                <tr>
-                    <th colSpan={4}>
-                        <Input type="select"onChange={(e) => setCurrentGroup(e.target.value)} defaultValue={currentGroup}>
+    <>
+    <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px", height:"10svh"}}>
+    <Input type="select"onChange={(e) => setCurrentGroup(e.target.value)} defaultValue={currentGroup}>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
                                 <option value={3}>3</option>
                                 <option value={4}>4</option>
                         </Input>
-                    </th>
-                </tr>
+    </Container>
+      <Container className="mainData mt-3 container1" style={{overflowX:"hidden", borderRadius:"10px", height:"85svh"}}> 
+          <Table className="dataTable" hover responsive style={{marginBottom:"0px"}}>
+              <thead>
                 <tr>
                     <th width="10%" id="testHeight"></th>
                     <th width="35%">Imię</th>
@@ -109,6 +87,7 @@ const AttendaceList = (props) =>{
               </tbody>
           </Table>
       </Container>
+      </>
   )
 }
 
