@@ -10,7 +10,7 @@ const AttendaceList = (props) =>{
 
   const fetchData = async () => {
       try {
-        const response = await fetch(`https://zienex.pythonanywhere.com/students_by_group?group=${currentGroup}`);
+        const response = await fetch(`https://zienex.pythonanywhere.com/filter-by-group?group=${currentGroup}`);
 
         if (response.ok) {
           const responseData = await response.json();
@@ -64,19 +64,17 @@ const AttendaceList = (props) =>{
  
   return(
     <>
-    <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px", height:"10svh"}}>
-    <Input type="select"onChange={(e) => setCurrentGroup(e.target.value)} defaultValue={currentGroup}>
+      <Container className="mainData mt-3 container1" style={{overflowX:"hidden", borderRadius:"10px", height:"85svh"}}> 
+          <Table className="dataTable" hover responsive style={{marginBottom:"0px"}}>
+              <thead>
+                
+                <tr>
+                    <th width="10%" id="testHeight"><h6 className="label-before">grupa:</h6><Input type="select"onChange={(e) => setCurrentGroup(e.target.value)} defaultValue={currentGroup}>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
                                 <option value={3}>3</option>
                                 <option value={4}>4</option>
-                        </Input>
-    </Container>
-      <Container className="mainData mt-3 container1" style={{overflowX:"hidden", borderRadius:"10px", height:"85svh"}}> 
-          <Table className="dataTable" hover responsive style={{marginBottom:"0px"}}>
-              <thead>
-                <tr>
-                    <th width="10%" id="testHeight"></th>
+                        </Input></th>
                     <th width="35%">Imię</th>
                     <th width="40%">Nazwisko</th>
                     <th width="15%">Obecność</th>
