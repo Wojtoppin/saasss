@@ -5,26 +5,73 @@ import './AdminData.scss'
 const AttendaceList = (props) =>{
   const [data, setData] = useState([]);
   const [currentGroup, setCurrentGroup] = useState(1)
-
+  const [message, setMessage] = useState("")
   
 
-  const fetchData = async () => {
-      try {
-        const response = await fetch(`https://zienex.pythonanywhere.com/filter-by-group?group=${currentGroup}`);
+const fetchData = async () => {
+    try {
+      setData([])
+      const response = await fetch(`https://zienex.pythonanywhere.com/filter-by-group?group=${currentGroup}`);
 
-        if (response.ok) {
-          const responseData = await response.json();
-          let newResponeData = responseData.map((element)=>{
-            return {"name":element[0], "surname":element[1],"isChecked":true}
-          })
-          setData(newResponeData);
-        } else {
-          console.error('Failed to fetch data. Status:', response.status);
-        }
-      } catch (error) {
-        console.error('Error during fetch:', error);
+      if (response.ok) {
+        const responseData = await response.json();
+        let newResponeData = responseData.map((element)=>{
+          return {"name":element[0], "surname":element[1],"isChecked":true}
+        })
+        setData(newResponeData);
+        setMessage("")
+      } else {
+        console.error('Failed to fetch data. Status:', response.status);
       }
-    };
+    } catch (error) {
+      console.error('Error during fetch:', error);
+    }
+  };
+
+const sendFormData = async () =>{
+  try {
+      setMessage(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)
+      const today = new Date();
+      const response = await fetch(`https://zienex.pythonanywhere.com/attendance?date=${formatDate(today)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+            data.map(element=>{
+                return {"Imię":element["name"], "Nazwisko": element["surname"],"Grupa":currentGroup,  "attendance": element["isChecked"]}
+            }) 
+          ),
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setMessage(<img src={process.env.PUBLIC_URL + '/greenDone.png'} id="acceptImage" alt="edit"/>)
+      } else {
+        console.error('Request failed with status:', response.status);
+        setMessage("Chwilowo wystąpił problem z serwerem, spróbuj jeszcze raz wysłać to zgłoszenie za 5 min")
+      }
+
+    } catch (error) {
+      console.error('Error during request:', error);
+  }
+}
+
+  function formatDate(date) {
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+  
+    if (day < 10) {
+      day = `0${day}`;
+    }
+    if (month < 10) {
+      month = `0${month}`;
+    }
+  
+    return `${day}-${month}-${year}`;
+  }
+    
 
     const handleCheckboxChange = (index) => {
       setData(prevData => {
@@ -58,6 +105,7 @@ const AttendaceList = (props) =>{
   
 
   useEffect(() => {
+    
     fetchData();
   }, [currentGroup]);
   
@@ -83,7 +131,9 @@ const AttendaceList = (props) =>{
               <tbody>
                   {renderBody()}
               </tbody>
+              
           </Table>
+          {message.length===0?<Button color="success" id="successButtonAttendance" onClick={sendFormData}>Zatwierdź</Button>:message}
       </Container>
       </>
   )

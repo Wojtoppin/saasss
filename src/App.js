@@ -55,7 +55,7 @@ function App() {
   }
 
 
-  // AdminPanel && TrialTraining
+//AdminPanel && TrialTraining
   const [headers, setHeaders] = useState([]);
 
   const getGroups = async () =>{

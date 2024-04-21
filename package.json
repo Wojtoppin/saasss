@@ -18,6 +18,7 @@
     "react-slideshow-image": "^4.3.0",
     "reactstrap": "^9.2.1",
     "sass": "^1.71.0",
+    "scss": "^0.2.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
