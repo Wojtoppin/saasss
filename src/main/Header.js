@@ -7,7 +7,6 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
@@ -65,24 +64,22 @@ const Header = (props) =>{
     
     
     return (
-        <div className="banner notSelectable" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 4}}>
-            
-                {element>600?
-                <Navbar color="faded" light>
-                    <NavbarBrand href="https://wojtoppin.github.io/saasss">
-                        <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage" alt="piłka"/> 
-                        Szkółki Sportowe 
-                    </NavbarBrand>
+        <Navbar className="banner notSelectable" onClick={checkContainerWidth} onLoad={checkContainerWidth} id="responsiveMenu" style={{ position: 'relative', zIndex: 4}}>
+            <NavbarBrand href="https://wojtoppin.github.io/saasss" style={{color:"#17252A"}}>
+                    <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage" alt="piłka"/> 
+                    Szkółki Sportowe 
+                </NavbarBrand>
+            {element>600?
+                <>
+                    
 
                     <NavbarText/>
                     <NavbarText/>
                     <NavbarText/>
                     <NavbarText/>
                     <NavbarText/>
-                    <NavbarText/>
-                    <NavbarText/>
                     
-                    <NavbarText className="notSelectable headerIcon" onClick={ () =>(changeVisibility("calendar"))}>Kalendarz</NavbarText>
+                    {/* <NavbarText className="notSelectable headerIcon" onClick={ () =>(changeVisibility("calendar"))}>Kalendarz</NavbarText> */}
 
 
 
@@ -108,76 +105,68 @@ const Header = (props) =>{
                     
                     
                     <UncontrolledDropdown inNavbar>
-                    <DropdownToggle className="notSelectable" nav caret>
-                        {props.isLoggedIn? props.loginDisplay : "Konto"}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("login"))}>zaloguj się</DropdownItem>}
-                        {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
-                        {props.isLoggedIn && <DropdownItemText className="notSelectable">{props.status}</DropdownItemText>}
-                        {props.isLoggedIn && <DropdownItem divider />}
-                        {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={() => props.logout()}>wyloguj się</DropdownItem>}
-                    </DropdownMenu>
-                    </UncontrolledDropdown>
-                    <NavbarText/>
-
-                </Navbar>
-                
-                :
-                
-                <Navbar>
-                    <NavbarBrand>
-                        <img src={process.env.PUBLIC_URL + '/saasICON.png'} id="logoImage" alt="piłka"/> 
-                        Szkółki Sportowe 
-                    </NavbarBrand>
-
-                    <NavbarToggler onClick={toggle} />
-
-                    <Collapse isOpen={isOpen} navbar>
-                    <Nav className="me-auto" navbar>
-                        <NavItem className="notSelectable" onClick={ () =>(changeVisibility("calendar"))}>Kalendarz</NavItem>
-
-
-                        {props.status !== "admin" && 
-                        <UncontrolledDropdown inNavbar>
-                            <DropdownToggle className="notSelectable" nav caret>
-                                Zapisz się na trening
-                            </DropdownToggle>
-                            <DropdownMenu end>
-                                {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("trial"))}>Próbny trening</DropdownItem>}
-                                {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("normal"))}>Zwykły trening</DropdownItem>}
-                            </DropdownMenu>
-                        </UncontrolledDropdown>}
-
-
-
-                        {props.isLoggedIn
-                            && props.status === "admin"
-                            && <NavItem className="notSelectable" onClick={ () =>(changeVisibility("user data"))}>Dane użytkowników</NavItem>}
-                        
-                        {props.isLoggedIn
-                            && props.status === "admin"
-                            && <NavItem className="notSelectable headerIcon" onClick={ () =>(changeVisibility("attendace"))}>Lista obecności</NavItem>}
-                        
-                        <NavItem/>
-                        <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle className="notSelectable" nav caret>
-                        {props.isLoggedIn? props.loginDisplay : "Konto"}
+                            {props.isLoggedIn? props.loginDisplay : "Konto"}
                         </DropdownToggle>
-                        <DropdownMenu end>
+                        <DropdownMenu>
                             {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("login"))}>zaloguj się</DropdownItem>}
                             {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
-                            {props.isLoggedIn && <DropdownItem className="notSelectable">{props.status}</DropdownItem>}
+                            {props.isLoggedIn && <DropdownItemText className="notSelectable">{props.status}</DropdownItemText>}
                             {props.isLoggedIn && <DropdownItem divider />}
                             {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={() => props.logout()}>wyloguj się</DropdownItem>}
                         </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </Nav>
-                    </Collapse>
-                </Navbar>}
+                    </UncontrolledDropdown>
+                    <NavbarText/>
 
-            
-        </div>
+                    </>
+                :
+                    <>
+                        <NavbarToggler onClick={toggle} />
+
+                        <Collapse isOpen={isOpen} navbar>
+                        <Nav className="me-auto" navbar>
+                            <NavItem className="notSelectable" onClick={ () =>(changeVisibility("calendar"))}>Kalendarz</NavItem>
+
+
+                            {props.status !== "admin" && 
+                            <UncontrolledDropdown inNavbar>
+                                <DropdownToggle className="notSelectable" nav caret>
+                                    Zapisz się na trening
+                                </DropdownToggle>
+                                <DropdownMenu end>
+                                    {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("trial"))}>Próbny trening</DropdownItem>}
+                                    {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("normal"))}>Zwykły trening</DropdownItem>}
+                                </DropdownMenu>
+                            </UncontrolledDropdown>}
+
+
+
+                            {props.isLoggedIn
+                                && props.status === "admin"
+                                && <NavItem className="notSelectable" onClick={ () =>(changeVisibility("user data"))}>Dane użytkowników</NavItem>}
+                            
+                            {props.isLoggedIn
+                                && props.status === "admin"
+                                && <NavItem className="notSelectable headerIcon" onClick={ () =>(changeVisibility("attendace"))}>Lista obecności</NavItem>}
+                            
+                            <NavItem/>
+                            <UncontrolledDropdown nav inNavbar>
+                            <DropdownToggle className="notSelectable" nav caret>
+                            {props.isLoggedIn? props.loginDisplay : "Konto"}
+                            </DropdownToggle>
+                            <DropdownMenu end>
+                                {!props.isLoggedIn && <DropdownItem className="notSelectable" onClick={ () =>(changeVisibility("login"))}>zaloguj się</DropdownItem>}
+                                {!props.isLoggedIn && <DropdownItem className="notSelectable">zarejestruj się</DropdownItem>}
+                                {props.isLoggedIn && <DropdownItem className="notSelectable">{props.status}</DropdownItem>}
+                                {props.isLoggedIn && <DropdownItem divider />}
+                                {props.isLoggedIn && <DropdownItem className="notSelectable" onClick={() => props.logout()}>wyloguj się</DropdownItem>}
+                            </DropdownMenu>
+                            </UncontrolledDropdown>
+                        </Nav>
+                        </Collapse>
+                    </>}
+                </Navbar>
+
     )
 }
 export default Header;

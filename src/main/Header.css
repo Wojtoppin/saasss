@@ -1,13 +1,13 @@
 .banner{
-    background: white;
+    background: #FEFFFF;
     border: darkgray solid 1px;
     box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.4);
-    margin: 8px;
     z-index: 2;
-    
+    color: #17252A;
 }
 #logoImage{
     height: 40px;
+    padding-right: 8px;
 }
 .headerIcon:hover{
     cursor: pointer;

@@ -99,7 +99,7 @@ function App() {
                                       isAttendanceListVisible={isAttendanceListVisible}
                                         setIsAttendanceListVisible={setIsAttendanceListVisible}
           />}
-        {status !== "admin" && <ImagesSwiper />}
+        {/* {status !== "admin" && <ImagesSwiper />} */}
         {status === "admin" && <AdminPanel
          headers={headers}
           loader={loader}

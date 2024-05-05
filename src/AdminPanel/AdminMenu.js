@@ -28,6 +28,7 @@ function AdminMenu(props) {
             <div className="mainMenu">
                 <Button className="menuButton" size={element >=175?"false":"sm"} style={{marginTop:"20px"}}outline={props.curretComponent!=="data"} onClick={()=> props.setCurrentComponent("data")}>{element>=120?"Dane użytkowników":"Dane"}</Button>
                 <Button className="menuButton" size={element >=175?"false":"sm"} outline={props.curretComponent!=="attendance"} onClick={()=> props.setCurrentComponent("attendance")}>{element>=120?"Lista obecności":"Obecność"}</Button>
+                <Button className="menuButton" size={element >=175?"false":"sm"} outline={props.curretComponent!=="dashboard"} onClick={()=> props.setCurrentComponent("dashboard")}>{element>=120?"Statystyki":"Statystyki"}</Button>
                 <Button className="menuButton bottomButton" size={element >=175?"false":"sm"} outline style={{width:"19.3svw"}} onClick={()=> {props.setStatus(""); props.setIsLoggedIn(false)}}>{element>=120?"Wyloguj się":"wyloguj"}</Button>
             </div>
 
