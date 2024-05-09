@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Container, Table} from "reactstrap";
+import { Col, Row } from "react-bootstrap";
 import './AdminData.scss'
 
 const AdminData = (props) =>{
@@ -38,8 +39,8 @@ const AdminData = (props) =>{
         return (
         
         <tr key={index}>
-            {student.map(element=>{
-              return <td>{element}</td>
+            {student.map((element,_)=>{
+              return <td key={`${element}: ${_}`}>{element}</td>
             })}  
           </tr>
         );
@@ -53,20 +54,20 @@ const AdminData = (props) =>{
   
 
   return(
-      <Container className="mainData container1" style={{overflowX:"hidden", borderRadius:"10px"}}>
+          <Row className="mainData" style={{overflowX:"hidden", borderRadius:"10px", height:"95vh"}}>
           
-            <Table className="dataTable" hover responsive style={{marginBottom:"2px"}}>
-                <thead className="sticky-thc">
-                    <tr>
-                        {renderHead()}
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderBody()}
-                    
-                </tbody>
-            </Table>
-      </Container>
+                <Table className="dataTable" size="sm" hover responsive style={{marginBottom:"2px", padding:"0px"}}>
+                    <thead className="sticky-thc">
+                        <tr>
+                            {renderHead()}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {renderBody()}
+                        
+                    </tbody>
+                </Table>
+          </Row>
   )
 }
 

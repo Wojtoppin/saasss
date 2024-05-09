@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.scss';
+import './Animations.scss';
 import Callendar from './main/Callendar';
 import Header from './main/Header';
 import ImagesSwiper from './main/ImagesSwiper';
@@ -56,26 +57,26 @@ function App() {
 
 
 //AdminPanel && TrialTraining
-  const [headers, setHeaders] = useState([]);
+  // const [headers, setHeaders] = useState([]);
 
-  const getGroups = async () =>{
-    try {
-      const response = await fetch('https://zienex.pythonanywhere.com/spreadsheet_col_names');
+  // const getGroups = async () =>{
+  //   try {
+  //     const response = await fetch('https://zienex.pythonanywhere.com/spreadsheet_col_names');
 
-      if (response.ok) {
-        const responseData = await response.json();
-        setHeaders(responseData)
-      } else {
-        console.error('Failed to fetch data. Status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error during fetch:', error);
-    }
-  }
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+  //       setHeaders(responseData)
+  //     } else {
+  //       console.error('Failed to fetch data. Status:', response.status);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during fetch:', error);
+  //   }
+  // }
 
-  useEffect(()=>{
-    getGroups();
-  },[])
+  // useEffect(()=>{
+  //   getGroups();
+  // },[])
 
 
 
@@ -101,7 +102,6 @@ function App() {
           />}
         {/* {status !== "admin" && <ImagesSwiper />} */}
         {status === "admin" && <AdminPanel
-         headers={headers}
           loader={loader}
            setIsLoggedIn={setIsLoggedIn}
             setStatus={setStatus}/>}
@@ -132,7 +132,6 @@ function App() {
           regulations={regulations}
           setRegulations={setRegulations}
           currentFormType={currentFormType}
-          headers={headers}
           />}
 
 

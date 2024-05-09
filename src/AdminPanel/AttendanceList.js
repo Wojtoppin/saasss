@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Container, Table, Input, Button } from "reactstrap";
+import { Col, Row } from "react-bootstrap";
 import './AdminData.scss'
 
 const AttendaceList = (props) =>{
@@ -30,7 +31,7 @@ const fetchData = async () => {
 
 const sendFormData = async () =>{
   try {
-      setMessage(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)
+      setMessage(props.loader)
       const today = new Date();
       const response = await fetch(`https://zienex.pythonanywhere.com/attendance?date=${formatDate(today)}`, {
         method: 'POST',
@@ -111,8 +112,7 @@ const sendFormData = async () =>{
   
  
   return(
-    <>
-      <Container className="mainData mt-3 container1" style={{overflowX:"hidden", borderRadius:"10px", height:"85svh"}}> 
+    <Row className="mainData" style={{overflowX:"hidden", borderRadius:"10px", height:"95vh"}}>
           <Table className="dataTable" hover responsive style={{marginBottom:"0px"}}>
               <thead>
                 
@@ -129,13 +129,16 @@ const sendFormData = async () =>{
                 </tr>
               </thead>
               <tbody>
-                  {renderBody()}
+                {renderBody()}
+                <tr>
+                  <td colSpan={4} className="sendAttendanceListFooter">
+                    {message.length===0?<Button color="success" id="successButtonAttendance" onClick={sendFormData}>Zatwierdź</Button>:message}
+                  </td>
+                </tr>
               </tbody>
-              
           </Table>
-          {message.length===0?<Button color="success" id="successButtonAttendance" onClick={sendFormData}>Zatwierdź</Button>:message}
-      </Container>
-      </>
+          
+      </Row>
   )
 }
 
