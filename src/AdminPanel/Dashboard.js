@@ -3,9 +3,8 @@ import {Button, Input, Table } from "reactstrap";
 import { Col, Row } from "react-bootstrap";
 import './AdminData.scss'
 
-const Dashboard = () => {
-  const [data, setData] = useState([]);
-  function formatDate(date) {
+const Dashboard = (props) => {
+  const toNormalDateformat = (date) => {
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
@@ -16,27 +15,39 @@ const Dashboard = () => {
     if (month < 10) {
       month = `0${month}`;
     }
-  
     return `${day}-${month}-${year}`;
   }
-    const fetchData = async () => {
-      try {
-        const today = new Date();
-        const response = await fetch(`https://zienex.pythonanywhere.com/attendance?date=${formatDate(today)}`);
 
-        if (response.ok) {
-          const responseData = await response.json();
-          // setHeaders(responseData[0]);
-          // setData(responseData.slice(1));
-          setData(responseData["data"])
-        } else {
-          console.error('Failed to fetch data. Status:', response.status);
-        }
-      } catch (error) {
-        console.error('Error during fetch:', error);
+  const toRetardedDateFormat = (normalDate) =>{
+    const dateParts = normalDate.split('-')
+    const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+    return formattedDate
+  }
+
+  const [data, setData] = useState([]);
+  const [text, setText] = useState("")
+  const today = new Date();
+  const [checkedDate, setCheckedDate] = useState(toNormalDateformat(today))
+
+
+  const fetchData = async () => {
+    try {
+      setText("loading")
+      const response = await fetch(`https://zienex.pythonanywhere.com/attendance?date=${checkedDate}`);
+
+      if (response.ok) {
+        setText("")
+        const responseData = await response.json();
+        setData(responseData["data"])
+      } else {
+        console.error('Failed to fetch data. Status:', response.status);
+        setText("error")
       }
-    };
-  useEffect(()=>{fetchData()},[])
+    } catch (error) {
+      console.error('Error during fetch:', error);
+    }
+  };
+  useEffect(()=>{fetchData()},[,checkedDate])
 
   const renderTableBody = () =>{
     return data.map((student, index)=>{
@@ -54,7 +65,15 @@ const Dashboard = () => {
         <Table className="dataTable center" size="sm" hover responsive style={{marginBottom:"2px", padding:"0px"}}>
           <thead>
           <tr>
-              <td colSpan={4} className="datePicker">Imię</td>
+              <td colSpan={4} className="datePicker">
+                <Input type='date'
+                value={toRetardedDateFormat(checkedDate)}
+                  onChange={(e)=>{
+                  const dateParts = e.target.value.split('-')
+                  const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+                  setCheckedDate(formattedDate)
+                  }}/>
+              </td>
             </tr>
             <tr>
               <td>Imię</td>
@@ -64,7 +83,18 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {renderTableBody()}
+            {text.length===0?
+              renderTableBody()
+              :
+              <tr>
+                <td colSpan={4}>
+                  {text === "loading"?
+                    props.loader
+                    :
+                    "W tym dniu nie odbył się żaden trening"}
+                </td>  
+              </tr>
+                }
             
           </tbody>
 

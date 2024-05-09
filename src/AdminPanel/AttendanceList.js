@@ -31,7 +31,7 @@ const fetchData = async () => {
 
 const sendFormData = async () =>{
   try {
-      setMessage(<div style={{width:"100%",display:"flex",justifyContent:"center"}}><div className="loader"></div></div>)
+      setMessage(props.loader)
       const today = new Date();
       const response = await fetch(`https://zienex.pythonanywhere.com/attendance?date=${formatDate(today)}`, {
         method: 'POST',
