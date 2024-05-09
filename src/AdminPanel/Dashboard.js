@@ -4,6 +4,8 @@ import { Col, Row } from "react-bootstrap";
 import './AdminData.scss'
 
 const Dashboard = (props) => {
+  
+  //DD-MM-YYYY
   const toNormalDateformat = (date) => {
     let day = date.getDate();
     let month = date.getMonth() + 1;
@@ -18,16 +20,34 @@ const Dashboard = (props) => {
     return `${day}-${month}-${year}`;
   }
 
+  //YYYY-MM-DD
   const toRetardedDateFormat = (normalDate) =>{
     const dateParts = normalDate.split('-')
     const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
     return formattedDate
   }
 
+  //MM-DD-YYYY
+  const toEvenMoreRetardedFormat = (normalDate) =>{
+    const dateParts = normalDate.split('-')
+    const formattedDate = `${dateParts[1]}-${dateParts[0]}-${dateParts[2]}`
+    return formattedDate
+  }
+  
+
   const [data, setData] = useState([]);
   const [text, setText] = useState("")
   const today = new Date();
   const [checkedDate, setCheckedDate] = useState(toNormalDateformat(today))
+
+
+  const nextOrPreviousDate = (direction) => {
+
+    const date = new Date(toEvenMoreRetardedFormat(checkedDate));
+    
+    date.setDate(date.getDate() + (direction === "previous"?(-1):1))
+    return toNormalDateformat(date);
+  }
 
 
   const fetchData = async () => {
@@ -40,11 +60,10 @@ const Dashboard = (props) => {
         const responseData = await response.json();
         setData(responseData["data"])
       } else {
-        console.error('Failed to fetch data. Status:', response.status);
         setText("error")
       }
     } catch (error) {
-      console.error('Error during fetch:', error);
+      setText("other error")
     }
   };
   useEffect(()=>{fetchData()},[,checkedDate])
@@ -65,7 +84,10 @@ const Dashboard = (props) => {
         <Table className="dataTable center" size="sm" hover responsive style={{marginBottom:"2px", padding:"0px"}}>
           <thead>
           <tr>
-              <td colSpan={4} className="datePicker">
+              <td>
+                <Input type='button' onClick={() => setCheckedDate(nextOrPreviousDate("previous"))} value={"< poprzedni dzień"}/>
+              </td>
+              <td colSpan={2} className="datePicker">
                 <Input type='date'
                 value={toRetardedDateFormat(checkedDate)}
                   onChange={(e)=>{
@@ -73,6 +95,10 @@ const Dashboard = (props) => {
                   const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
                   setCheckedDate(formattedDate)
                   }}/>
+              </td>
+
+              <td>
+              <Input type='button' onClick={() => setCheckedDate(nextOrPreviousDate("next"))} value={"następny dzień >"}/>
               </td>
             </tr>
             <tr>
@@ -91,7 +117,10 @@ const Dashboard = (props) => {
                   {text === "loading"?
                     props.loader
                     :
-                    "W tym dniu nie odbył się żaden trening"}
+                    text === "error"?
+                      "W tym dniu nie odbył się żaden trening"
+                      :
+                      "błąd serwera, spróbuj ponownie za 5 min"}
                 </td>  
               </tr>
                 }

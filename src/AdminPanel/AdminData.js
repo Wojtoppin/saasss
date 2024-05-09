@@ -39,8 +39,8 @@ const AdminData = (props) =>{
         return (
         
         <tr key={index}>
-            {student.map(element=>{
-              return <td>{element}</td>
+            {student.map((element,_)=>{
+              return <td key={`${element}: ${_}`}>{element}</td>
             })}  
           </tr>
         );
