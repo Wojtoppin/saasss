@@ -10,6 +10,7 @@
     padding: 0%;
     float: left;
 }
+
 .currentAction{
     line-height: 10svh;
     height: 10svh;
@@ -19,12 +20,12 @@
     font-weight: 600;
     text-align: center;
 }
+
 .mainComponent{
     height: 96svh;
     margin-top: 2svh;
     margin-bottom: 2svh;
     float: left;
-    /* background: violet; */
 }
 .brand{
     padding-top: 40px;

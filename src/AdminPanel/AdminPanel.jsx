@@ -36,15 +36,17 @@ const AdminPanel = (props) => {
                     position: isMenuVisible ? 'initial' : 'absolute',
                     marginTop: isMenuVisible ? '2svh' : '40px',
                     height: isMenuVisible ? '96vh' : '92vh',
+                    display: "flex",
+                    justifyContent: "center",
                   }}
             >
                 {curretComponent === "data"?
                     <AdminData width={isMenuVisible?"80vw":"100vw"} headers={props.headers} loader={props.loader}/>
                     :
                     curretComponent === "attendance"?
-                        <AttendaceList  width={isMenuVisible?"80vw":"100vw"} loader={props.loader}/>
+                        <AttendaceList width={isMenuVisible?"80vw":"100vw"} loader={props.loader}/>
                         :
-                        <Dashboard />
+                        <Dashboard width={isMenuVisible?"80vw":"100vw"} loader={props.loader}/>
                     }
             </div>
         </div>
