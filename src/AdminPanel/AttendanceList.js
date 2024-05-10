@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Container, Table, Input, Button } from "reactstrap";
 import { Col, Row } from "react-bootstrap";
 import './AdminData.scss'
+import './ResizableTable.css'
 
 const AttendaceList = (props) =>{
   const [data, setData] = useState([]);
@@ -89,7 +90,7 @@ const sendFormData = async () =>{
     const renderBody = () => {
       return data.length !== 0 ? data.map((element, index) => {
         return (
-          <tr key={index} onClick={() => handleCheckboxChange(index)}>
+          <tr key={index} onClick={() =>handleCheckboxChange(index)} style={{width: "100%"}}>
             <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{index + 1}</td>
             <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element["name"]}</td>
             <td style={{ backgroundColor: index % 2 === 0 ? "#F1F1F1" : "#fff" }}>{element["surname"]}</td>
@@ -99,7 +100,7 @@ const sendFormData = async () =>{
             </td>
           </tr>
         );
-      }) : <tr><th colSpan={4}>{props.loader}</th></tr>;
+      }) : <tr style={{width: "100%"}}><th colSpan={4}>{props.loader}</th></tr>;
     };
   
 
@@ -114,9 +115,9 @@ const sendFormData = async () =>{
   return(
     <Row className="mainData" style={{overflowX:"hidden", borderRadius:"10px", height:"95vh"}}>
           <Table className="dataTable" hover responsive style={{marginBottom:"0px"}}>
-              <thead>
+              <thead style={{width: "100%"}}>
                 
-                <tr>
+                <tr style={{width: "100%"}}>
                     <th width="10%" id="testHeight"><h6 className="label-before">grupa:</h6><Input type="select"onChange={(e) => setCurrentGroup(e.target.value)} defaultValue={currentGroup}>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
@@ -128,9 +129,9 @@ const sendFormData = async () =>{
                     <th width="15%">Obecność</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody style={{width: "100%"}}>
                 {renderBody()}
-                <tr>
+                <tr style={{width: "100%"}}>
                   <td colSpan={4} className="sendAttendanceListFooter">
                     {message.length===0?<Button color="success" id="successButtonAttendance" onClick={sendFormData}>Zatwierdź</Button>:message}
                   </td>

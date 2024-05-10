@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import {Button, Input, Table } from "reactstrap";
 import { Col, Row } from "react-bootstrap";
 import './AdminData.scss'
+import './ResizableTable.css'
 
 const Dashboard = (props) => {
-  
+  const [isCurrentyEditing, setIsCurrentlyEditing] = useState(false)
   //DD-MM-YYYY
   const toNormalDateformat = (date) => {
     let day = date.getDate();
@@ -70,11 +71,11 @@ const Dashboard = (props) => {
 
   const renderTableBody = () =>{
     return data.map((student, index)=>{
-      return <tr key={`${index}: ${student["Imię"]}`}>
+      return <tr key={`${index}: ${student["Imię"]}`} style={{width: props.isMenuVisible?"calc(76vw - 16px)":"calc(98vw - 16px)"}}>
                 <td>{student["Imię"]}</td>
                 <td>{student["Nazwisko"]}</td>
                 <td>{student["Grupa"]}</td>
-                <td><Input readOnly checked={student["attendance"]} type="checkbox" style={{ width: "30%", height: `30px` }} /></td>
+                <td><Input checked={student["attendance"]} type="checkbox" style={{ width: "30%", height: `30px` }} /></td>
               </tr>
     })
   }
@@ -82,8 +83,8 @@ const Dashboard = (props) => {
   return (
     <Row className="mainData" style={{overflowX:"hidden", borderRadius:"10px", height:"95vh"}}>
         <Table className="dataTable center" size="sm" hover responsive style={{marginBottom:"2px", padding:"0px"}}>
-          <thead>
-          <tr>
+          <thead style={{width: props.isMenuVisible?"calc(76vw - 16px)":"calc(98vw - 16px)"}}>
+          <tr style={{width: props.isMenuVisible?"calc(76vw - 16px)":"calc(98vw - 16px)"}}>
               <td>
                 <Input type='button' onClick={() => setCheckedDate(nextOrPreviousDate("previous"))} value={"< poprzedni dzień"}/>
               </td>
@@ -101,18 +102,28 @@ const Dashboard = (props) => {
               <Input type='button' onClick={() => setCheckedDate(nextOrPreviousDate("next"))} value={"następny dzień >"}/>
               </td>
             </tr>
-            <tr>
-              <td>Imię</td>
-              <td>Nazwisko</td>
-              <td>Grupa</td>
-              <td>obecność</td>
+            <tr style={{width: props.isMenuVisible?"calc(76vw - 16px)":"calc(98vw - 16px)"}}>
+              <td colSpan={4}>
+                {!isCurrentyEditing?
+                  <Input bsSize='sm' className='bg-primary text-white' type='button' onClick={() => setIsCurrentlyEditing(!isCurrentyEditing)} value={"edytuj dane"}/>
+                  :
+                  <Input bsSize='sm' className='bg-success text-white' type='button' onClick={() => setIsCurrentlyEditing(!isCurrentyEditing)} value={"zatwierdź dane"}/>
+
+                }
+                </td>
             </tr>
+            {text !== "error" && text !== "loading" &&<tr className='notSelectable tableHeaderData' style={{width: props.isMenuVisible?"calc(76vw - 16px)":"calc(98vw - 16px)"}}>
+              <td style={{background:"rgb(108, 117, 125)", color:"white"}}>Imię</td>
+              <td style={{background:"rgb(108, 117, 125)", color:"white"}}>Nazwisko</td>
+              <td style={{background:"rgb(108, 117, 125)", color:"white"}}>Grupa</td>
+              <td style={{background:"rgb(108, 117, 125)", color:"white"}}>obecność</td>
+            </tr>}
           </thead>
-          <tbody>
+          <tbody style={{width: props.isMenuVisible?"76vw":"98vw"}}>
             {text.length===0?
               renderTableBody()
               :
-              <tr>
+              <tr style={{width: props.isMenuVisible?"calc(76vw - 16px)":"calc(98vw - 16px)"}}>
                 <td colSpan={4}>
                   {text === "loading"?
                     props.loader

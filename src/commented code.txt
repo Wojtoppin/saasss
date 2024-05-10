@@ -1,3 +1,22 @@
+try this:
+
+    thead, tbody, tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    
+    tbody {
+      display: block;
+      overflow: auto;
+      table-layout: fixed;
+      max-height: 250px;
+    }
+it works in my react project, the only problem is when a table is really wide the text might stack
+
+
+
+
 // Login.js
 const [login, setLogin] = useState("user1@example.com")
     const [password, setPassword] = useState("password1")

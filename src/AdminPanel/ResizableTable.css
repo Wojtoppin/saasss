@@ -1,0 +1,13 @@
+thead, tr {
+  display: table;
+  width: calc(96vw - 16px);
+  table-layout: fixed;
+}
+  
+tbody {
+  width: 100%;
+  display: block;
+  overflow: auto;
+  table-layout: fixed;
+  max-height: 70vh;
+}

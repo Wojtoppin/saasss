@@ -9,16 +9,14 @@
 .center{
     text-align: center;
 }
-.clamp{
-    font-size: clamp(4px,16px,20px);   
-}
+
+
+
+
 .adminContainer{
     overflow-x: visible;
 }
 
-.even-row {
-    background-color: #f1f1f1;
-}
 
 
 .mainData{
@@ -62,7 +60,7 @@
 
 
 .slide-in-menu {
-    transform: translateX(-100%);
+    transform: translateX(-140%);
     transition: transform 0.3s ease-in-out;
     
 }

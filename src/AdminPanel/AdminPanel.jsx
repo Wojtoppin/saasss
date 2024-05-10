@@ -41,12 +41,12 @@ const AdminPanel = (props) => {
                   }}
             >
                 {curretComponent === "data"?
-                    <AdminData width={isMenuVisible?"80vw":"100vw"} headers={props.headers} loader={props.loader}/>
+                    <AdminData isMenuVisible={isMenuVisible} width={isMenuVisible?"80vw":"100vw"} headers={props.headers} loader={props.loader}/>
                     :
                     curretComponent === "attendance"?
-                        <AttendaceList width={isMenuVisible?"80vw":"100vw"} loader={props.loader}/>
+                        <AttendaceList  isMenuVisible={isMenuVisible} width={isMenuVisible?"80vw":"100vw"} loader={props.loader}/>
                         :
-                        <Dashboard width={isMenuVisible?"80vw":"100vw"} loader={props.loader}/>
+                        <Dashboard isMenuVisible={isMenuVisible} width={isMenuVisible?"80vw":"100vw"} loader={props.loader}/>
                     }
             </div>
         </div>
