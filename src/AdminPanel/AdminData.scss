@@ -22,10 +22,14 @@
 
 
 .mainData{
-    margin-left: 1px;
-    width: 98%;
-    overflow: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(100% - 20px);
 }
+
+
+
+
 .table-responsive{
     padding: 0%;
 }

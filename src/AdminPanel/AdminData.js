@@ -54,9 +54,9 @@ const AdminData = (props) =>{
   
 
   return(
-          <Row className="mainData" style={{overflowX:"hidden", borderRadius:"10px", height:"95vh"}}>
+          <Row className="mainData" style={{overflowX:"auto", borderRadius:"10px", height:"90vh"}}>
           
-                <Table className="dataTable" size="sm" hover responsive style={{marginBottom:"2px", padding:"0px"}}>
+                <Table size="sm" hover style={{marginBottom:"0px", padding:"0px", textAlign:"center"}}>
                     <thead className="sticky-thc">
                         <tr>
                             {renderHead()}
